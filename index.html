@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
-    <!-- GSAP for Advanced Animations -->
+    <!-- GSAP -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <!-- AOS -->
@@ -38,7 +38,7 @@
             transition: background 0.3s ease, color 0.2s ease;
         }
         
-        /* ========== LIGHT MODE PREMIUM ========== */
+        /* Light Mode */
         body.light {
             background: linear-gradient(135deg, #f0f4ff 0%, #e8edf8 50%, #f0f4ff 100%);
             color: #1a1a2e;
@@ -48,32 +48,17 @@
             background: rgba(255,255,255,0.85);
             backdrop-filter: blur(12px);
             border-bottom: 1px solid rgba(59,130,246,0.3);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
         }
         
         body.light .card, body.light .skill-card, body.light .cert-card, body.light .timeline-content {
             background: rgba(255,255,255,0.9);
-            backdrop-filter: blur(4px);
             border: 1px solid rgba(59,130,246,0.2);
-            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
         }
         
         body.light .tech-badge {
             background: rgba(59,130,246,0.1);
             color: #2563eb;
-            border-color: rgba(59,130,246,0.2);
         }
-        
-        body.light .gradient-text {
-            background: linear-gradient(135deg, #2563eb, #06b6d4, #8b5cf6);
-            -webkit-background-clip: text;
-            background-clip: text;
-        }
-        
-        body.light .text-cyan-400 { color: #0891b2; }
-        body.light .text-cyan-300 { color: #06b6d4; }
-        body.light .border-cyan-500 { border-color: #0891b2; }
-        body.light .bg-cyan-500\/10 { background: rgba(8,145,178,0.08); }
         
         /* Canvas 3D Background */
         #canvas-bg {
@@ -97,49 +82,28 @@
             transition: all 0.3s;
         }
         
-        /* Premium Cards */
+        /* Cards */
         .card, .skill-card, .cert-card, .timeline-content {
             background: rgba(30,41,59,0.7);
             backdrop-filter: blur(8px);
             border-radius: 1.5rem;
-            transition: all 0.5s cubic-bezier(0.2,0.9,0.4,1.1);
+            transition: all 0.4s cubic-bezier(0.2,0.9,0.4,1.1);
             border: 1px solid rgba(6,182,212,0.2);
-            position: relative;
-            overflow: hidden;
+            cursor: pointer;
         }
         
-        /* Animated Border Glow */
-        .card::after, .skill-card::after, .cert-card::after {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(45deg, #06B6D4, #3B82F6, #8B5CF6, #06B6D4);
-            background-size: 400%;
-            border-radius: 1.5rem;
-            z-index: -1;
-            opacity: 0;
-            transition: opacity 0.5s;
+        .cert-card {
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
         
-        .card:hover::after, .skill-card:hover::after, .cert-card:hover::after {
-            opacity: 0.5;
-            animation: borderRotate 4s linear infinite;
+        .cert-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: #06B6D4;
+            box-shadow: 0 20px 30px -12px rgba(6,182,212,0.3);
         }
         
-        @keyframes borderRotate {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 400% 50%; }
-        }
-        
-        .card:hover, .skill-card:hover, .cert-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            border-color: transparent;
-        }
-        
-        /* Tech Badges Premium */
+        /* Tech Badges */
         .tech-badge {
             background: rgba(6,182,212,0.15);
             color: #67E8F9;
@@ -150,17 +114,14 @@
             display: inline-block;
             margin: 0.2rem;
             transition: all 0.3s;
-            border: 0.5px solid rgba(6,182,212,0.3);
-            backdrop-filter: blur(2px);
         }
         
         .tech-badge:hover {
-            transform: translateY(-2px) scale(1.05);
+            transform: scale(1.05);
             background: rgba(6,182,212,0.3);
-            box-shadow: 0 0 15px rgba(6,182,212,0.5);
         }
         
-        /* Premium Buttons */
+        /* Buttons */
         .btn-primary {
             background: linear-gradient(135deg, #06B6D4, #3B82F6);
             transition: all 0.3s;
@@ -170,24 +131,6 @@
             display: inline-flex;
             align-items: center;
             gap: 0.75rem;
-            position: relative;
-            overflow: hidden;
-            letter-spacing: 0.5px;
-        }
-        
-        .btn-primary::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            transition: left 0.5s;
-        }
-        
-        .btn-primary:hover::before {
-            left: 100%;
         }
         
         .btn-primary:hover {
@@ -207,11 +150,9 @@
         .btn-outline:hover {
             background: rgba(59,130,246,0.15);
             transform: translateY(-2px);
-            border-color: #06B6D4;
-            box-shadow: 0 5px 15px rgba(59,130,246,0.2);
         }
         
-        /* Timeline Premium */
+        /* Timeline */
         .timeline {
             position: relative;
             padding-left: 2.5rem;
@@ -249,7 +190,7 @@
             100% { box-shadow: 0 0 0 0 rgba(6,182,212,0); transform: scale(1); }
         }
         
-        /* Premium Gradient Text */
+        /* Gradient Text */
         .gradient-text {
             background: linear-gradient(135deg, #06B6D4, #3B82F6, #8B5CF6, #06B6D4);
             background-size: 300% 300%;
@@ -265,17 +206,15 @@
             100% { background-position: 0% 50%; }
         }
         
-        /* Floating Animation for Icons */
+        .floating-icon {
+            animation: floatIcon 3s ease-in-out infinite;
+        }
+        
         @keyframes floatIcon {
             0%, 100% { transform: translateY(0px); }
             50% { transform: translateY(-8px); }
         }
         
-        .floating-icon {
-            animation: floatIcon 3s ease-in-out infinite;
-        }
-        
-        /* Premium Profile Image */
         .profile-img {
             box-shadow: 0 0 0 0 rgba(6,182,212,0.4);
             animation: borderPulse 3s infinite;
@@ -288,8 +227,55 @@
             100% { box-shadow: 0 0 0 0 rgba(6,182,212,0.4); }
         }
         
-        .profile-img:hover {
-            transform: scale(1.05) rotate(3deg);
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(10px);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background: linear-gradient(135deg, #1E293B, #0F172A);
+            border-radius: 2rem;
+            max-width: 500px;
+            width: 90%;
+            padding: 2rem;
+            text-align: center;
+            border: 1px solid rgba(6,182,212,0.3);
+            animation: modalFadeIn 0.3s ease;
+        }
+        
+        body.light .modal-content {
+            background: linear-gradient(135deg, #FFFFFF, #F8FAFC);
+            border: 1px solid rgba(59,130,246,0.3);
+        }
+        
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #94A3B8;
+            transition: all 0.2s;
+        }
+        
+        .close-modal:hover {
+            color: #06B6D4;
+            transform: scale(1.1);
         }
         
         /* Scrollbar */
@@ -297,9 +283,6 @@
         ::-webkit-scrollbar-track { background: #0F172A; }
         ::-webkit-scrollbar-thumb { background: linear-gradient(135deg, #06B6D4, #3B82F6); border-radius: 6px; }
         
-        body.light ::-webkit-scrollbar-track { background: #e2e8f0; }
-        
-        /* Mobile */
         @media (max-width: 768px) {
             .nav-links { display: none; }
             .mobile-menu-btn { display: block; }
@@ -310,23 +293,6 @@
             .mobile-menu-btn { display: none; }
         }
         
-        /* Glow Text Effect */
-        .glow-text {
-            text-shadow: 0 0 20px rgba(6,182,212,0.3);
-        }
-        
-        /* Custom Inputs */
-        input, textarea {
-            transition: all 0.3s;
-        }
-        input:focus, textarea:focus {
-            outline: none;
-            border-color: #06B6D4;
-            box-shadow: 0 0 0 4px rgba(6,182,212,0.1);
-            transform: scale(1.01);
-        }
-        
-        /* Hero Stats */
         .hero-stat {
             background: rgba(6,182,212,0.1);
             backdrop-filter: blur(4px);
@@ -341,6 +307,19 @@
     <!-- 3D Canvas Background -->
     <canvas id="canvas-bg"></canvas>
 
+    <!-- Modal for Certificates -->
+    <div id="certModal" class="modal">
+        <div class="modal-content relative">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <i id="modalIcon" class="text-6xl mb-4"></i>
+            <h3 id="modalTitle" class="text-2xl font-bold mb-2"></h3>
+            <p id="modalIssuer" class="text-cyan-400 mb-2"></p>
+            <p id="modalId" class="text-gray-400 text-sm mb-4"></p>
+            <img id="modalImage" src="" alt="Certificate" class="rounded-xl mt-4 w-full max-h-48 object-contain">
+            <a id="modalLink" href="#" target="_blank" class="btn-primary mt-6 inline-block text-sm">🔗 View Certificate</a>
+        </div>
+    </div>
+
     <!-- Navigation -->
     <nav class="glass-nav py-4 px-6 md:px-12">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
@@ -349,13 +328,13 @@
                 <span class="gradient-text">MK<span class="text-white">Ibrahim</span></span>
             </div>
             <div class="nav-links hidden md:flex items-center gap-6 text-gray-300 font-medium">
-                <a href="#home" class="hover:text-cyan-400 transition relative group">Home<span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-cyan-400 transition-all group-hover:w-full"></span></a>
-                <a href="#about" class="hover:text-cyan-400 transition relative group">About<span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-cyan-400 transition-all group-hover:w-full"></span></a>
-                <a href="#skills" class="hover:text-cyan-400 transition relative group">Skills<span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-cyan-400 transition-all group-hover:w-full"></span></a>
-                <a href="#projects" class="hover:text-cyan-400 transition relative group">Projects<span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-cyan-400 transition-all group-hover:w-full"></span></a>
-                <a href="#experience" class="hover:text-cyan-400 transition relative group">Experience<span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-cyan-400 transition-all group-hover:w-full"></span></a>
-                <a href="#certifications" class="hover:text-cyan-400 transition relative group">Certifications<span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-cyan-400 transition-all group-hover:w-full"></span></a>
-                <a href="#contact" class="hover:text-cyan-400 transition relative group">Contact<span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-cyan-400 transition-all group-hover:w-full"></span></a>
+                <a href="#home" class="hover:text-cyan-400 transition">Home</a>
+                <a href="#about" class="hover:text-cyan-400 transition">About</a>
+                <a href="#skills" class="hover:text-cyan-400 transition">Skills</a>
+                <a href="#projects" class="hover:text-cyan-400 transition">Projects</a>
+                <a href="#experience" class="hover:text-cyan-400 transition">Experience</a>
+                <a href="#certifications" class="hover:text-cyan-400 transition">Certifications</a>
+                <a href="#contact" class="hover:text-cyan-400 transition">Contact</a>
                 <button id="themeToggle" class="text-cyan-400 text-xl hover:scale-110 transition"><i class="fas fa-moon"></i></button>
             </div>
             <button class="mobile-menu-btn text-cyan-400 text-2xl" id="mobileMenuBtn">
@@ -377,7 +356,7 @@
     <main class="pt-24 max-w-7xl mx-auto px-6 md:px-10 lg:px-12 relative z-10">
         
         <!-- Hero Section -->
-        <section id="home" class="min-h-[85vh] flex flex-col justify-center py-12" data-aos="fade-up" data-aos-duration="1000">
+        <section id="home" class="min-h-[85vh] flex flex-col justify-center py-12" data-aos="fade-up">
             <div class="max-w-4xl">
                 <div class="inline-block bg-cyan-500/10 text-cyan-400 px-5 py-2 rounded-full text-sm mb-4 backdrop-blur-sm animate-pulse">
                     <i class="fas fa-cloud-upload-alt mr-2"></i> Cloud, DevOps & System Administration Engineer
@@ -395,18 +374,18 @@
                 
                 <!-- Hero Stats -->
                 <div class="flex flex-wrap gap-4 mt-10">
-                    <div class="hero-stat"><span class="text-2xl font-bold text-cyan-400">7+</span><br><span class="text-sm">Certifications</span></div>
+                    <div class="hero-stat"><span class="text-2xl font-bold text-cyan-400">8+</span><br><span class="text-sm">Certifications</span></div>
                     <div class="hero-stat"><span class="text-2xl font-bold text-cyan-400">10+</span><br><span class="text-sm">Technologies</span></div>
                     <div class="hero-stat"><span class="text-2xl font-bold text-cyan-400">6+</span><br><span class="text-sm">Internships</span></div>
                 </div>
                 
                 <!-- Social Links -->
                 <div class="flex gap-6 mt-10 text-2xl text-gray-400">
-                    <a href="https://www.linkedin.com/in/mohamed-khaled-91ba56260" target="_blank" class="hover:text-cyan-400 transition hover:scale-110 hover:-translate-y-1"><i class="fab fa-linkedin"></i></a>
-                    <a href="https://github.com/Mohamedkhaled271" target="_blank" class="hover:text-cyan-400 transition hover:scale-110 hover:-translate-y-1"><i class="fab fa-github"></i></a>
-                    <a href="#" class="hover:text-cyan-400 transition hover:scale-110 hover:-translate-y-1"><i class="fab fa-credly"></i></a>
-                    <a href="mailto:mohamedkhaled271200127@gmail.com" class="hover:text-cyan-400 transition hover:scale-110 hover:-translate-y-1"><i class="fas fa-envelope"></i></a>
-                    <a href="tel:01153493110" class="hover:text-cyan-400 transition hover:scale-110 hover:-translate-y-1"><i class="fas fa-phone-alt"></i></a>
+                    <a href="https://www.linkedin.com/in/mohamed-khaled-91ba56260" target="_blank" class="hover:text-cyan-400 transition"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://github.com/Mohamedkhaled271" target="_blank" class="hover:text-cyan-400 transition"><i class="fab fa-github"></i></a>
+                    <a href="#" class="hover:text-cyan-400 transition"><i class="fab fa-credly"></i></a>
+                    <a href="mailto:mohamedkhaled271200127@gmail.com" class="hover:text-cyan-400 transition"><i class="fas fa-envelope"></i></a>
+                    <a href="tel:01153493110" class="hover:text-cyan-400 transition"><i class="fas fa-phone-alt"></i></a>
                 </div>
             </div>
         </section>
@@ -434,15 +413,14 @@
             <div class="text-center mb-12" data-aos="fade-up">
                 <span class="bg-cyan-500/10 text-cyan-400 px-5 py-2 rounded-full text-sm"><i class="fas fa-microchip mr-2"></i> Technical Arsenal</span>
                 <h2 class="text-3xl md:text-4xl font-bold mt-3">Expertise & Technologies</h2>
-                <p class="text-gray-400 mt-2">Comprehensive skills across cloud, virtualization, networking, and automation</p>
             </div>
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="skill-card p-6" data-aos="flip-left" data-aos-delay="100"><i class="fas fa-cloud text-cyan-400 text-3xl mb-3 floating-icon"></i><h3 class="text-xl font-semibold mb-3">Cloud Infrastructure</h3><div><span class="tech-badge">AWS SAA/SAP</span><span class="tech-badge">Azure (AZ-900, Admin)</span><span class="tech-badge">Huawei HCCDP/HCCDA</span></div></div>
-                <div class="skill-card p-6" data-aos="flip-left" data-aos-delay="150"><i class="fas fa-server text-cyan-400 text-3xl mb-3 floating-icon"></i><h3 class="text-xl font-semibold mb-3">SysAdmin & Virtualization</h3><div><span class="tech-badge">VMware vSphere 7</span><span class="tech-badge">RHCSA concepts</span><span class="tech-badge">Windows Server</span></div></div>
-                <div class="skill-card p-6" data-aos="flip-left" data-aos-delay="200"><i class="fas fa-network-wired text-cyan-400 text-3xl mb-3 floating-icon"></i><h3 class="text-xl font-semibold mb-3">Networking & Security</h3><div><span class="tech-badge">CCNA (R&S)</span><span class="tech-badge">VLAN/DHCP/DNS</span><span class="tech-badge">Fortigate Firewall</span></div></div>
-                <div class="skill-card p-6" data-aos="flip-left" data-aos-delay="250"><i class="fas fa-database text-cyan-400 text-3xl mb-3 floating-icon"></i><h3 class="text-xl font-semibold mb-3">Storage & BC</h3><div><span class="tech-badge">SAN/NAS/DAS</span><span class="tech-badge">RAID architectures</span><span class="tech-badge">Veeam Backup</span></div></div>
-                <div class="skill-card p-6" data-aos="flip-left" data-aos-delay="300"><i class="fas fa-code-branch text-cyan-400 text-3xl mb-3 floating-icon"></i><h3 class="text-xl font-semibold mb-3">Automation & Scripting</h3><div><span class="tech-badge">Docker/Ansible</span><span class="tech-badge">Bash/Python/PowerShell</span><span class="tech-badge">C/C++</span></div></div>
-                <div class="skill-card p-6" data-aos="flip-left" data-aos-delay="350"><i class="fas fa-tools text-cyan-400 text-3xl mb-3 floating-icon"></i><h3 class="text-xl font-semibold mb-3">DevOps Tooling</h3><div><span class="tech-badge">CI/CD pipelines</span><span class="tech-badge">GitHub Actions</span><span class="tech-badge">Terraform basics</span></div></div>
+                <div class="skill-card p-6" data-aos="flip-left"><i class="fas fa-cloud text-cyan-400 text-3xl mb-3 floating-icon"></i><h3 class="text-xl font-semibold mb-3">Cloud Infrastructure</h3><div><span class="tech-badge">AWS SAA/SAP</span><span class="tech-badge">Azure</span><span class="tech-badge">Huawei Cloud</span></div></div>
+                <div class="skill-card p-6" data-aos="flip-left"><i class="fas fa-server text-cyan-400 text-3xl mb-3 floating-icon"></i><h3 class="text-xl font-semibold mb-3">SysAdmin & Virtualization</h3><div><span class="tech-badge">VMware vSphere 7</span><span class="tech-badge">RHCSA</span><span class="tech-badge">Windows Server</span></div></div>
+                <div class="skill-card p-6" data-aos="flip-left"><i class="fas fa-network-wired text-cyan-400 text-3xl mb-3 floating-icon"></i><h3 class="text-xl font-semibold mb-3">Networking & Security</h3><div><span class="tech-badge">CCNA</span><span class="tech-badge">Fortigate</span><span class="tech-badge">VLAN/DHCP/DNS</span></div></div>
+                <div class="skill-card p-6" data-aos="flip-left"><i class="fas fa-database text-cyan-400 text-3xl mb-3 floating-icon"></i><h3 class="text-xl font-semibold mb-3">Storage & BC</h3><div><span class="tech-badge">SAN/NAS/DAS</span><span class="tech-badge">RAID</span><span class="tech-badge">Veeam Backup</span></div></div>
+                <div class="skill-card p-6" data-aos="flip-left"><i class="fas fa-code-branch text-cyan-400 text-3xl mb-3 floating-icon"></i><h3 class="text-xl font-semibold mb-3">Automation & Scripting</h3><div><span class="tech-badge">Docker/Ansible</span><span class="tech-badge">Bash/Python</span><span class="tech-badge">C/C++</span></div></div>
+                <div class="skill-card p-6" data-aos="flip-left"><i class="fas fa-tools text-cyan-400 text-3xl mb-3 floating-icon"></i><h3 class="text-xl font-semibold mb-3">DevOps Tooling</h3><div><span class="tech-badge">CI/CD</span><span class="tech-badge">GitHub Actions</span><span class="tech-badge">Terraform</span></div></div>
             </div>
         </section>
 
@@ -451,30 +429,11 @@
             <div class="text-center mb-12" data-aos="fade-up">
                 <span class="bg-blue-500/10 text-blue-400 px-5 py-2 rounded-full text-sm"><i class="fas fa-rocket mr-2"></i> Innovation Hub</span>
                 <h2 class="text-3xl md:text-4xl font-bold mt-3">Featured Projects</h2>
-                <p class="text-gray-400 mt-2">Real-world solutions demonstrating technical excellence</p>
             </div>
             <div class="grid md:grid-cols-3 gap-6">
-                <div class="card p-5" data-aos="zoom-in-up" data-aos-delay="100">
-                    <div class="bg-cyan-500/20 w-14 h-14 rounded-full flex items-center justify-center mb-4 floating-icon"><i class="fas fa-heartbeat text-cyan-400 text-2xl"></i></div>
-                    <h3 class="text-xl font-bold">HELIOS: IoT Healthcare System</h3>
-                    <p class="text-gray-400 text-sm mt-2">Microsoft Azure & ITIDA-ITAC sponsored. ESP32, AI analytics, secure EMR. <strong class="text-cyan-300">🏆 1st Place Audience Vote</strong>.</p>
-                    <div class="mt-3 flex flex-wrap"><span class="tech-badge">ESP32</span><span class="tech-badge">Azure IoT</span><span class="tech-badge">Firebase</span><span class="tech-badge">AI Analytics</span></div>
-                    <a href="https://github.com/Mohamedkhaled271/Smart-Health-System" target="_blank" class="text-cyan-400 text-sm mt-4 inline-flex items-center gap-1 hover:gap-2 transition-all"><i class="fab fa-github"></i> GitHub Repository →</a>
-                </div>
-                <div class="card p-5" data-aos="zoom-in-up" data-aos-delay="200">
-                    <div class="bg-cyan-500/20 w-14 h-14 rounded-full flex items-center justify-center mb-4 floating-icon"><i class="fas fa-infinity text-cyan-400 text-2xl"></i></div>
-                    <h3 class="text-xl font-bold">DevOps Infinity Loop</h3>
-                    <p class="text-gray-400 text-sm mt-2">DEPI Graduation Project: Next.js, Node.js backend, decoupled YouTube API workflows, automated CI/CD pipelines.</p>
-                    <div class="mt-3 flex flex-wrap"><span class="tech-badge">Next.js</span><span class="tech-badge">Node.js</span><span class="tech-badge">TypeScript</span><span class="tech-badge">CI/CD</span></div>
-                    <a href="#" class="text-cyan-400 text-sm mt-4 inline-flex items-center gap-1 hover:gap-2 transition-all"><i class="fab fa-github"></i> View Project →</a>
-                </div>
-                <div class="card p-5" data-aos="zoom-in-up" data-aos-delay="300">
-                    <div class="bg-cyan-500/20 w-14 h-14 rounded-full flex items-center justify-center mb-4 floating-icon"><i class="fas fa-university text-cyan-400 text-2xl"></i></div>
-                    <h3 class="text-xl font-bold">Campus Area Network Design</h3>
-                    <p class="text-gray-400 text-sm mt-2">Enterprise-scale secure network topology with optimized VLAN management, cloud-workload integration, and advanced routing.</p>
-                    <div class="mt-3 flex flex-wrap"><span class="tech-badge">Cisco</span><span class="tech-badge">VLAN</span><span class="tech-badge">Cloud Integration</span><span class="tech-badge">Routing</span></div>
-                    <a href="#" class="text-cyan-400 text-sm mt-4 inline-flex items-center gap-1 hover:gap-2 transition-all"><i class="fas fa-network-wired"></i> View Architecture →</a>
-                </div>
+                <div class="card p-5" data-aos="zoom-in-up"><div class="bg-cyan-500/20 w-14 h-14 rounded-full flex items-center justify-center mb-4 floating-icon"><i class="fas fa-heartbeat text-cyan-400 text-2xl"></i></div><h3 class="text-xl font-bold">HELIOS: IoT Healthcare System</h3><p class="text-gray-400 text-sm mt-2">Microsoft Azure & ITIDA-ITAC sponsored. ESP32, AI analytics, secure EMR. <strong class="text-cyan-300">🏆 1st Place</strong></p><div class="mt-3 flex flex-wrap"><span class="tech-badge">ESP32</span><span class="tech-badge">Azure IoT</span><span class="tech-badge">AI Analytics</span></div><a href="https://github.com/Mohamedkhaled271/Smart-Health-System" target="_blank" class="text-cyan-400 text-sm mt-4 inline-block"><i class="fab fa-github"></i> GitHub →</a></div>
+                <div class="card p-5" data-aos="zoom-in-up"><div class="bg-cyan-500/20 w-14 h-14 rounded-full flex items-center justify-center mb-4 floating-icon"><i class="fas fa-infinity text-cyan-400 text-2xl"></i></div><h3 class="text-xl font-bold">DevOps Infinity Loop</h3><p class="text-gray-400 text-sm mt-2">DEPI Graduation Project: Next.js, Node.js, CI/CD, YouTube API workflows.</p><div class="mt-3 flex flex-wrap"><span class="tech-badge">Next.js</span><span class="tech-badge">Node.js</span><span class="tech-badge">CI/CD</span></div><a href="#" class="text-cyan-400 text-sm mt-4 inline-block"><i class="fab fa-github"></i> View Project →</a></div>
+                <div class="card p-5" data-aos="zoom-in-up"><div class="bg-cyan-500/20 w-14 h-14 rounded-full flex items-center justify-center mb-4 floating-icon"><i class="fas fa-university text-cyan-400 text-2xl"></i></div><h3 class="text-xl font-bold">Campus Area Network Design</h3><p class="text-gray-400 text-sm mt-2">Enterprise secure topology, VLAN management, cloud integration.</p><div class="mt-3 flex flex-wrap"><span class="tech-badge">Cisco</span><span class="tech-badge">VLAN</span><span class="tech-badge">Cloud</span></div><a href="#" class="text-cyan-400 text-sm mt-4 inline-block"><i class="fas fa-network-wired"></i> Architecture →</a></div>
             </div>
         </section>
 
@@ -485,12 +444,12 @@
                 <h2 class="text-3xl md:text-4xl font-bold mt-3">Experience & Internships</h2>
             </div>
             <div class="timeline max-w-3xl mx-auto">
-                <div class="timeline-item" data-aos="fade-right"><div class="timeline-marker"></div><div class="timeline-content p-5"><h3 class="text-lg font-bold text-cyan-300">Technical Support Engineer @ Z4U</h3><p class="text-gray-400">Hardware/software diagnostics, network troubleshooting, IT ticketing systems, SLA management.</p></div></div>
-                <div class="timeline-item" data-aos="fade-right" data-aos-delay="100"><div class="timeline-marker"></div><div class="timeline-content p-5"><h3 class="text-lg font-bold text-cyan-300">Tech Instructor @ Safaa El-Shafe'y Academy</h3><p class="text-gray-400">Taught programming & networking fundamentals, mentored 50+ students, curriculum development.</p></div></div>
-                <div class="timeline-item" data-aos="fade-right" data-aos-delay="200"><div class="timeline-marker"></div><div class="timeline-content p-5"><h3 class="text-lg font-bold text-cyan-300">DevOps & Infrastructure Intern @ DEPI</h3><p class="text-gray-400">CI/CD pipelines, Docker containerization, cloud automation, infrastructure as code.</p></div></div>
-                <div class="timeline-item" data-aos="fade-right" data-aos-delay="300"><div class="timeline-marker"></div><div class="timeline-content p-5"><h3 class="text-lg font-bold text-cyan-300">AWS Cloud Solutions Architect @ Creativa Hubs</h3><p class="text-gray-400">Serverless architecture, cost optimization, AWS well-architected framework reviews.</p></div></div>
-                <div class="timeline-item" data-aos="fade-right" data-aos-delay="400"><div class="timeline-marker"></div><div class="timeline-content p-5"><h3 class="text-lg font-bold text-cyan-300">Cloud Intern @ Orange Digital Center & Huawei ICT</h3><p class="text-gray-400">Multi-cloud hands-on training, cloud networking, Huawei Cloud architecture and services.</p></div></div>
-                <div class="timeline-item" data-aos="fade-right" data-aos-delay="500"><div class="timeline-marker"></div><div class="timeline-content p-5"><h3 class="text-lg font-bold text-cyan-300">Industrial Process Intern @ ELARABY Group</h3><p class="text-gray-400">Automation & human-error prevention project, lean process optimization.</p></div></div>
+                <div class="timeline-item"><div class="timeline-marker"></div><div class="timeline-content p-5"><h3 class="text-lg font-bold text-cyan-300">Technical Support Engineer @ Z4U</h3><p class="text-gray-400">Hardware/software diagnostics, network troubleshooting, IT ticketing.</p></div></div>
+                <div class="timeline-item"><div class="timeline-marker"></div><div class="timeline-content p-5"><h3 class="text-lg font-bold text-cyan-300">Tech Instructor @ Safaa El-Shafe'y Academy</h3><p class="text-gray-400">Taught programming & networking, mentored 50+ students.</p></div></div>
+                <div class="timeline-item"><div class="timeline-marker"></div><div class="timeline-content p-5"><h3 class="text-lg font-bold text-cyan-300">DevOps & Infrastructure Intern @ DEPI</h3><p class="text-gray-400">CI/CD pipelines, Docker, cloud automation.</p></div></div>
+                <div class="timeline-item"><div class="timeline-marker"></div><div class="timeline-content p-5"><h3 class="text-lg font-bold text-cyan-300">AWS Cloud Solutions Architect @ Creativa Hubs</h3><p class="text-gray-400">Serverless architecture, cost optimization, AWS well-architected.</p></div></div>
+                <div class="timeline-item"><div class="timeline-marker"></div><div class="timeline-content p-5"><h3 class="text-lg font-bold text-cyan-300">Cloud Intern @ Orange Digital Center & Huawei ICT</h3><p class="text-gray-400">Multi-cloud training, cloud networking, Huawei Cloud architecture.</p></div></div>
+                <div class="timeline-item"><div class="timeline-marker"></div><div class="timeline-content p-5"><h3 class="text-lg font-bold text-cyan-300">Industrial Process Intern @ ELARABY Group</h3><p class="text-gray-400">Automation & human-error prevention project.</p></div></div>
             </div>
         </section>
 
@@ -499,17 +458,65 @@
             <div class="text-center mb-12" data-aos="fade-up">
                 <span class="bg-purple-900/30 text-purple-300 px-5 py-2 rounded-full text-sm"><i class="fas fa-certificate mr-2"></i> Credentials Vault</span>
                 <h2 class="text-3xl md:text-4xl font-bold mt-3">Certifications & Badges</h2>
-                <p class="text-gray-400 mt-2">Verified professional credentials from leading cloud providers</p>
+                <p class="text-gray-400 mt-2">Click on any certificate to view details</p>
             </div>
             <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-                <div class="cert-card p-4 text-center" data-aos="flip-left" data-aos-delay="100"><i class="fab fa-aws text-5xl text-orange-400 mb-3"></i><h4 class="font-bold">AWS Solutions Architect - Professional</h4><p class="text-xs text-gray-400 mt-1">SAP-C02 · 3bed74c9</p><span class="tech-badge text-xs mt-2">Highest Level</span></div>
-                <div class="cert-card p-4 text-center" data-aos="flip-left" data-aos-delay="150"><i class="fas fa-cubes text-5xl text-cyan-400 mb-3"></i><h4 class="font-bold">KCNA: Kubernetes & Cloud Native</h4><p class="text-xs text-gray-400 mt-1">LF-y3wkhwxcmr</p><span class="tech-badge text-xs mt-2">K8s Associate</span></div>
-                <div class="cert-card p-4 text-center" data-aos="flip-left" data-aos-delay="200"><i class="fab fa-aws text-5xl text-yellow-500 mb-3"></i><h4 class="font-bold">AWS Solutions Architect - Associate</h4><p class="text-xs text-gray-400 mt-1">SAA-C03 · 762ecdaf</p><span class="tech-badge text-xs mt-2">AWS Certified</span></div>
-                <div class="cert-card p-4 text-center" data-aos="flip-left" data-aos-delay="250"><i class="fab fa-aws text-5xl text-yellow-600 mb-3"></i><h4 class="font-bold">AWS Cloud Practitioner</h4><p class="text-xs text-gray-400 mt-1">CLF-C02 · 14681ee0</p><span class="tech-badge text-xs mt-2">Foundation</span></div>
-                <div class="cert-card p-4 text-center" data-aos="flip-left" data-aos-delay="300"><i class="fab fa-huawei text-5xl text-red-400 mb-3"></i><h4 class="font-bold">Huawei HCCDP</h4><p class="text-xs text-gray-400 mt-1">Solution Architectures · HWENDCCCDP926043</p></div>
-                <div class="cert-card p-4 text-center" data-aos="flip-left" data-aos-delay="350"><i class="fab fa-huawei text-5xl text-red-400 mb-3"></i><h4 class="font-bold">Huawei HCCDA</h4><p class="text-xs text-gray-400 mt-1">Tech Essentials · HWENDCTEDA522270</p></div>
-                <div class="cert-card p-4 text-center" data-aos="flip-left" data-aos-delay="400"><i class="fab fa-microsoft text-5xl text-blue-400 mb-3"></i><h4 class="font-bold">Azure Fundamentals</h4><p class="text-xs text-gray-400 mt-1">AZ-900 · Microsoft Certified</p></div>
-                <div class="cert-card p-4 text-center" data-aos="flip-left" data-aos-delay="450"><i class="fas fa-database text-5xl text-green-400 mb-3"></i><h4 class="font-bold">Oracle Cloud Foundations</h4><p class="text-xs text-gray-400 mt-1">Associate · 101253199002024FNDCFA</p></div>
+                <!-- AWS Professional -->
+                <div class="cert-card p-4 text-center" onclick='showCert("AWS Certified Solutions Architect - Professional", "Amazon Web Services", "SAP-C02 · Validation: 3bed74c91f234e0c8a8ea364fcb3d350", "fab fa-aws", "https://i.postimg.cc/KztBJSsx/Screenshot-2026-05-18-185942.png")'>
+                    <i class="fab fa-aws text-5xl text-orange-400 mb-3"></i>
+                    <h4 class="font-bold">AWS Solutions Architect - Professional</h4>
+                    <p class="text-xs text-gray-400 mt-1">SAP-C02</p>
+                    <span class="tech-badge text-xs mt-2 inline-block">Click to view</span>
+                </div>
+                <!-- KCNA -->
+                <div class="cert-card p-4 text-center" onclick='showCert("Kubernetes and Cloud Native Associate (KCNA)", "Linux Foundation", "Credential ID: LF-y3wkhwxcmr", "fas fa-cubes", "https://i.postimg.cc/1RcY3LR2/Screenshot-2026-05-18-190728.png")'>
+                    <i class="fas fa-cubes text-5xl text-cyan-400 mb-3"></i>
+                    <h4 class="font-bold">KCNA: Kubernetes & Cloud Native</h4>
+                    <p class="text-xs text-gray-400 mt-1">LF-y3wkhwxcmr</p>
+                    <span class="tech-badge text-xs mt-2 inline-block">Click to view</span>
+                </div>
+                <!-- AWS Associate -->
+                <div class="cert-card p-4 text-center" onclick='showCert("AWS Certified Solutions Architect - Associate", "Amazon Web Services", "SAA-C03 · Validation: 762ecdaf80db40b9b3ce8ea3237d8ae7", "fab fa-aws", "https://i.postimg.cc/zvMtK1L5/Screenshot-2026-05-18-185439.png")'>
+                    <i class="fab fa-aws text-5xl text-yellow-500 mb-3"></i>
+                    <h4 class="font-bold">AWS Solutions Architect - Associate</h4>
+                    <p class="text-xs text-gray-400 mt-1">SAA-C03</p>
+                    <span class="tech-badge text-xs mt-2 inline-block">Click to view</span>
+                </div>
+                <!-- AWS Cloud Practitioner -->
+                <div class="cert-card p-4 text-center" onclick='showCert("AWS Certified Cloud Practitioner", "Amazon Web Services", "CLF-C02 · Validation: 14681ee066344d5fb8f006201bb07561", "fab fa-aws", "https://i.postimg.cc/Cxf1jC25/Screenshot-2026-05-18-190148.png")'>
+                    <i class="fab fa-aws text-5xl text-yellow-600 mb-3"></i>
+                    <h4 class="font-bold">AWS Cloud Practitioner</h4>
+                    <p class="text-xs text-gray-400 mt-1">CLF-C02</p>
+                    <span class="tech-badge text-xs mt-2 inline-block">Click to view</span>
+                </div>
+                <!-- Huawei HCCDP -->
+                <div class="cert-card p-4 text-center" onclick='showCert("Huawei HCCDP - Solution Architectures", "Huawei", "Certificate No: HWENDCCCDP926043", "fab fa-huawei", "https://i.postimg.cc/wxmg4xV4/Screenshot-2026-05-18-190443.png")'>
+                    <i class="fab fa-huawei text-5xl text-red-400 mb-3"></i>
+                    <h4 class="font-bold">Huawei HCCDP</h4>
+                    <p class="text-xs text-gray-400 mt-1">Solution Architectures</p>
+                    <span class="tech-badge text-xs mt-2 inline-block">Click to view</span>
+                </div>
+                <!-- Huawei HCCDA -->
+                <div class="cert-card p-4 text-center" onclick='showCert("Huawei HCCDA - Tech Essentials", "Huawei", "Certificate No: HWENDCTEDA522270", "fab fa-huawei", "https://i.postimg.cc/y8qBCMfC/Screenshot-2026-05-18-190320.png")'>
+                    <i class="fab fa-huawei text-5xl text-red-400 mb-3"></i>
+                    <h4 class="font-bold">Huawei HCCDA</h4>
+                    <p class="text-xs text-gray-400 mt-1">Tech Essentials</p>
+                    <span class="tech-badge text-xs mt-2 inline-block">Click to view</span>
+                </div>
+                <!-- Azure Fundamentals -->
+                <div class="cert-card p-4 text-center" onclick='showCert("Microsoft Certified: Azure Fundamentals", "Microsoft", "AZ-900", "fab fa-microsoft", "https://i.postimg.cc/qqbsCc5m/Screenshot-2026-05-18-190843.png")'>
+                    <i class="fab fa-microsoft text-5xl text-blue-400 mb-3"></i>
+                    <h4 class="font-bold">Microsoft Azure Fundamentals</h4>
+                    <p class="text-xs text-gray-400 mt-1">AZ-900</p>
+                    <span class="tech-badge text-xs mt-2 inline-block">Click to view</span>
+                </div>
+                <!-- Oracle -->
+                <div class="cert-card p-4 text-center" onclick='showCert("Oracle Cloud Infrastructure Foundations Associate", "Oracle", "Certificate No: 101253199002024FNDCFA", "fas fa-database", "https://i.postimg.cc/3Nsw6dyV/Screenshot-2026-05-18-191006.png")'>
+                    <i class="fas fa-database text-5xl text-green-400 mb-3"></i>
+                    <h4 class="font-bold">Oracle Cloud Foundations</h4>
+                    <p class="text-xs text-gray-400 mt-1">Associate</p>
+                    <span class="tech-badge text-xs mt-2 inline-block">Click to view</span>
+                </div>
             </div>
         </section>
 
@@ -523,18 +530,13 @@
                     <div class="mt-6 space-y-4">
                         <div class="flex items-center gap-4 p-3 rounded-xl bg-cyan-500/5"><i class="fas fa-envelope text-cyan-400 w-6 text-xl"></i><span>mohamedkhaled271200127@gmail.com</span></div>
                         <div class="flex items-center gap-4 p-3 rounded-xl bg-cyan-500/5"><i class="fas fa-phone-alt text-cyan-400 w-6 text-xl"></i><span>01153493110</span></div>
-                        <div class="flex gap-6 mt-6 text-2xl">
-                            <a href="https://www.linkedin.com/in/mohamed-khaled-91ba56260" target="_blank" class="hover:text-cyan-400 transition hover:scale-110"><i class="fab fa-linkedin"></i></a>
-                            <a href="https://github.com/Mohamedkhaled271" target="_blank" class="hover:text-cyan-400 transition hover:scale-110"><i class="fab fa-github"></i></a>
-                            <a href="#" class="hover:text-cyan-400 transition hover:scale-110"><i class="fab fa-credly"></i></a>
-                        </div>
                     </div>
                 </div>
                 <div data-aos="fade-left">
                     <form id="contactForm" class="space-y-4">
-                        <input type="text" placeholder="Full Name" class="w-full bg-[#1E293B] border border-gray-700 rounded-xl p-3 text-white focus:border-cyan-500 outline-none transition">
-                        <input type="email" placeholder="Email Address" class="w-full bg-[#1E293B] border border-gray-700 rounded-xl p-3 text-white focus:border-cyan-500 outline-none transition">
-                        <textarea rows="4" placeholder="Your Message" class="w-full bg-[#1E293B] border border-gray-700 rounded-xl p-3 text-white focus:border-cyan-500 outline-none transition"></textarea>
+                        <input type="text" placeholder="Full Name" class="w-full bg-[#1E293B] border border-gray-700 rounded-xl p-3 text-white focus:border-cyan-500 outline-none">
+                        <input type="email" placeholder="Email Address" class="w-full bg-[#1E293B] border border-gray-700 rounded-xl p-3 text-white focus:border-cyan-500 outline-none">
+                        <textarea rows="4" placeholder="Your Message" class="w-full bg-[#1E293B] border border-gray-700 rounded-xl p-3 text-white focus:border-cyan-500 outline-none"></textarea>
                         <button type="submit" class="btn-primary w-full justify-center">Send Message <i class="fas fa-paper-plane ml-2"></i></button>
                         <p id="formFeedback" class="text-sm text-cyan-300 hidden"></p>
                     </form>
@@ -549,101 +551,63 @@
     <script type="module">
         import * as THREE from 'three';
         
-        // Setup Scene
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('canvas-bg'), alpha: true });
         renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.setPixelRatio(window.devicePixelRatio);
         
-        // Create Floating Particles System
         const particlesGeometry = new THREE.BufferGeometry();
-        const particlesCount = 1500;
+        const particlesCount = 1000;
         const posArray = new Float32Array(particlesCount * 3);
-        
         for (let i = 0; i < particlesCount * 3; i += 3) {
             posArray[i] = (Math.random() - 0.5) * 200;
             posArray[i+1] = (Math.random() - 0.5) * 100;
             posArray[i+2] = (Math.random() - 0.5) * 100 - 50;
         }
-        
         particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-        
-        const particlesMaterial = new THREE.PointsMaterial({
-            size: 0.15,
-            color: 0x06b6d4,
-            transparent: true,
-            opacity: 0.4,
-            blending: THREE.AdditiveBlending
-        });
-        
+        const particlesMaterial = new THREE.PointsMaterial({ size: 0.12, color: 0x06b6d4, transparent: true, opacity: 0.4, blending: THREE.AdditiveBlending });
         const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
         scene.add(particlesMesh);
         
-        // Create Rotating Cloud Icons Group
-        const cloudGroup = new THREE.Group();
-        const cloudGeometry = new THREE.SphereGeometry(0.2, 8, 8);
-        const cloudMaterial = new THREE.MeshStandardMaterial({ color: 0x06b6d4, emissive: 0x06b6d4, emissiveIntensity: 0.3 });
-        
-        for (let i = 0; i < 30; i++) {
-            const cloud = new THREE.Mesh(cloudGeometry, cloudMaterial);
-            cloud.position.x = (Math.random() - 0.5) * 80;
-            cloud.position.y = (Math.random() - 0.5) * 60;
-            cloud.position.z = (Math.random() - 0.5) * 60 - 30;
-            cloud.scale.setScalar(Math.random() * 0.5 + 0.3);
-            cloudGroup.add(cloud);
-        }
-        scene.add(cloudGroup);
-        
-        // Add Ambient Light
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
-        scene.add(ambientLight);
-        const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
-        directionalLight.position.set(1, 2, 1);
-        scene.add(directionalLight);
-        
         camera.position.z = 30;
         
-        // Animation
-        let time = 0;
         function animate() {
             requestAnimationFrame(animate);
-            time += 0.005;
-            
-            particlesMesh.rotation.y = time * 0.05;
-            particlesMesh.rotation.x = Math.sin(time * 0.1) * 0.1;
-            cloudGroup.rotation.y = time * 0.1;
-            cloudGroup.rotation.x = Math.sin(time * 0.2) * 0.1;
-            
+            particlesMesh.rotation.y += 0.002;
+            particlesMesh.rotation.x = Math.sin(Date.now() * 0.0005) * 0.1;
             renderer.render(scene, camera);
         }
-        
         animate();
         
-        // Handle resize
         window.addEventListener('resize', () => {
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
             renderer.setSize(window.innerWidth, window.innerHeight);
         });
-        
-        // Theme toggle color update for 3D
-        const themeToggle3D = document.getElementById('themeToggle');
-        let isLight = false;
-        themeToggle3D?.addEventListener('click', () => {
-            isLight = !isLight;
-            const newColor = isLight ? 0x3b82f6 : 0x06b6d4;
-            particlesMaterial.color.setHex(newColor);
-            cloudMaterial.color.setHex(newColor);
-            cloudMaterial.emissive.setHex(newColor);
-        });
     </script>
 
     <script>
-        // GSAP Scroll Animations
-        gsap.registerPlugin(ScrollTrigger);
+        // Modal Functions
+        function showCert(title, issuer, id, iconClass, imageUrl) {
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalIssuer').innerHTML = `<i class="fas fa-building mr-1"></i> ${issuer}`;
+            document.getElementById('modalId').innerHTML = `<i class="fas fa-qrcode mr-1"></i> ${id}`;
+            document.getElementById('modalIcon').className = `${iconClass} text-6xl mb-4`;
+            document.getElementById('modalImage').src = imageUrl;
+            document.getElementById('modalLink').href = imageUrl;
+            document.getElementById('certModal').style.display = 'flex';
+        }
         
-        // AOS Init
+        function closeModal() {
+            document.getElementById('certModal').style.display = 'none';
+        }
+        
+        window.onclick = function(event) {
+            const modal = document.getElementById('certModal');
+            if (event.target === modal) closeModal();
+        }
+        
+        // AOS
         AOS.init({ duration: 800, once: true, offset: 50 });
         
         // Theme Toggle
@@ -651,12 +615,9 @@
         const mobileThemeToggle = document.getElementById('mobileThemeToggle');
         const toggleTheme = () => {
             document.body.classList.toggle('light');
-            const isLight = document.body.classList.contains('light');
-            localStorage.setItem('theme', isLight ? 'light' : 'dark');
-            const icon = themeToggle?.querySelector('i');
-            if (icon) icon.className = isLight ? 'fas fa-sun' : 'fas fa-moon';
+            localStorage.setItem('theme', document.body.classList.contains('light') ? 'light' : 'dark');
         };
-        if (localStorage.getItem('theme') === 'light') toggleTheme();
+        if (localStorage.getItem('theme') === 'light') document.body.classList.add('light');
         themeToggle?.addEventListener('click', toggleTheme);
         mobileThemeToggle?.addEventListener('click', toggleTheme);
         
@@ -665,14 +626,17 @@
         const mobileMenu = document.getElementById('mobileMenu');
         mobileMenuBtn?.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
         
-        // Smooth Scroll
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        // Smooth Scroll for ALL nav links
+        document.querySelectorAll('.nav-links a, .mobile-menu-btn + div a, .btn-primary[href^="#"], .btn-outline[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    e.preventDefault();
-                    gsap.to(window, { duration: 1, scrollTo: { y: target.offsetTop - 80, autoKill: true }, ease: 'power3.out' });
-                    mobileMenu?.classList.add('hidden');
+                const href = this.getAttribute('href');
+                if (href && href.startsWith('#')) {
+                    const target = document.querySelector(href);
+                    if (target) {
+                        e.preventDefault();
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        mobileMenu?.classList.add('hidden');
+                    }
                 }
             });
         });
@@ -686,11 +650,6 @@
             e.target.reset();
             setTimeout(() => fb.classList.add('hidden'), 4000);
         });
-        
-        // GSAP Hero Animation
-        gsap.from('#home .gradient-text', { duration: 1, opacity: 0, y: 50, ease: 'power3.out' });
-        gsap.from('#home .text-cyan-300', { duration: 1, opacity: 0, y: 30, delay: 0.2 });
-        gsap.from('#home .btn-primary, #home .btn-outline', { duration: 0.8, opacity: 0, scale: 0.8, stagger: 0.2, delay: 0.4 });
     </script>
 </body>
 </html>
