@@ -18,17 +18,34 @@
         body.light { background-color: #F8FAFC; color: #0F172A; }
         body.light .card { background: #FFFFFF; border-color: #E2E8F0; }
         body.light .glass-nav { background: rgba(255,255,255,0.8); border-bottom-color: #CBD5E1; }
+        body.light .cert-card { background: #FFFFFF; border-color: #E2E8F0; }
         /* Components */
         .glass-nav { background: rgba(15,23,42,0.8); backdrop-filter: blur(12px); border-bottom: 1px solid #06B6D4; position: fixed; width: 100%; z-index: 100; transition: 0.3s; }
-        .card { background: #1E293B; border-radius: 1.5rem; transition: transform 0.2s, box-shadow 0.2s; border: 1px solid rgba(6,182,212,0.2); }
-        .card:hover { transform: translateY(-5px); box-shadow: 0 20px 25px -12px rgba(6,182,212,0.25); border-color: #06B6D4; }
+        .card { background: #1E293B; border-radius: 1.5rem; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); border: 1px solid rgba(6,182,212,0.2); overflow: hidden; }
+        .card:hover { transform: translateY(-8px); box-shadow: 0 25px 35px -12px rgba(6,182,212,0.3); border-color: #06B6D4; }
+        .cert-card { background: #1E293B; border-radius: 1rem; transition: all 0.3s ease; border: 1px solid rgba(6,182,212,0.15); overflow: hidden; }
+        .cert-card:hover { transform: translateY(-5px); box-shadow: 0 15px 25px -10px rgba(6,182,212,0.25); border-color: #3B82F6; }
         .btn-gradient { background: linear-gradient(135deg, #06B6D4, #3B82F6); transition: 0.2s; }
         .btn-gradient:hover { transform: scale(1.02); box-shadow: 0 10px 20px -5px #06B6D4; }
         .tech-badge { background: rgba(6,182,212,0.15); color: #67E8F9; padding: 0.25rem 0.8rem; border-radius: 2rem; font-size: 0.75rem; font-weight: 500; backdrop-filter: blur(4px); }
         .timeline-dot::before { content: ''; position: absolute; left: -2rem; top: 0.3rem; width: 0.9rem; height: 0.9rem; background: #3B82F6; border: 2px solid #06B6D4; border-radius: 50%; background-color: #0B0F19; z-index: 2; }
         .timeline-item:not(:last-child)::after { content: ''; position: absolute; left: -1.56rem; top: 1.7rem; width: 2px; height: calc(100% + 1.2rem); background: linear-gradient(to bottom, #3B82F6, #06B6D4); opacity: 0.4; }
         @media (max-width: 768px) { .timeline-dot::before { left: -1rem; } .timeline-item:not(:last-child)::after { left: -0.6rem; } }
-        .project-img { height: 180px; background-size: cover; background-position: center; border-radius: 1.5rem 1.5rem 0 0; }
+        .project-img { height: 200px; background-size: cover; background-position: center; transition: transform 0.5s ease; }
+        .card:hover .project-img { transform: scale(1.05); }
+        .cert-img { height: 120px; object-fit: cover; width: 100%; border-bottom: 1px solid rgba(6,182,212,0.2); }
+        /* Animated gradient border */
+        .gradient-border {
+            position: relative;
+            background: linear-gradient(135deg, #06B6D4, #3B82F6, #8B5CF6);
+            background-size: 200% 200%;
+            animation: gradient 3s ease infinite;
+        }
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
     </style>
 </head>
 <body>
@@ -38,113 +55,279 @@
         <div class="max-w-7xl mx-auto flex justify-between items-center">
             <a href="#" class="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">MK<span class="text-white dark:text-gray-900">Ibrahim</span></a>
             <div class="hidden md:flex items-center gap-6 text-gray-300 font-medium">
-                <a href="#home" class="hover:text-cyan-400">Home</a><a href="#about" class="hover:text-cyan-400">About</a><a href="#skills" class="hover:text-cyan-400">Skills</a>
-                <a href="#projects" class="hover:text-cyan-400">Projects</a><a href="#experience" class="hover:text-cyan-400">Experience</a><a href="#certifications" class="hover:text-cyan-400">Certifications</a><a href="#contact" class="hover:text-cyan-400">Contact</a>
+                <a href="#home" class="hover:text-cyan-400 transition">Home</a>
+                <a href="#about" class="hover:text-cyan-400 transition">About</a>
+                <a href="#skills" class="hover:text-cyan-400 transition">Skills</a>
+                <a href="#projects" class="hover:text-cyan-400 transition">Projects</a>
+                <a href="#experience" class="hover:text-cyan-400 transition">Experience</a>
+                <a href="#certifications" class="hover:text-cyan-400 transition">Certifications</a>
+                <a href="#contact" class="hover:text-cyan-400 transition">Contact</a>
                 <button id="themeToggle" class="text-cyan-400 text-xl"><i class="fas fa-moon"></i></button>
-                <a href="#" id="downloadBtn" class="border border-cyan-500 px-5 py-2 rounded-full text-cyan-300 hover:bg-cyan-600/20">Download CV</a>
+                <a href="#" id="downloadBtn" class="border border-cyan-500 px-5 py-2 rounded-full text-cyan-300 hover:bg-cyan-600/20 transition">Download CV</a>
             </div>
             <button id="mobileMenuBtn" class="md:hidden text-cyan-400 text-2xl"><i class="fas fa-bars"></i></button>
         </div>
         <div id="mobileMenu" class="hidden md:hidden flex flex-col bg-slate-900/90 backdrop-blur-lg mt-3 p-5 rounded-2xl gap-4 text-center">
-            <a href="#home">Home</a><a href="#about">About</a><a href="#skills">Skills</a><a href="#projects">Projects</a><a href="#experience">Experience</a><a href="#certifications">Certifications</a><a href="#contact">Contact</a>
+            <a href="#home">Home</a><a href="#about">About</a><a href="#skills">Skills</a>
+            <a href="#projects">Projects</a><a href="#experience">Experience</a><a href="#certifications">Certifications</a><a href="#contact">Contact</a>
             <button id="mobileThemeToggle" class="text-cyan-400">Dark/Light</button>
             <a href="#" id="mobileDownloadBtn" class="bg-cyan-600/30 py-2 rounded-full">Download CV</a>
         </div>
     </nav>
 
     <main class="pt-24 max-w-7xl mx-auto px-6 md:px-10">
-        <!-- Hero -->
+        <!-- Hero Section -->
         <section id="home" class="min-h-[85vh] flex flex-col justify-center" data-aos="fade-up">
-            <p class="text-cyan-400 font-semibold">👋 I'm</p>
+            <p class="text-cyan-400 font-semibold tracking-wide">👋 Hi, I'm</p>
             <h1 class="text-5xl md:text-7xl font-extrabold bg-gradient-to-r from-white via-cyan-200 to-blue-400 bg-clip-text text-transparent">Mohamed Khaled Ibrahim</h1>
             <div class="text-xl md:text-2xl text-gray-400 mt-4 h-16"><span class="font-bold text-cyan-300" id="typedRole"></span></div>
-            <p class="text-gray-400 text-lg mt-6 max-w-2xl">Multi-cloud specialist, automation advocate, and system architect focused on high-availability infrastructure and DevOps excellence.</p>
-            <div class="flex gap-5 mt-8"><a href="#projects" class="btn-gradient px-7 py-3 rounded-full text-white font-semibold">Explore Projects</a><a href="#contact" class="border border-cyan-500 px-7 py-3 rounded-full text-cyan-400 font-semibold hover:bg-cyan-600/10">Contact Me</a></div>
-            <div class="flex gap-6 mt-12 text-2xl text-gray-400"><a href="#" class="hover:text-cyan-400"><i class="fab fa-linkedin"></i></a><a href="https://github.com/Mohamedkhaled271" target="_blank" class="hover:text-cyan-400"><i class="fab fa-github"></i></a><a href="#" class="hover:text-cyan-400"><i class="fab fa-credly"></i></a><a href="#" class="hover:text-cyan-400"><i class="fas fa-envelope"></i></a></div>
+            <p class="text-gray-400 text-lg mt-6 max-w-2xl leading-relaxed">Multi-cloud specialist, automation advocate, and system architect focused on high-availability infrastructure and DevOps excellence.</p>
+            <div class="flex gap-5 mt-8 flex-wrap">
+                <a href="#projects" class="btn-gradient px-7 py-3 rounded-full text-white font-semibold shadow-lg">Explore Projects <i class="fas fa-arrow-right ml-2"></i></a>
+                <a href="#contact" class="border border-cyan-500 px-7 py-3 rounded-full text-cyan-400 font-semibold hover:bg-cyan-600/10 transition">Contact Me</a>
+            </div>
+            <div class="flex gap-6 mt-12 text-2xl text-gray-400">
+                <a href="#" class="hover:text-cyan-400 transition"><i class="fab fa-linkedin"></i></a>
+                <a href="https://github.com/Mohamedkhaled271" target="_blank" class="hover:text-cyan-400 transition"><i class="fab fa-github"></i></a>
+                <a href="#" class="hover:text-cyan-400 transition"><i class="fab fa-credly"></i></a>
+                <a href="#" class="hover:text-cyan-400 transition"><i class="fas fa-envelope"></i></a>
+            </div>
         </section>
 
-        <!-- About + Profile Photo -->
+        <!-- About Section -->
         <section id="about" class="py-20 border-t border-gray-800">
             <div class="grid md:grid-cols-3 gap-12 items-center">
-                <div class="md:col-span-2">
-                    <span class="text-cyan-400 text-sm uppercase">About & Academic</span>
+                <div class="md:col-span-2" data-aos="fade-right">
+                    <span class="text-cyan-400 text-sm uppercase tracking-wider font-semibold">About & Academic</span>
                     <h3 class="text-3xl font-bold mt-2">Engineering Foundation</h3>
-                    <p class="text-gray-300 mt-4">Bachelor's in Communication & Electronics, Menoufia University (2021–2026). <span class="text-cyan-300">GPA: Very Good | Graduation Project: Excellent (A+)</span>.</p>
-                    <p class="text-gray-300 mt-2">Former Vice-Head at EED Society, leading technical teams and fostering DevOps culture.</p>
+                    <p class="text-gray-300 mt-4 leading-relaxed">Bachelor's in Communication & Electronics, Menoufia University (2021–2026). <span class="text-cyan-300 font-semibold">GPA: Very Good | Graduation Project: Excellent (A+)</span>.</p>
+                    <p class="text-gray-300 mt-3 leading-relaxed">Former Vice-Head at EED Society — leading technical teams, fostering modern DevOps culture, meticulous system documentation, and proactive self-learning mindset.</p>
+                    <div class="flex gap-4 mt-6">
+                        <div class="bg-cyan-500/10 p-3 rounded-xl border-l-3 border-cyan-500"><i class="fas fa-cloud-upload-alt text-cyan-400 text-xl"></i><p class="font-semibold text-sm mt-1">Cloud Native</p></div>
+                        <div class="bg-blue-500/10 p-3 rounded-xl border-l-3 border-blue-500"><i class="fas fa-shield-alt text-blue-400 text-xl"></i><p class="font-semibold text-sm mt-1">Security Focus</p></div>
+                    </div>
                 </div>
-                <div class="flex justify-center">
-                    <!-- تم إضافة رابط صورتك من PostImg – لو عايز تغيره بالرابط المباشر اكتبه مكانه -->
-                    <img src="https://i.postimg.cc/qzrzN9QG/Whats-App-Image-2026-05-18-at-5-24-56-PM-1.jpg" alt="Mohamed Khaled" class="w-56 h-56 rounded-full object-cover border-4 border-cyan-500 shadow-2xl hover:scale-105 transition">
+                <div class="flex justify-center" data-aos="fade-left">
+                    <img src="https://i.postimg.cc/qzrzN9QG/Whats-App-Image-2026-05-18-at-5-24-56-PM-1.jpg" alt="Mohamed Khaled" class="w-56 h-56 rounded-full object-cover border-4 border-cyan-500 shadow-2xl hover:scale-105 transition duration-300">
                 </div>
             </div>
         </section>
 
-        <!-- Skills Grid (مختصر وجذاب) -->
+        <!-- Skills Section -->
         <section id="skills" class="py-16 border-t border-gray-800">
-            <div class="text-center"><span class="bg-cyan-500/10 text-cyan-400 px-4 py-1 rounded-full text-sm">Expertise</span><h2 class="text-4xl font-bold mt-3">Tech Arsenal</h2></div>
+            <div class="text-center" data-aos="fade-up">
+                <span class="bg-cyan-500/10 text-cyan-400 px-4 py-1 rounded-full text-sm">Technical Arsenal</span>
+                <h2 class="text-4xl font-bold mt-3">Expertise & Technologies</h2>
+            </div>
             <div class="grid md:grid-cols-3 gap-6 mt-12">
-                <div class="card p-6"><i class="fas fa-cloud text-cyan-400 text-3xl"></i><h3 class="text-xl font-bold mt-2">Cloud Infrastructure</h3><div class="flex flex-wrap gap-2 mt-3"><span class="tech-badge">AWS SAA/SAP</span><span class="tech-badge">Azure</span><span class="tech-badge">Huawei Cloud</span></div></div>
-                <div class="card p-6"><i class="fas fa-server text-cyan-400 text-3xl"></i><h3 class="text-xl font-bold mt-2">SysAdmin & Virtualization</h3><div class="flex flex-wrap gap-2 mt-3"><span class="tech-badge">VMware vSphere</span><span class="tech-badge">Linux/Windows</span></div></div>
-                <div class="card p-6"><i class="fas fa-code-branch text-cyan-400 text-3xl"></i><h3 class="text-xl font-bold mt-2">DevOps & Automation</h3><div class="flex flex-wrap gap-2 mt-3"><span class="tech-badge">Docker/Ansible</span><span class="tech-badge">Python/Bash</span><span class="tech-badge">CI/CD</span></div></div>
+                <div class="card p-6" data-aos="fade-up" data-aos-delay="100"><i class="fas fa-cloud text-cyan-400 text-3xl"></i><h3 class="text-xl font-bold mt-2">Cloud Infrastructure</h3><div class="flex flex-wrap gap-2 mt-3"><span class="tech-badge">AWS SAA/SAP</span><span class="tech-badge">Azure</span><span class="tech-badge">Huawei Cloud</span></div></div>
+                <div class="card p-6" data-aos="fade-up" data-aos-delay="200"><i class="fas fa-server text-cyan-400 text-3xl"></i><h3 class="text-xl font-bold mt-2">SysAdmin & Virtualization</h3><div class="flex flex-wrap gap-2 mt-3"><span class="tech-badge">VMware vSphere</span><span class="tech-badge">Linux/Windows</span></div></div>
+                <div class="card p-6" data-aos="fade-up" data-aos-delay="300"><i class="fas fa-code-branch text-cyan-400 text-3xl"></i><h3 class="text-xl font-bold mt-2">DevOps & Automation</h3><div class="flex flex-wrap gap-2 mt-3"><span class="tech-badge">Docker/Ansible</span><span class="tech-badge">Python/Bash</span><span class="tech-badge">CI/CD</span></div></div>
             </div>
         </section>
 
-        <!-- Projects with Real GitHub Link -->
+        <!-- Projects Section - مطور جداً -->
         <section id="projects" class="py-16 border-t border-gray-800">
-            <div class="text-center"><span class="bg-blue-500/10 text-blue-400 px-4 py-1 rounded-full">Showcase</span><h2 class="text-4xl font-bold mt-3">Featured Projects</h2></div>
+            <div class="text-center" data-aos="fade-up">
+                <span class="bg-blue-500/10 text-blue-400 px-4 py-1 rounded-full">Innovation Hub</span>
+                <h2 class="text-4xl font-bold mt-3">Featured Projects</h2>
+                <p class="text-gray-400 mt-2 max-w-2xl mx-auto">Discover my latest work in cloud architecture, IoT, and DevOps automation</p>
+            </div>
             <div class="grid md:grid-cols-3 gap-8 mt-12">
-                <div class="card overflow-hidden"><div class="project-img" style="background-image: url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600');"></div><div class="p-5"><h3 class="text-xl font-bold">HELIOS: IoT Health System</h3><p class="text-gray-400 text-sm">Azure, ESP32, AI analytics – sponsored by Microsoft & ITIDA.</p><a href="https://github.com/Mohamedkhaled271/Smart-Health-System" target="_blank" class="text-cyan-400 text-sm mt-3 inline-block"><i class="fab fa-github"></i> GitHub Repository →</a></div></div>
-                <div class="card overflow-hidden"><div class="project-img" style="background-image: url('https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?w=600');"></div><div class="p-5"><h3 class="text-xl font-bold">DevOps Infinity Loop</h3><p class="text-gray-400 text-sm">Next.js, Node.js, CI/CD, YouTube API workflows.</p><a href="#" class="text-cyan-400 text-sm mt-3 inline-block"><i class="fab fa-github"></i> Private Repo →</a></div></div>
-                <div class="card overflow-hidden"><div class="project-img" style="background-image: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600');"></div><div class="p-5"><h3 class="text-xl font-bold">Campus Network Design</h3><p class="text-gray-400 text-sm">VLANs, cloud integration, enterprise security.</p><a href="#" class="text-cyan-400 text-sm mt-3 inline-block"><i class="fab fa-github"></i> Architecture →</a></div></div>
+                <!-- Project 1: HELIOS -->
+                <div class="card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="project-img gradient-border" style="background-image: url('https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600');"></div>
+                    <div class="p-5">
+                        <div class="flex justify-between items-start">
+                            <h3 class="text-xl font-bold">HELIOS: IoT Health System</h3>
+                            <span class="tech-badge text-xs">⭐ 1st Place</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-2 leading-relaxed">Azure-powered healthcare monitoring with ESP32, AI analytics, and secure EMR. Sponsored by Microsoft & ITIDA-ITAC program.</p>
+                        <div class="flex flex-wrap gap-2 mt-3">
+                            <span class="tech-badge">ESP32</span>
+                            <span class="tech-badge">Azure IoT</span>
+                            <span class="tech-badge">AI Analytics</span>
+                            <span class="tech-badge">EMR</span>
+                        </div>
+                        <a href="https://github.com/Mohamedkhaled271/Smart-Health-System" target="_blank" class="text-cyan-400 text-sm mt-4 inline-flex items-center gap-1 hover:gap-2 transition-all"><i class="fab fa-github"></i> GitHub Repository →</a>
+                    </div>
+                </div>
+                <!-- Project 2: DevOps Infinity Loop -->
+                <div class="card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="project-img" style="background-image: url('https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?w=600');"></div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold">DevOps Infinity Loop</h3>
+                        <p class="text-gray-400 text-sm mt-2 leading-relaxed">DEPI Graduation Project: Next.js, Node.js backend, decoupled YouTube API workflows, automated CI/CD pipelines.</p>
+                        <div class="flex flex-wrap gap-2 mt-3">
+                            <span class="tech-badge">Next.js</span>
+                            <span class="tech-badge">Node.js</span>
+                            <span class="tech-badge">CI/CD</span>
+                            <span class="tech-badge">YouTube API</span>
+                        </div>
+                        <a href="#" class="text-cyan-400 text-sm mt-4 inline-flex items-center gap-1 hover:gap-2 transition-all"><i class="fab fa-github"></i> View Project →</a>
+                    </div>
+                </div>
+                <!-- Project 3: Campus Network -->
+                <div class="card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="project-img" style="background-image: url('https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600');"></div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold">Campus Network Design</h3>
+                        <p class="text-gray-400 text-sm mt-2 leading-relaxed">Enterprise-scale secure network topology with optimized VLAN management, cloud-workload integration, and advanced routing.</p>
+                        <div class="flex flex-wrap gap-2 mt-3">
+                            <span class="tech-badge">Cisco</span>
+                            <span class="tech-badge">VLAN</span>
+                            <span class="tech-badge">Cloud Integration</span>
+                            <span class="tech-badge">Routing</span>
+                        </div>
+                        <a href="#" class="text-cyan-400 text-sm mt-4 inline-flex items-center gap-1 hover:gap-2 transition-all"><i class="fas fa-network-wired"></i> Architecture →</a>
+                    </div>
+                </div>
             </div>
         </section>
 
         <!-- Experience Timeline -->
         <section id="experience" class="py-16 border-t border-gray-800">
-            <div class="text-center mb-12"><span class="bg-cyan-800/40 text-cyan-300 px-4 py-1 rounded-full">Career Journey</span><h2 class="text-4xl font-bold mt-3">Experience & Internships</h2></div>
+            <div class="text-center mb-12" data-aos="fade-up">
+                <span class="bg-cyan-800/40 text-cyan-300 px-4 py-1 rounded-full">Professional Journey</span>
+                <h2 class="text-4xl font-bold mt-3">Experience & Internships</h2>
+            </div>
             <div class="relative max-w-3xl mx-auto pl-6 md:pl-10">
-                <div class="timeline-item relative pb-10 timeline-dot"><h3 class="text-lg font-bold text-cyan-300">Technical Support Engineer @ Z4U</h3><p class="text-gray-400">Network troubleshooting, IT ticketing systems.</p></div>
-                <div class="timeline-item relative pb-10 timeline-dot"><h3 class="text-lg font-bold text-cyan-300">DevOps & Infrastructure Intern @ DEPI</h3><p class="text-gray-400">CI/CD pipelines, Docker, cloud automation.</p></div>
-                <div class="timeline-item relative pb-10 timeline-dot"><h3 class="text-lg font-bold text-cyan-300">AWS Cloud Architect Intern @ Creativa Hubs</h3><p class="text-gray-400">Serverless apps, cost optimization, AWS well-architected.</p></div>
-                <div class="timeline-item relative pb-2 timeline-dot"><h3 class="text-lg font-bold text-cyan-300">Cloud Intern @ Orange Digital Center & Huawei</h3><p class="text-gray-400">Multi-cloud networking, Huawei Cloud architecture.</p></div>
+                <div class="timeline-item relative pb-10 timeline-dot" data-aos="fade-right"><h3 class="text-lg font-bold text-cyan-300">Technical Support Engineer @ Z4U</h3><p class="text-gray-400">Hardware/software diagnostics, network troubleshooting, IT ticketing systems, SLA management.</p></div>
+                <div class="timeline-item relative pb-10 timeline-dot" data-aos="fade-right" data-aos-delay="100"><h3 class="text-lg font-bold text-cyan-300">Tech Instructor @ Safaa El-Shafe'y Academy</h3><p class="text-gray-400">Taught programming & networking fundamentals, mentored 50+ students, curriculum development.</p></div>
+                <div class="timeline-item relative pb-10 timeline-dot" data-aos="fade-right" data-aos-delay="200"><h3 class="text-lg font-bold text-cyan-300">DevOps & Infrastructure Intern @ DEPI</h3><p class="text-gray-400">CI/CD pipelines, Docker containerization, cloud automation, infrastructure as code.</p></div>
+                <div class="timeline-item relative pb-10 timeline-dot" data-aos="fade-right" data-aos-delay="300"><h3 class="text-lg font-bold text-cyan-300">AWS Cloud Architect Intern @ Creativa Hubs</h3><p class="text-gray-400">Serverless architecture, cost optimization, AWS well-architected framework reviews.</p></div>
+                <div class="timeline-item relative pb-2 timeline-dot" data-aos="fade-right" data-aos-delay="400"><h3 class="text-lg font-bold text-cyan-300">Cloud Intern @ Orange Digital Center & Huawei</h3><p class="text-gray-400">Multi-cloud hands-on training, cloud networking, Huawei Cloud architecture and services.</p></div>
             </div>
         </section>
 
-        <!-- Certifications -->
+        <!-- Certifications with Images - مطور جداً -->
         <section id="certifications" class="py-16 border-t border-gray-800">
-            <div class="text-center"><span class="bg-purple-900/30 text-purple-300 px-4 py-1 rounded-full">Credentials Vault</span><h2 class="text-4xl font-bold mt-3">Certifications</h2></div>
-            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mt-10">
-                <div class="card p-4 flex gap-3"><i class="fab fa-aws text-3xl text-orange-400"></i><div><p class="font-bold">AWS Solutions Architect – Professional</p><p class="text-xs text-gray-400">SAP-C02</p></div></div>
-                <div class="card p-4"><p class="font-bold"><i class="fab fa-huawei text-cyan-400 mr-2"></i>Huawei HCCDP – Solution Architectures</p></div>
-                <div class="card p-4"><p class="font-bold"><i class="fab fa-microsoft text-blue-400 mr-2"></i>Azure Fundamentals AZ-900</p></div>
-                <div class="card p-4"><p class="font-bold"><i class="fas fa-cubes text-cyan-400 mr-2"></i>KCNA: Kubernetes & Cloud Native</p></div>
-                <div class="card p-4"><p class="font-bold"><i class="fas fa-database text-green-400 mr-2"></i>Oracle Cloud Foundations</p></div>
+            <div class="text-center mb-12" data-aos="fade-up">
+                <span class="bg-purple-900/30 text-purple-300 px-4 py-1 rounded-full">Credentials Vault</span>
+                <h2 class="text-4xl font-bold mt-3">Certifications & Badges</h2>
+                <p class="text-gray-400 mt-2">Verified professional credentials from leading cloud providers</p>
+            </div>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+                <!-- Cert 1: AWS Professional -->
+                <div class="cert-card" data-aos="flip-left" data-aos-delay="100">
+                    <div class="bg-gradient-to-r from-orange-600/20 to-orange-400/10 p-4 text-center">
+                        <i class="fab fa-aws text-5xl text-orange-400"></i>
+                    </div>
+                    <div class="p-4">
+                        <p class="font-bold text-lg">AWS Solutions Architect – Professional</p>
+                        <p class="text-xs text-gray-400 mt-1">SAP-C02 · Validation: 3bed74c91f234e0c8a8ea364fcb3d350</p>
+                        <span class="tech-badge text-xs mt-2 inline-block">Highest Level</span>
+                    </div>
+                </div>
+                <!-- Cert 2: KCNA -->
+                <div class="cert-card" data-aos="flip-left" data-aos-delay="150">
+                    <div class="bg-gradient-to-r from-cyan-600/20 to-blue-500/10 p-4 text-center">
+                        <i class="fas fa-cubes text-5xl text-cyan-400"></i>
+                    </div>
+                    <div class="p-4">
+                        <p class="font-bold text-lg">KCNA: Kubernetes & Cloud Native</p>
+                        <p class="text-xs text-gray-400 mt-1">LF-y3wkhwxcmr · Linux Foundation</p>
+                        <span class="tech-badge text-xs mt-2 inline-block">K8s Associate</span>
+                    </div>
+                </div>
+                <!-- Cert 3: AWS Associate -->
+                <div class="cert-card" data-aos="flip-left" data-aos-delay="200">
+                    <div class="bg-gradient-to-r from-yellow-600/20 to-yellow-400/10 p-4 text-center">
+                        <i class="fab fa-aws text-5xl text-yellow-500"></i>
+                    </div>
+                    <div class="p-4">
+                        <p class="font-bold text-lg">AWS Solutions Architect – Associate</p>
+                        <p class="text-xs text-gray-400 mt-1">SAA-C03 · Validation: 762ecdaf80db40b9b3ce8ea3237d8ae7</p>
+                        <span class="tech-badge text-xs mt-2 inline-block">AWS Certified</span>
+                    </div>
+                </div>
+                <!-- Cert 4: Huawei HCCDP -->
+                <div class="cert-card" data-aos="flip-left" data-aos-delay="250">
+                    <div class="bg-gradient-to-r from-red-600/20 to-red-400/10 p-4 text-center">
+                        <i class="fab fa-huawei text-5xl text-red-400"></i>
+                    </div>
+                    <div class="p-4">
+                        <p class="font-bold text-lg">Huawei HCCDP – Solution Architectures</p>
+                        <p class="text-xs text-gray-400 mt-1">No. HWENDCCCDP926043</p>
+                        <span class="tech-badge text-xs mt-2 inline-block">Professional Level</span>
+                    </div>
+                </div>
+                <!-- Cert 5: Azure Fundamentals -->
+                <div class="cert-card" data-aos="flip-left" data-aos-delay="300">
+                    <div class="bg-gradient-to-r from-blue-600/20 to-blue-400/10 p-4 text-center">
+                        <i class="fab fa-microsoft text-5xl text-blue-400"></i>
+                    </div>
+                    <div class="p-4">
+                        <p class="font-bold text-lg">Microsoft Azure Fundamentals</p>
+                        <p class="text-xs text-gray-400 mt-1">AZ-900 · Microsoft Certified</p>
+                        <span class="tech-badge text-xs mt-2 inline-block">Azure Certified</span>
+                    </div>
+                </div>
+                <!-- Cert 6: Oracle -->
+                <div class="cert-card" data-aos="flip-left" data-aos-delay="350">
+                    <div class="bg-gradient-to-r from-green-600/20 to-green-400/10 p-4 text-center">
+                        <i class="fas fa-database text-5xl text-green-400"></i>
+                    </div>
+                    <div class="p-4">
+                        <p class="font-bold text-lg">Oracle Cloud Foundations Associate</p>
+                        <p class="text-xs text-gray-400 mt-1">101253199002024FNDCFA</p>
+                        <span class="tech-badge text-xs mt-2 inline-block">OCI Certified</span>
+                    </div>
+                </div>
             </div>
         </section>
 
         <!-- Contact + Footer -->
         <section id="contact" class="py-20 border-t border-gray-800">
             <div class="grid md:grid-cols-2 gap-12">
-                <div><h3 class="text-3xl font-bold">Let’s Connect</h3><p class="text-gray-400 mt-3">I'm open to cloud & DevOps opportunities.</p><div class="mt-6 space-y-3"><div class="flex gap-4"><i class="fas fa-envelope text-cyan-400"></i><span>mohamedkhaled271200127@gmail.com</span></div><div class="flex gap-4"><i class="fas fa-phone-alt text-cyan-400"></i><span>01153493110</span></div></div></div>
-                <div><form id="contactForm" class="space-y-4"><input type="text" placeholder="Full Name" class="w-full bg-gray-800 border border-gray-700 rounded-xl p-3 text-white"><input type="email" placeholder="Email" class="w-full bg-gray-800 border border-gray-700 rounded-xl p-3"><textarea rows="4" placeholder="Your Message" class="w-full bg-gray-800 border border-gray-700 rounded-xl p-3"></textarea><button type="submit" class="btn-gradient px-6 py-3 rounded-xl font-semibold w-full text-white">Send Message</button><p id="formFeedback" class="text-sm text-cyan-300 hidden"></p></form></div>
+                <div data-aos="fade-right">
+                    <h3 class="text-3xl font-bold">Let’s Connect</h3>
+                    <p class="text-gray-400 mt-3">I'm open to cloud & DevOps opportunities. Let's build something amazing together!</p>
+                    <div class="mt-6 space-y-4">
+                        <div class="flex gap-4 items-center"><i class="fas fa-envelope text-cyan-400 w-6"></i><span>mohamedkhaled271200127@gmail.com</span></div>
+                        <div class="flex gap-4 items-center"><i class="fas fa-phone-alt text-cyan-400 w-6"></i><span>01153493110</span></div>
+                        <div class="flex gap-6 mt-6 text-2xl"><i class="fab fa-linkedin hover:text-cyan-400 cursor-pointer transition"></i><i class="fab fa-github hover:text-cyan-400 cursor-pointer transition"></i><i class="fab fa-credly hover:text-cyan-400 cursor-pointer transition"></i></div>
+                    </div>
+                </div>
+                <div data-aos="fade-left">
+                    <form id="contactForm" class="space-y-4">
+                        <input type="text" placeholder="Full Name" class="w-full bg-gray-800 border border-gray-700 rounded-xl p-3 text-white focus:border-cyan-500 focus:outline-none transition">
+                        <input type="email" placeholder="Email Address" class="w-full bg-gray-800 border border-gray-700 rounded-xl p-3 text-white focus:border-cyan-500 focus:outline-none transition">
+                        <textarea rows="4" placeholder="Your Message" class="w-full bg-gray-800 border border-gray-700 rounded-xl p-3 text-white focus:border-cyan-500 focus:outline-none transition"></textarea>
+                        <button type="submit" class="btn-gradient px-6 py-3 rounded-xl font-semibold w-full text-white">Send Message <i class="fas fa-paper-plane ml-2"></i></button>
+                        <p id="formFeedback" class="text-sm text-cyan-300 hidden"></p>
+                    </form>
+                </div>
             </div>
-            <div class="mt-16 pt-8 text-center text-gray-500 text-sm border-t border-gray-800">© 2025 Mohamed Khaled Ibrahim — Cloud & DevOps Architect. Built with precision.</div>
+            <div class="mt-16 pt-8 text-center text-gray-500 text-sm border-t border-gray-800">
+                © 2025 Mohamed Khaled Ibrahim — Cloud & DevOps Architect. Built with precision & innovation.
+            </div>
         </section>
     </main>
 
     <script>
-        AOS.init({ duration: 700, once: true });
-        new Typed('#typedRole', { strings: ['Cloud Architect', 'DevOps Engineer', 'SysAdmin Expert'], typeSpeed: 60, backSpeed: 40, loop: true });
+        AOS.init({ duration: 700, once: true, offset: 100 });
+        new Typed('#typedRole', { strings: ['Cloud Architect', 'DevOps Engineer', 'SysAdmin Expert', 'Multi-Cloud Specialist'], typeSpeed: 60, backSpeed: 40, loop: true });
+        
+        // Dark/Light Mode Toggle
         const toggle = () => document.body.classList.toggle('light');
         document.getElementById('themeToggle')?.addEventListener('click', toggle);
         document.getElementById('mobileThemeToggle')?.addEventListener('click', toggle);
+        
+        // Mobile Menu
         document.getElementById('mobileMenuBtn')?.addEventListener('click', () => document.getElementById('mobileMenu')?.classList.toggle('hidden'));
+        
+        // Smooth Scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => anchor.addEventListener('click', function(e) {
             const target = document.querySelector(this.getAttribute('href'));
             if(target) { e.preventDefault(); window.scrollTo({ top: target.offsetTop - 80, behavior: 'smooth' }); document.getElementById('mobileMenu')?.classList.add('hidden'); }
         }));
-        document.querySelectorAll('#downloadBtn, #mobileDownloadBtn').forEach(btn => btn.addEventListener('click', (e) => { e.preventDefault(); alert("📄 رابط السيرة الذاتية سيتم تحديثه قريباً."); }));
-        document.getElementById('contactForm')?.addEventListener('submit', (e) => { e.preventDefault(); const fb = document.getElementById('formFeedback'); fb.classList.remove('hidden'); fb.innerHTML = "✨ شكراً! سأتواصل معك قريباً."; e.target.reset(); setTimeout(() => fb.classList.add('hidden'), 3000); });
+        
+        // Download CV
+        document.querySelectorAll('#downloadBtn, #mobileDownloadBtn').forEach(btn => btn.addEventListener('click', (e) => { e.preventDefault(); alert("📄 CV download will be available soon."); }));
+        
+        // Contact Form
+        document.getElementById('contactForm')?.addEventListener('submit', (e) => { e.preventDefault(); const fb = document.getElementById('formFeedback'); fb.classList.remove('hidden'); fb.innerHTML = "✨ Thank you! I'll get back to you soon."; e.target.reset(); setTimeout(() => fb.classList.add('hidden'), 3000); });
     </script>
 </body>
 </html>
