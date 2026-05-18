@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Mohamed Khaled Ibrahim | Cloud & DevOps Engineer</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons (free tier CDN) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Fonts: Inter + fallback -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <!-- Custom overriding Tailwind for premium dark theme & neon accents -->
+    <style>
+        * {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: #0B0F19;
+            color: #E2E8F0;
+        }
+        /* custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0F172A;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #06B6D4;
+            border-radius: 6px;
+        }
+        /* glassmorphism navbar */
+        .glass-nav {
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(6, 182, 212, 0.2);
+        }
+        /* glow & transition micro-interactions */
+        .card-glow {
+            transition: all 0.25s ease;
+            background: #1E293B;
+            border: 1px solid rgba(59, 130, 246, 0.15);
+        }
+        .card-glow:hover {
+            transform: translateY(-4px);
+            border-color: #06B6D4;
+            box-shadow: 0 12px 28px -8px rgba(6, 182, 212, 0.25);
+        }
+        .badge-tech {
+            background: rgba(6, 182, 212, 0.12);
+            color: #67E8F9;
+            font-size: 0.75rem;
+            font-weight: 500;
+            padding: 0.2rem 0.7rem;
+            border-radius: 20px;
+            backdrop-filter: blur(2px);
+            border: 0.5px solid rgba(6, 182, 212, 0.3);
+        }
+        .btn-primary {
+            background: linear-gradient(95deg, #06B6D4 0%, #3B82F6 100%);
+            transition: all 0.2s;
+        }
+        .btn-primary:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 18px -6px #06B6D4;
+        }
+        .btn-outline {
+            border: 1px solid #3B82F6;
+            transition: all 0.2s;
+        }
+        .btn-outline:hover {
+            background: rgba(59, 130, 246, 0.15);
+            border-color: #06B6D4;
+            transform: translateY(-2px);
+        }
+        .timeline-dot {
+            position: relative;
+        }
+        .timeline-dot::before {
+            content: '';
+            position: absolute;
+            left: -2rem;
+            top: 0.3rem;
+            width: 0.9rem;
+            height: 0.9rem;
+            background: #3B82F6;
+            border: 2px solid #06B6D4;
+            border-radius: 50%;
+            background-color: #0B0F19;
+            z-index: 2;
+        }
+        .timeline-item:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            left: -1.56rem;
+            top: 1.7rem;
+            width: 2px;
+            height: calc(100% + 1.2rem);
+            background: linear-gradient(to bottom, #3B82F6, #06B6D4);
+            opacity: 0.4;
+        }
+        /* responsive timeline left spacing */
+        @media (max-width: 768px) {
+            .timeline-dot::before {
+                left: -1.2rem;
+            }
+            .timeline-item:not(:last-child)::after {
+                left: -0.76rem;
+            }
+        }
+        .neon-border-input:focus {
+            border-color: #06B6D4;
+            box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.2);
+            outline: none;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- STICKY GLASS NAVBAR -->
+    <nav class="glass-nav fixed top-0 w-full z-50 py-3 px-6 md:px-12 transition-all">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">MK<span class="text-white">Ibrahim</span></a>
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center space-x-6 text-gray-300 font-medium">
+                <a href="#home" class="hover:text-cyan-400 transition">Home</a>
+                <a href="#about" class="hover:text-cyan-400 transition">About</a>
+                <a href="#skills" class="hover:text-cyan-400 transition">Skills</a>
+                <a href="#projects" class="hover:text-cyan-400 transition">Projects</a>
+                <a href="#experience" class="hover:text-cyan-400 transition">Experience</a>
+                <a href="#certifications" class="hover:text-cyan-400 transition">Certifications</a>
+                <a href="#contact" class="hover:text-cyan-400 transition">Contact</a>
+                <a href="#" id="downloadCVbtn" class="ml-4 bg-cyan-600/20 border border-cyan-500 px-5 py-2 rounded-full text-sm font-semibold text-cyan-300 hover:bg-cyan-600/40 transition-all">Download CV</a>
+            </div>
+            <!-- Mobile menu button -->
+            <button id="mobile-menu-btn" class="md:hidden text-cyan-400 text-2xl focus:outline-none">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        <!-- Mobile dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden flex flex-col bg-slate-900/95 backdrop-blur-lg mt-3 p-5 rounded-2xl border border-cyan-500/30 space-y-4 text-center">
+            <a href="#home" class="hover:text-cyan-400 py-1">Home</a>
+            <a href="#about" class="hover:text-cyan-400 py-1">About</a>
+            <a href="#skills" class="hover:text-cyan-400 py-1">Skills</a>
+            <a href="#projects" class="hover:text-cyan-400 py-1">Projects</a>
+            <a href="#experience" class="hover:text-cyan-400 py-1">Experience</a>
+            <a href="#certifications" class="hover:text-cyan-400 py-1">Certifications</a>
+            <a href="#contact" class="hover:text-cyan-400 py-1">Contact</a>
+            <a href="#" id="mobileDownloadCV" class="bg-cyan-600/30 border border-cyan-400 py-2 rounded-full text-cyan-300">Download CV</a>
+        </div>
+    </nav>
+
+    <main class="pt-20 max-w-7xl mx-auto px-6 md:px-10 lg:px-12">
+        <!-- HERO SECTION -->
+        <section id="home" class="min-h-[90vh] flex flex-col justify-center py-12 md:py-0">
+            <div class="max-w-4xl">
+                <p class="text-cyan-400 font-semibold tracking-wide mb-2">👋 Hi, I'm</p>
+                <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold leading-tight bg-gradient-to-r from-white via-cyan-200 to-blue-400 bg-clip-text text-transparent">Mohamed Khaled Ibrahim</h1>
+                <h2 class="text-xl md:text-2xl text-gray-300 mt-4 border-l-4 border-cyan-500 pl-4">Cloud, DevOps & System Administration Engineer</h2>
+                <p class="text-gray-400 text-lg mt-6 max-w-2xl leading-relaxed">A versatile engineer specializing in multi-cloud deployments, enterprise virtualization, automation, and advanced networking. Architecting robust solutions that optimize performance and minimize downtime.</p>
+                <div class="flex flex-wrap gap-5 mt-8">
+                    <a href="#projects" class="btn-primary px-7 py-3 rounded-full text-white font-semibold shadow-lg">Explore Projects <i class="fas fa-arrow-right ml-2"></i></a>
+                    <a href="#contact" class="btn-outline px-7 py-3 rounded-full text-cyan-400 font-semibold">Get In Touch</a>
+                </div>
+                <!-- Social Hub -->
+                <div class="flex gap-5 mt-10 text-gray-400 text-2xl">
+                    <a href="#" target="_blank" class="hover:text-cyan-400 transition"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" target="_blank" class="hover:text-cyan-400 transition"><i class="fab fa-github"></i></a>
+                    <a href="#" target="_blank" class="hover:text-cyan-400 transition"><i class="fab fa-credly"></i></a>
+                    <a href="#" class="hover:text-cyan-400 transition"><i class="fas fa-envelope"></i></a>
+                    <a href="#" class="hover:text-cyan-400 transition"><i class="fas fa-phone-alt"></i></a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ABOUT SECTION -->
+        <section id="about" class="py-20 border-t border-gray-800/60">
+            <div class="grid md:grid-cols-2 gap-12 items-start">
+                <div>
+                    <span class="text-cyan-400 text-sm uppercase tracking-wider font-semibold">About & Academic</span>
+                    <h3 class="text-3xl font-bold mt-2 mb-5">Engineering Foundation & Leadership</h3>
+                    <p class="text-gray-300 leading-relaxed">Bachelor’s Degree in Communication & Electronics, Faculty of Electronic Engineering, Menoufia University (2021-2026). <span class="text-cyan-300 font-semibold">GPA: Very Good | Graduation Project: Excellent (A+)</span>.</p>
+                    <p class="text-gray-300 mt-4">Former Vice-Head at EED Society — leading technical teams, fostering modern DevOps culture, meticulous system documentation, and proactive self-learning mindset.</p>
+                    <div class="grid grid-cols-2 gap-4 mt-6">
+                        <div class="bg-[#1E293B] p-4 rounded-xl border-l-4 border-cyan-500"><i class="fas fa-cloud-upload-alt text-cyan-400 text-xl"></i><p class="font-semibold mt-1">Cloud Native</p><p class="text-sm text-gray-400">Multi-cloud & K8s</p></div>
+                        <div class="bg-[#1E293B] p-4 rounded-xl border-l-4 border-blue-500"><i class="fas fa-shield-alt text-blue-400 text-xl"></i><p class="font-semibold mt-1">Security Mindset</p><p class="text-sm text-gray-400">Fortigate, IAM</p></div>
+                    </div>
+                </div>
+                <div class="bg-[#111827] p-6 rounded-2xl card-glow">
+                    <i class="fas fa-quote-left text-cyan-500 text-3xl opacity-50"></i>
+                    <p class="text-gray-200 italic mt-2">"Building resilient, automated infrastructure that drives innovation and reliability — from hybrid cloud to edge computing."</p>
+                    <div class="mt-5 flex items-center gap-3 text-cyan-300"><i class="fas fa-brain"></i><span>DevOps mindset • Infrastructure as Code • CI/CD fanatic</span></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SKILLS: GRID with BADGES -->
+        <section id="skills" class="py-16 border-t border-gray-800/60">
+            <div class="text-center mb-10"><span class="bg-cyan-500/10 text-cyan-400 px-4 py-1 rounded-full text-sm">Technical Arsenal</span><h2 class="text-3xl md:text-4xl font-bold mt-3">Expertise & Technologies</h2></div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-7">
+                <div class="card-glow rounded-2xl p-6"><h3 class="text-xl font-semibold flex items-center gap-2"><i class="fas fa-cloud text-cyan-400"></i> Cloud Infrastructure</h3><div class="flex flex-wrap gap-2 mt-3"><span class="badge-tech">AWS SAA-C03/SAP-C02</span><span class="badge-tech">Azure (AZ-900, Admin, Networking)</span><span class="badge-tech">Huawei Cloud HCCDP</span><span class="badge-tech">HCCDA</span></div></div>
+                <div class="card-glow rounded-2xl p-6"><h3 class="text-xl font-semibold flex items-center gap-2"><i class="fas fa-server text-cyan-400"></i> Core SysAdmin & Virtualization</h3><div class="flex flex-wrap gap-2 mt-3"><span class="badge-tech">VMware vSphere 7 (ESXi, vCenter, vSAN)</span><span class="badge-tech">RHCSA concepts</span><span class="badge-tech">Windows Server</span></div></div>
+                <div class="card-glow rounded-2xl p-6"><h3 class="text-xl font-semibold flex items-center gap-2"><i class="fas fa-network-wired text-cyan-400"></i> Networking & Security</h3><div class="flex flex-wrap gap-2 mt-3"><span class="badge-tech">CCNA (R&S)</span><span class="badge-tech">VLAN/DHCP/DNS</span><span class="badge-tech">Fortigate Firewall</span></div></div>
+                <div class="card-glow rounded-2xl p-6"><h3 class="text-xl font-semibold flex items-center gap-2"><i class="fas fa-database text-cyan-400"></i> Storage & BC</h3><div class="flex flex-wrap gap-2 mt-3"><span class="badge-tech">SAN/NAS/DAS</span><span class="badge-tech">RAID</span><span class="badge-tech">Veeam Backup & Replication</span></div></div>
+                <div class="card-glow rounded-2xl p-6"><h3 class="text-xl font-semibold flex items-center gap-2"><i class="fas fa-code-branch text-cyan-400"></i> Automation & Scripting</h3><div class="flex flex-wrap gap-2 mt-3"><span class="badge-tech">Docker/Ansible</span><span class="badge-tech">Bash/Python/PowerShell</span><span class="badge-tech">C/C++</span></div></div>
+                <div class="card-glow rounded-2xl p-6"><h3 class="text-xl font-semibold flex items-center gap-2"><i class="fas fa-tools text-cyan-400"></i> DevOps Tooling</h3><div class="flex flex-wrap gap-2 mt-3"><span class="badge-tech">CI/CD pipelines</span><span class="badge-tech">GitHub Actions</span><span class="badge-tech">Terraform basics</span></div></div>
+            </div>
+        </section>
+
+        <!-- PROJECTS SHOWCASE -->
+        <section id="projects" class="py-16 border-t border-gray-800/60">
+            <div class="text-center mb-10"><span class="bg-blue-500/10 text-blue-400 px-4 py-1 rounded-full text-sm">Featured Work</span><h2 class="text-3xl md:text-4xl font-bold mt-3">Innovation In Action</h2></div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="card-glow rounded-2xl overflow-hidden p-6 transition-all"><div class="text-cyan-400 text-4xl mb-3"><i class="fas fa-heartbeat"></i></div><h3 class="text-xl font-bold">HELIOS: IoT Healthcare Monitoring</h3><p class="text-gray-400 text-sm mt-2">Microsoft Azure & ITIDA-ITAC sponsored, 1st Place Audience Vote. ESP32, Azure+Firebase, AI analytics, secure EMR.</p><div class="flex gap-2 flex-wrap mt-4"><span class="badge-tech">ESP32</span><span class="badge-tech">Azure IoT</span><span class="badge-tech">AI</span></div></div>
+                <div class="card-glow rounded-2xl overflow-hidden p-6"><div class="text-cyan-400 text-4xl mb-3"><i class="fas fa-infinity"></i></div><h3 class="text-xl font-bold">The DevOps Infinity Loop</h3><p class="text-gray-400 text-sm mt-2">DEPI Graduation Project: Next.js (TypeScript), Node.js backend, decoupled YouTube API workflows, CI/CD automation.</p><div class="flex gap-2 flex-wrap mt-4"><span class="badge-tech">Next.js</span><span class="badge-tech">Node.js</span><span class="badge-tech">CI/CD</span></div></div>
+                <div class="card-glow rounded-2xl overflow-hidden p-6"><div class="text-cyan-400 text-4xl mb-3"><i class="fas fa-university"></i></div><h3 class="text-xl font-bold">Campus Area Network Design</h3><p class="text-gray-400 text-sm mt-2">Enterprise secure topology, optimized VLANs, cloud-workload integration, scalable routing architecture.</p><div class="flex gap-2 flex-wrap mt-4"><span class="badge-tech">Cisco</span><span class="badge-tech">VLAN</span><span class="badge-tech">Cloud integration</span></div></div>
+            </div>
+        </section>
+
+        <!-- INTERACTIVE TIMELINE EXPERIENCE -->
+        <section id="experience" class="py-16 border-t border-gray-800/60">
+            <div class="text-center mb-12"><span class="bg-gradient-to-r from-cyan-800/40 to-blue-800/40 px-4 py-1 rounded-full text-cyan-300">Career Journey</span><h2 class="text-3xl md:text-4xl font-bold mt-3">Experience & Internships</h2></div>
+            <div class="relative max-w-3xl mx-auto pl-8 md:pl-10">
+                <div class="timeline-item relative pb-10 timeline-dot"><h3 class="text-lg font-bold text-cyan-300">Technical Support Engineer @ Z4U</h3><p class="text-gray-400 text-sm">Hardware/software diagnostics, network troubleshooting, IT ticketing systems, SLA management.</p></div>
+                <div class="timeline-item relative pb-10 timeline-dot"><h3 class="text-lg font-bold text-cyan-300">Tech Instructor @ Safaa El-Shafe'y Academy</h3><p class="text-gray-400 text-sm">Taught programming & networking fundamentals, mentored 50+ students, curriculum development.</p></div>
+                <div class="timeline-item relative pb-10 timeline-dot"><h3 class="text-lg font-bold text-cyan-300">DevOps & Infrastructure Intern @ DEPI</h3><p class="text-gray-400 text-sm">Digital Egypt Pioneers Initiative — CI/CD pipelines, automation scripting, cloud security posture.</p></div>
+                <div class="timeline-item relative pb-10 timeline-dot"><h3 class="text-lg font-bold text-cyan-300">AWS Cloud Solutions Architect Intern @ Creativa Hubs</h3><p class="text-gray-400 text-sm">Architected serverless apps, cost optimization, well-architected framework reviews.</p></div>
+                <div class="timeline-item relative pb-10 timeline-dot"><h3 class="text-lg font-bold text-cyan-300">Cloud Intern @ Orange Digital Center & Huawei ICT Academy</h3><p class="text-gray-400 text-sm">Multi-cloud hands-on, cloud networking, Huawei Cloud architecture.</p></div>
+                <div class="timeline-item relative pb-2 timeline-dot"><h3 class="text-lg font-bold text-cyan-300">Industrial Process Intern @ ELARABY Group</h3><p class="text-gray-400 text-sm">Automation & human-error prevention project, lean process optimization.</p></div>
+            </div>
+        </section>
+
+        <!-- CERTIFICATIONS VAULT: Verified Badges -->
+        <section id="certifications" class="py-16 border-t border-gray-800/60">
+            <div class="text-center mb-10"><span class="bg-purple-900/30 text-purple-300 px-4 py-1 rounded-full text-sm">Credentials Vault</span><h2 class="text-3xl font-bold mt-2">Verified Badges & Certifications</h2></div>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                <div class="bg-[#111A28] p-4 rounded-xl flex items-start gap-3 border border-cyan-900/30"><i class="fab fa-aws text-3xl text-orange-400"></i><div><p class="font-semibold">AWS Certified Solutions Architect - Professional</p><p class="text-xs text-gray-400">SAP-C02 · ID: 3bed74c91f234e0c8a8ea364fcb3d350</p></div></div>
+                <div class="bg-[#111A28] p-4 rounded-xl flex items-start gap-3"><i class="fas fa-cubes text-cyan-400 text-2xl"></i><div><p class="font-semibold">KCNA: Kubernetes & Cloud Native Associate</p><p class="text-xs text-gray-400">LF-y3wkhwxcmr</p></div></div>
+                <div class="bg-[#111A28] p-4 rounded-xl flex items-start gap-3"><i class="fab fa-aws text-2xl text-yellow-500"></i><div><p class="font-semibold">AWS Solutions Architect Associate (SAA-C03)</p><p class="text-xs text-gray-400">762ecdaf80db40b9b3ce8ea3237d8ae7</p></div></div>
+                <div class="bg-[#111A28] p-4 rounded-xl"><p class="font-semibold"><i class="fab fa-huawei text-cyan-400 mr-2"></i>Huawei HCCDP - Solution Architectures</p><p class="text-xs text-gray-400">No. HWENDCCCDP926043</p></div>
+                <div class="bg-[#111A28] p-4 rounded-xl"><p class="font-semibold"><i class="fab fa-microsoft text-blue-400 mr-2"></i>Azure Fundamentals AZ-900</p><p class="text-xs text-gray-400">Microsoft Certified</p></div>
+                <div class="bg-[#111A28] p-4 rounded-xl"><p class="font-semibold"><i class="fas fa-database text-green-400 mr-2"></i>Oracle Cloud Foundations Associate</p><p class="text-xs text-gray-400">101253199002024FNDCFA</p></div>
+            </div>
+        </section>
+
+        <!-- CONTACT + FORM & FOOTER -->
+        <section id="contact" class="py-20 border-t border-gray-800/60">
+            <div class="grid md:grid-cols-2 gap-12">
+                <div><h3 class="text-3xl font-bold">Let's Connect</h3><p class="text-gray-400 mt-3">Ready to collaborate or discuss cloud-native initiatives? Reach out.</p><div class="mt-6 space-y-3"><div class="flex items-center gap-4"><i class="fas fa-envelope text-cyan-400 w-6"></i><span>mohamedkhaled271200127@gmail.com</span></div><div class="flex items-center gap-4"><i class="fas fa-phone-alt text-cyan-400 w-6"></i><span>01153493110</span></div><div class="flex gap-5 mt-6 text-2xl"><i class="fab fa-linkedin hover:text-cyan-400 cursor-pointer"></i><i class="fab fa-github hover:text-cyan-400"></i><i class="fab fa-credly hover:text-cyan-400"></i></div></div></div>
+                <div><form id="contactForm" class="space-y-4"><input type="text" placeholder="Full Name" class="w-full bg-[#1E293B] border border-gray-700 rounded-xl p-3 text-white neon-border-input focus:ring-0"><input type="email" placeholder="Email Address" class="w-full bg-[#1E293B] border border-gray-700 rounded-xl p-3 text-white neon-border-input"><textarea rows="4" placeholder="Your message..." class="w-full bg-[#1E293B] border border-gray-700 rounded-xl p-3 text-white neon-border-input"></textarea><button type="submit" class="btn-primary px-6 py-3 rounded-xl font-semibold w-full text-white">Send Message <i class="fas fa-paper-plane ml-2"></i></button><p id="formFeedback" class="text-sm text-cyan-300 hidden"></p></form></div>
+            </div>
+            <div class="mt-16 pt-8 border-t border-gray-800 text-center text-gray-500 text-sm">© 2025 Mohamed Khaled Ibrahim — Cloud & DevOps Architect. Built with resilience & elegant engineering.</div>
+        </section>
+    </main>
+
+    <script>
+        // Mobile menu toggle
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        if(menuBtn) {
+            menuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
+        // smooth internal anchor adjustments for navbar offset
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const targetId = this.getAttribute('href');
+                if(targetId === "#") return;
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    e.preventDefault();
+                    const offsetTop = targetElement.offsetTop - 80;
+                    window.scrollTo({ top: offsetTop, behavior: 'smooth' });
+                    if(!mobileMenu.classList.contains('hidden')) mobileMenu.classList.add('hidden');
+                }
+            });
+        });
+        // Download CV simulation (production ready dummy) - would link to actual PDF
+        const downloadBtns = document.querySelectorAll('#downloadCVbtn, #mobileDownloadCV');
+        downloadBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                alert("📄 CV download simulation — ready to attach Mohamed's actual resume PDF. (production build would fetch real file)");
+                // In real scenario: window.open('/assets/mohamed_cv.pdf', '_blank');
+            });
+        });
+        // Contact form micro interaction
+        const contactForm = document.getElementById('contactForm');
+        const feedback = document.getElementById('formFeedback');
+        if(contactForm) {
+            contactForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                feedback.classList.remove('hidden');
+                feedback.innerHTML = "✨ Message received! Mohamed will reach out shortly. (Demo mode)";
+                feedback.classList.add('text-cyan-400');
+                contactForm.reset();
+                setTimeout(()=>{ feedback.classList.add('hidden');}, 3000);
+            });
+        }
+        // active nav highlight on scroll simple 
+        const sections = document.querySelectorAll("section");
+        const navLinks = document.querySelectorAll("nav a[href^='#']");
+        window.addEventListener("scroll", () => {
+            let current = "";
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                if(pageYOffset >= sectionTop) current = section.getAttribute("id");
+            });
+            navLinks.forEach(link => {
+                link.classList.remove("text-cyan-400");
+                if(link.getAttribute("href") === `#${current}`) link.classList.add("text-cyan-400");
+            });
+        });
+    </script>
+</body>
+</html>
