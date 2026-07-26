@@ -570,6 +570,206 @@
             width: 100%;
             margin: 0 auto;
         }
+        
+        /* ===== Chatbot Styles ===== */
+        #chatbot-toggle {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #00c6ff, #0072ff);
+            border: none;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            z-index: 999;
+            box-shadow: 0 0 30px rgba(0, 198, 255, 0.4);
+            transition: all 0.3s ease;
+        }
+        #chatbot-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 50px rgba(0, 198, 255, 0.6);
+        }
+        #chatbot-window {
+            position: fixed;
+            bottom: 170px;
+            right: 30px;
+            width: 380px;
+            max-width: 90vw;
+            height: 500px;
+            max-height: 70vh;
+            background: rgba(10, 15, 30, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 2rem;
+            border: 1px solid rgba(0, 200, 255, 0.3);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+            z-index: 999;
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        body.light #chatbot-window {
+            background: rgba(240, 244, 255, 0.95);
+            border-color: rgba(0, 150, 255, 0.3);
+        }
+        #chatbot-window.open {
+            display: flex;
+        }
+        #chatbot-header {
+            padding: 15px 20px;
+            background: linear-gradient(135deg, rgba(0, 198, 255, 0.2), rgba(0, 114, 255, 0.2));
+            border-bottom: 1px solid rgba(0, 200, 255, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-shrink: 0;
+        }
+        #chatbot-header h3 {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #00e0ff;
+        }
+        #chatbot-header button {
+            background: none;
+            border: none;
+            color: #94a3b8;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        #chatbot-header button:hover {
+            color: #ff6b6b;
+            transform: rotate(90deg);
+        }
+        #chatbot-messages {
+            flex: 1;
+            padding: 15px 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            scroll-behavior: smooth;
+        }
+        .chat-msg {
+            max-width: 85%;
+            padding: 10px 14px;
+            border-radius: 1.2rem;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            word-wrap: break-word;
+            animation: msgIn 0.3s ease;
+        }
+        @keyframes msgIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .chat-msg.bot {
+            background: rgba(0, 200, 255, 0.15);
+            border: 1px solid rgba(0, 200, 255, 0.2);
+            align-self: flex-start;
+            border-bottom-left-radius: 4px;
+        }
+        .chat-msg.user {
+            background: linear-gradient(135deg, #00c6ff, #0072ff);
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 4px;
+        }
+        body.light .chat-msg.bot {
+            background: rgba(0, 150, 255, 0.1);
+            border-color: rgba(0, 150, 255, 0.2);
+        }
+        #chatbot-input-area {
+            padding: 12px 20px;
+            border-top: 1px solid rgba(0, 200, 255, 0.2);
+            display: flex;
+            gap: 10px;
+            flex-shrink: 0;
+            align-items: center;
+        }
+        #chatbot-input-area input {
+            flex: 1;
+            background: rgba(30, 41, 59, 0.6);
+            border: 1px solid rgba(75, 85, 99, 0.3);
+            border-radius: 2rem;
+            padding: 10px 16px;
+            color: #E2E8F0;
+            outline: none;
+            font-size: 0.9rem;
+            transition: 0.3s;
+        }
+        body.light #chatbot-input-area input {
+            background: rgba(255, 255, 255, 0.8);
+            color: #0F172A;
+        }
+        #chatbot-input-area input:focus {
+            border-color: #00e0ff;
+            box-shadow: 0 0 0 3px rgba(0, 224, 255, 0.15);
+        }
+        #chatbot-input-area button {
+            background: linear-gradient(135deg, #00c6ff, #0072ff);
+            border: none;
+            color: white;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: 0.3s;
+            flex-shrink: 0;
+        }
+        #chatbot-input-area button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(0, 198, 255, 0.3);
+        }
+        #chatbot-voice-btn {
+            background: rgba(0, 200, 255, 0.15);
+            border: none;
+            color: #00e0ff;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: 0.3s;
+            flex-shrink: 0;
+        }
+        #chatbot-voice-btn:hover {
+            background: rgba(0, 200, 255, 0.3);
+        }
+        #chatbot-voice-btn.listening {
+            background: #ff6b6b;
+            color: white;
+            animation: pulseMic 1s infinite;
+        }
+        @keyframes pulseMic {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        .typing-indicator {
+            display: flex;
+            gap: 4px;
+            padding: 6px 10px;
+            align-self: flex-start;
+        }
+        .typing-indicator span {
+            width: 8px;
+            height: 8px;
+            background: #00e0ff;
+            border-radius: 50%;
+            animation: typingDot 1.4s infinite;
+        }
+        .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+        .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes typingDot {
+            0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+            30% { transform: translateY(-8px); opacity: 1; }
+        }
+        .chat-msg.bot .fa-robot { margin-right: 8px; color: #00e0ff; }
+        .chat-msg.user .fa-user { margin-right: 8px; }
     </style>
 </head>
 <body>
@@ -1063,6 +1263,25 @@
         </section>
     </main>
 
+    <!-- ===== Chatbot ===== -->
+    <button id="chatbot-toggle" aria-label="Chat with Mohamed">
+        <i class="fas fa-robot"></i>
+    </button>
+    <div id="chatbot-window">
+        <div id="chatbot-header">
+            <h3><i class="fas fa-robot text-cyan-400"></i> Mohamed AI</h3>
+            <button id="chatbot-close"><i class="fas fa-times"></i></button>
+        </div>
+        <div id="chatbot-messages">
+            <div class="chat-msg bot"><i class="fas fa-robot"></i> 👋 Hi! I'm Mohamed's AI assistant. Ask me anything about his experience, skills, certifications, or projects. I can respond in Arabic or English.</div>
+        </div>
+        <div id="chatbot-input-area">
+            <input type="text" id="chatbot-input" placeholder="Ask me anything..." />
+            <button id="chatbot-send"><i class="fas fa-paper-plane"></i></button>
+            <button id="chatbot-voice-btn"><i class="fas fa-microphone"></i></button>
+        </div>
+    </div>
+
     <!-- ===== Three.js ===== -->
     <script type="module">
         import * as THREE from 'three';
@@ -1254,12 +1473,206 @@
                 fb.classList.add('hidden');
             }, 5000);
         });
-        
+
+        // ===== CHATBOT =====
+        const chatbotToggle = document.getElementById('chatbot-toggle');
+        const chatbotWindow = document.getElementById('chatbot-window');
+        const chatbotClose = document.getElementById('chatbot-close');
+        const chatbotInput = document.getElementById('chatbot-input');
+        const chatbotSend = document.getElementById('chatbot-send');
+        const chatbotMessages = document.getElementById('chatbot-messages');
+        const voiceBtn = document.getElementById('chatbot-voice-btn');
+
+        chatbotToggle.addEventListener('click', () => {
+            chatbotWindow.classList.toggle('open');
+        });
+        chatbotClose.addEventListener('click', () => {
+            chatbotWindow.classList.remove('open');
+        });
+
+        // CV Data
+        const cvData = {
+            name: "Mohamed Khaled Ibrahim",
+            title: "Cloud & System Administrator Engineer",
+            certifications: ["AWS Solutions Architect Professional", "AWS Solutions Architect Associate", "AWS Cloud Practitioner", "Azure AZ-900", "KCNA", "Huawei HCCDP", "Huawei HCCDA", "Oracle OCI"],
+            skills: ["AWS", "Azure", "Huawei Cloud", "OCI", "Linux", "Windows Server", "VMware vSphere", "Docker", "Ansible", "Python", "Bash", "PowerShell", "CCNA", "FortiGate"],
+            experience: [
+                "Instructor at Safaa El-Shafe'y Academy",
+                "Instructor at CVC Academy",
+                "Technical Support at Z4U",
+                "DEPI DevOps Intern",
+                "MCIT Intern",
+                "Creativa Hubs AWS Intern",
+                "DEPI Infrastructure & Security Intern",
+                "Orange Digital Center DevOps Intern",
+                "Huawei ICT Academy Cloud Intern",
+                "ELARABY Group Intern"
+            ],
+            projects: ["Enterprise Virtualization Lab", "The DevOps Infinity Loop", "HELIOS CARE", "Multi-Cloud Infrastructure"],
+            education: "Menoufia University, Electronics and Communications Engineering, Very Good GPA (80.2%)",
+            graduationProject: "HELIOS CARE - AI Healthcare Ecosystem, A+ and 1st Place",
+            militaryStatus: "Permanently Exempt from Military Service",
+            contact: {
+                email: "mohamedkhaled271200127@gmail.com",
+                phone: "01153463110",
+                location: "Cairo, Egypt"
+            }
+        };
+
+        function getBotResponse(userMsg) {
+            const msg = userMsg.toLowerCase();
+            
+            // Arabic patterns
+            if (msg.includes('مرحبا') || msg.includes('هلا') || msg.includes('السلام') || msg.includes('اهلا')) {
+                return "مرحباً! 👋 أنا مساعد محمد خالد. يمكنني التحدث عن خبرته، شهاداته، مشاريعه، أو أي شيء في سيرته الذاتية. كيف يمكنني مساعدتك؟";
+            }
+            if (msg.includes('شهادات') || msg.includes('certif') || msg.includes('شهادة') || msg.includes('credentials')) {
+                return `📜 محمد خالد حاصل على 8 شهادات معتمدة:\n• AWS Solutions Architect Professional (SAP-C02)\n• AWS Solutions Architect Associate (SAA-C03)\n• AWS Cloud Practitioner (CLF-C02)\n• Microsoft Azure Fundamentals (AZ-900)\n• Kubernetes and Cloud Native Associate (KCNA)\n• Huawei HCCDP - Solution Architect\n• Huawei HCCDA - Tech Essentials\n• Oracle OCI Foundations`;
+            }
+            if (msg.includes('مهارات') || msg.includes('skills') || msg.includes('تقنيات')) {
+                return `🛠️ المهارات التقنية لمحمد خالد:\n☁️ Cloud: AWS, Azure, Huawei, OCI\n🐧 Linux (RHCSA) & Windows Server\n🖥️ VMware vSphere 7\n🐳 Docker, Ansible, CI/CD\n📜 Bash, Python, PowerShell\n🌐 CCNA, FortiGate, VLAN, DHCP, DNS`;
+            }
+            if (msg.includes('خبرة') || msg.includes('experience') || msg.includes('عمل')) {
+                return `💼 خبرات محمد خالد:\n• مدرب في أكاديمية صفاء الشافعي (2024-الآن)\n• مدرب في أكاديمية CVC (2024-الآن)\n• دعم فني في Z4U (2025)\n• 7 تدريبات في DEPI، MCIT، Creativa Hubs، Orange، Huawei، ELARABY`;
+            }
+            if (msg.includes('مشروع') || msg.includes('project') || msg.includes('graduation')) {
+                return `🚀 أبرز مشاريع محمد خالد:\n• HELIOS CARE - نظام رعاية صحية بالذكاء الاصطناعي (A+، المركز الأول)\n• The DevOps Infinity Loop - تطبيق Next.js مع DevOps\n• Multi-Cloud Infrastructure Deployment\n• Enterprise Virtualization Lab مع VMware`;
+            }
+            if (msg.includes('تعليم') || msg.includes('education') || msg.includes('جامعة')) {
+                return `🎓 التعليم: جامعة المنوفية، كلية الهندسة الإلكترونية، قسم الإلكترونيات والاتصالات. التقدير: جيد جداً (80.2%). مشروع التخرج: HELIOS CARE (A+، المركز الأول)`;
+            }
+            if (msg.includes('اتصال') || msg.includes('contact') || msg.includes('تواصل')) {
+                return `📞 يمكنك التواصل مع محمد خالد عبر:\n📧 ${cvData.contact.email}\n📱 ${cvData.contact.phone}\n📍 القاهرة، مصر`;
+            }
+            if (msg.includes('حالة') || msg.includes('الجيش') || msg.includes('military')) {
+                return `🪖 الحالة العسكرية: معفى نهائياً من الخدمة العسكرية.`;
+            }
+            
+            // English patterns
+            if (msg.includes('hello') || msg.includes('hi') || msg.includes('hey')) {
+                return "Hello! 👋 I'm Mohamed's AI assistant. I can tell you about his experience, certifications, projects, or anything in his CV. How can I help?";
+            }
+            if (msg.includes('certif') || msg.includes('credential') || msg.includes('badge')) {
+                return `📜 Mohamed has 8 certifications:\n• AWS Solutions Architect Professional (SAP-C02)\n• AWS Solutions Architect Associate (SAA-C03)\n• AWS Cloud Practitioner (CLF-C02)\n• Microsoft Azure Fundamentals (AZ-900)\n• Kubernetes and Cloud Native Associate (KCNA)\n• Huawei HCCDP - Solution Architect\n• Huawei HCCDA - Tech Essentials\n• Oracle OCI Foundations`;
+            }
+            if (msg.includes('skill') || msg.includes('tech') || msg.includes('technology')) {
+                return `🛠️ Mohamed's technical skills:\n☁️ Cloud: AWS, Azure, Huawei, OCI\n🐧 Linux (RHCSA) & Windows Server\n🖥️ VMware vSphere 7\n🐳 Docker, Ansible, CI/CD\n📜 Bash, Python, PowerShell\n🌐 CCNA, FortiGate, VLAN, DHCP, DNS`;
+            }
+            if (msg.includes('experience') || msg.includes('work') || msg.includes('job')) {
+                return `💼 Mohamed's experience:\n• Instructor at Safaa El-Shafe'y Academy (2024-Present)\n• Instructor at CVC Academy (2024-Present)\n• Technical Support at Z4U (2025)\n• 7 internships at DEPI, MCIT, Creativa Hubs, Orange, Huawei, ELARABY`;
+            }
+            if (msg.includes('project') || msg.includes('graduation')) {
+                return `🚀 Mohamed's key projects:\n• HELIOS CARE - AI Healthcare System (A+, 1st Place)\n• The DevOps Infinity Loop - Next.js app with DevOps\n• Multi-Cloud Infrastructure Deployment\n• Enterprise Virtualization Lab with VMware`;
+            }
+            if (msg.includes('education') || msg.includes('study') || msg.includes('university')) {
+                return `🎓 Education: Menoufia University, Electronics and Communications Engineering. GPA: Very Good (80.2%). Graduation Project: HELIOS CARE (A+, 1st Place)`;
+            }
+            if (msg.includes('contact') || msg.includes('email') || msg.includes('phone')) {
+                return `📞 You can contact Mohamed at:\n📧 ${cvData.contact.email}\n📱 ${cvData.contact.phone}\n📍 Cairo, Egypt`;
+            }
+            if (msg.includes('military')) {
+                return `🪖 Military Status: Permanently Exempt from Military Service.`;
+            }
+            
+            return "🤔 I'm not sure about that. You can ask about Mohamed's certifications, skills, experience, projects, education, or contact details. I respond in both Arabic and English!";
+        }
+
+        function addMessage(text, isUser = false) {
+            const msgDiv = document.createElement('div');
+            msgDiv.className = `chat-msg ${isUser ? 'user' : 'bot'}`;
+            msgDiv.innerHTML = text;
+            chatbotMessages.appendChild(msgDiv);
+            chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+        }
+
+        function showTyping() {
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'typing-indicator';
+            typingDiv.id = 'typing-indicator';
+            typingDiv.innerHTML = '<span></span><span></span><span></span>';
+            chatbotMessages.appendChild(typingDiv);
+            chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+        }
+
+        function removeTyping() {
+            const typing = document.getElementById('typing-indicator');
+            if (typing) typing.remove();
+        }
+
+        function handleUserMessage() {
+            const msg = chatbotInput.value.trim();
+            if (!msg) return;
+            addMessage(`<i class="fas fa-user"></i> ${msg}`, true);
+            chatbotInput.value = '';
+            showTyping();
+            setTimeout(() => {
+                removeTyping();
+                const response = getBotResponse(msg);
+                addMessage(`<i class="fas fa-robot"></i> ${response}`);
+                // Speak response
+                speakResponse(response);
+            }, 500 + Math.random() * 500);
+        }
+
+        chatbotSend.addEventListener('click', handleUserMessage);
+        chatbotInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') handleUserMessage();
+        });
+
+        // Voice
+        let recognition = null;
+        if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            recognition = new SpeechRecognition();
+            recognition.lang = 'ar-EG';
+            recognition.continuous = false;
+            recognition.interimResults = false;
+            
+            recognition.onresult = (event) => {
+                const transcript = event.results[0][0].transcript;
+                chatbotInput.value = transcript;
+                handleUserMessage();
+                voiceBtn.classList.remove('listening');
+            };
+            recognition.onerror = () => {
+                voiceBtn.classList.remove('listening');
+            };
+            recognition.onend = () => {
+                voiceBtn.classList.remove('listening');
+            };
+        }
+
+        voiceBtn.addEventListener('click', () => {
+            if (!recognition) {
+                addMessage(`<i class="fas fa-robot"></i> ❌ Voice recognition is not supported in your browser. Please use Chrome, Edge, or Safari.`);
+                return;
+            }
+            if (voiceBtn.classList.contains('listening')) {
+                recognition.stop();
+                voiceBtn.classList.remove('listening');
+                return;
+            }
+            recognition.lang = document.body.classList.contains('light') ? 'en-US' : 'ar-EG';
+            voiceBtn.classList.add('listening');
+            recognition.start();
+        });
+
+        // Speech Synthesis
+        function speakResponse(text) {
+            if (!window.speechSynthesis) return;
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = /[أ-ي]/.test(text) ? 'ar-EG' : 'en-US';
+            utterance.rate = 0.95;
+            utterance.pitch = 1;
+            utterance.volume = 1;
+            window.speechSynthesis.speak(utterance);
+        }
+
         // ===== Console =====
         console.log('%c🚀 Mohamed Khaled Portfolio', 'font-size: 24px; font-weight: bold; color: #00e0ff;');
         console.log('%c👋 8x Certified Cloud & DevOps Engineer', 'font-size: 14px; color: #a855f7;');
         console.log('%c📧 mohamedkhaled271200127@gmail.com', 'font-size: 12px; color: #94a3b8;');
         console.log('%c📱 01153463110', 'font-size: 12px; color: #94a3b8;');
     </script>
-</body>
+</body> 
 </html>
