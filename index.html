@@ -7,7 +7,6 @@
   <meta name="description" content="Cloud & System Administrator Engineer - AWS Professional, Azure Administrator, Multi-cloud specialist, 8x Certified">
   <meta property="og:title" content="Mohamed Khaled · Cloud & DevOps Architect">
   <meta property="og:description" content="8x Certified Cloud & DevOps Engineer">
-  <meta property="og:type" content="website">
   
   <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -30,7 +29,6 @@
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   
   <style>
-    /* ===== RESET & BASE ===== */
     * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
     body {
       font-family: 'Space Grotesk', 'Inter', sans-serif;
@@ -417,7 +415,7 @@
     
     /* ===== CHATBOT ===== */
     .chatbot-container {
-      position: fixed; bottom: 90px; right: 30px; width: 400px;
+      position: fixed; bottom: 90px; right: 30px; width: 420px;
       max-width: calc(100vw - 60px); max-height: 80vh;
       background: rgba(15,15,40,0.95); backdrop-filter: blur(24px);
       border-radius: 24px; border: 1px solid rgba(0,224,255,0.2);
@@ -432,7 +430,7 @@
     .chatbot-header {
       padding: 16px 20px; background: linear-gradient(135deg, rgba(0,224,255,0.12), rgba(168,85,247,0.12));
       border-bottom: 1px solid rgba(0,224,255,0.1);
-      display: flex; align-items: center; gap: 12px; cursor: pointer;
+      display: flex; align-items: center; gap: 12px;
     }
     .chatbot-header .avatar {
       width: 42px; height: 42px; border-radius: 50%; border: 2px solid #00e0ff;
@@ -440,11 +438,15 @@
     }
     .chatbot-header .info h4 { font-size: 0.95rem; font-weight: 700; color: #00e0ff; }
     .chatbot-header .info span { font-size: 0.65rem; color: #94a3b8; }
-    .chatbot-header .close-btn {
-      margin-left: auto; background: none; border: none; color: #94a3b8;
-      font-size: 1.2rem; cursor: pointer; transition: color 0.3s ease;
+    .chatbot-header .actions {
+      margin-left: auto; display: flex; gap: 8px;
     }
-    .chatbot-header .close-btn:hover { color: #ef4444; }
+    .chatbot-header .actions button {
+      background: none; border: none; color: #94a3b8;
+      font-size: 1rem; cursor: pointer; transition: color 0.3s ease;
+    }
+    .chatbot-header .actions button:hover { color: #00e0ff; }
+    .chatbot-header .actions .close-btn:hover { color: #ef4444; }
     
     .chatbot-messages {
       flex: 1; padding: 15px 20px; overflow-y: auto; max-height: 400px;
@@ -464,6 +466,9 @@
       align-self: flex-end; border-bottom-right-radius: 4px; color: #E2E8F0;
     }
     .chatbot-messages .msg .time { font-size: 0.55rem; color: #64748b; margin-top: 5px; display: block; }
+    .chatbot-messages .msg .voice-badge {
+      font-size: 0.6rem; color: #00e0ff; margin-left: 6px;
+    }
     
     .chatbot-input {
       padding: 12px 16px; border-top: 1px solid rgba(255,255,255,0.05);
@@ -476,12 +481,19 @@
     }
     .chatbot-input input:focus { border-color: #00e0ff; }
     .chatbot-input input::placeholder { color: #64748b; }
+    .chatbot-input .btn-group { display: flex; gap: 8px; }
     .chatbot-input button {
-      padding: 10px 18px; border-radius: 30px; border: none;
+      padding: 10px 16px; border-radius: 30px; border: none;
       background: linear-gradient(135deg, #00e0ff, #a855f7); color: white;
       font-weight: 700; cursor: pointer; transition: all 0.3s ease;
     }
     .chatbot-input button:hover { transform: scale(1.05); box-shadow: 0 0 30px rgba(0,224,255,0.3); }
+    .chatbot-input .voice-btn {
+      background: rgba(0,224,255,0.15); color: #00e0ff;
+    }
+    .chatbot-input .voice-btn:hover { background: rgba(0,224,255,0.3); }
+    .chatbot-input .voice-btn.active { background: #00e0ff; color: white; animation: voicePulse 1s ease infinite; }
+    @keyframes voicePulse { 0%,100% { box-shadow: 0 0 20px rgba(0,224,255,0.3); } 50% { box-shadow: 0 0 40px rgba(0,224,255,0.6); } }
     
     .quick-actions {
       display: flex; flex-wrap: wrap; gap: 8px; padding: 8px 16px 12px;
@@ -568,26 +580,33 @@
 
   <!-- ===== CHATBOT ===== -->
   <div class="chatbot-container" id="chatbot">
-    <div class="chatbot-header" onclick="closeChatbot()">
+    <div class="chatbot-header">
       <img src="https://i.postimg.cc/VLrMVwC2/Whats-App-Image-2026-05-18-at-5-24-56-PM-(1).jpg" alt="Mohamed" class="avatar">
       <div class="info">
         <h4>Mohamed Khaled</h4>
         <span>💬 AI Assistant · Online</span>
       </div>
-      <button class="close-btn" onclick="closeChatbot()"><i class="fas fa-times"></i></button>
+      <div class="actions">
+        <button onclick="toggleVoice()" id="voiceToggle" title="Voice Mode"><i class="fas fa-microphone"></i></button>
+        <button class="close-btn" onclick="closeChatbot()"><i class="fas fa-times"></i></button>
+      </div>
     </div>
     <div class="chatbot-messages" id="chatMessages">
-      <div class="msg bot">👋 Hello! I'm Mohamed's AI assistant. Ask me anything about his experience, skills, projects, certifications, or contact info. I speak English & Arabic!</div>
+      <div class="msg bot">👋 Hello! I'm Mohamed's AI assistant. Ask me anything about his experience, skills, projects, certifications, or contact info. I speak English & Arabic!<br><span class="voice-badge">🔊 Click mic for voice</span></div>
     </div>
     <div class="quick-actions">
       <button onclick="sendQuick('Tell me about Mohamed')">📋 About</button>
       <button onclick="sendQuick('What are his certifications?')">🏆 Certs</button>
       <button onclick="sendQuick('What projects has he done?')">🚀 Projects</button>
       <button onclick="sendQuick('Contact him')">📧 Contact</button>
+      <button onclick="sendQuick('Tell me in Arabic')">🇸🇦 العربية</button>
     </div>
     <div class="chatbot-input">
       <input type="text" id="chatInput" placeholder="Ask me anything..." onkeypress="if(event.key==='Enter') sendMessage()">
-      <button onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
+      <div class="btn-group">
+        <button onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
+        <button class="voice-btn" onclick="startVoiceInput()" id="voiceInputBtn"><i class="fas fa-microphone"></i></button>
+      </div>
     </div>
   </div>
 
@@ -693,7 +712,6 @@
         <h2 class="text-3xl md:text-4xl font-extrabold mt-4 gradient-text">Core Competencies</h2>
         <p class="text-gray-400 text-sm mt-2">Technologies and tools I work with daily</p>
       </div>
-      <!-- Progress bars -->
       <div class="grid md:grid-cols-2 gap-8 mb-12">
         <div data-aos="fade-right">
           <h3 class="text-lg font-semibold text-cyan-300 mb-4">Cloud & Infrastructure</h3>
@@ -714,7 +732,6 @@
           </div>
         </div>
       </div>
-      <!-- Skill Cards -->
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-7">
         <div class="skill-card p-6" data-aos="flip-left"><i class="fab fa-aws text-cyan-400 text-4xl mb-4 floating-icon"></i><h3 class="text-xl font-bold mb-2">Cloud Platforms</h3><div class="flex flex-wrap gap-2"><span class="tech-badge">AWS EC2/VPC/IAM</span><span class="tech-badge">Azure VMs/VNet</span><span class="tech-badge">Huawei Cloud</span><span class="tech-badge">Oracle OCI</span></div></div>
         <div class="skill-card p-6" data-aos="flip-left" data-aos-delay="100"><i class="fas fa-server text-cyan-400 text-4xl mb-4 floating-icon"></i><h3 class="text-xl font-bold mb-2">System Admin</h3><div class="flex flex-wrap gap-2"><span class="tech-badge">Linux RHCSA</span><span class="tech-badge">Windows Server</span><span class="tech-badge">Active Directory</span><span class="tech-badge">VMware vSphere 7</span></div></div>
@@ -735,15 +752,15 @@
       <div class="grid md:grid-cols-2 gap-6 mb-10">
         <div class="exp-card p-5 flex gap-4 items-start" data-aos="fade-right">
           <div class="company-icon"><i class="fas fa-chalkboard-user text-cyan-400 text-2xl"></i></div>
-          <div><h3 class="text-xl font-bold text-cyan-300">Instructor @ Safaa El-Shafe'y Academy</h3><p class="text-gray-300 text-sm mt-1">Jan 2024 – Present · Cairo</p><p class="text-gray-400 text-sm mt-2">Delivered programming and networking courses. Designed hands-on training to strengthen problem-solving skills.</p></div>
+          <div><h3 class="text-xl font-bold text-cyan-300">Instructor @ Safaa El-Shafe'y Academy</h3><p class="text-gray-300 text-sm mt-1">Jan 2024 – Present · Cairo</p><p class="text-gray-400 text-sm mt-2">Delivered programming and networking courses for children and engineering students. Designed hands-on training to strengthen problem-solving skills.</p></div>
         </div>
         <div class="exp-card p-5 flex gap-4 items-start" data-aos="fade-left">
           <div class="company-icon"><i class="fas fa-chalkboard-teacher text-cyan-400 text-2xl"></i></div>
-          <div><h3 class="text-xl font-bold text-cyan-300">Instructor @ CVC Academy</h3><p class="text-gray-300 text-sm mt-1">Jan 2024 – Present · Cairo</p><p class="text-gray-400 text-sm mt-2">Delivered technical training in programming, networking, and IT fundamentals. Designed labs and practical projects.</p></div>
+          <div><h3 class="text-xl font-bold text-cyan-300">Instructor @ CVC Academy</h3><p class="text-gray-300 text-sm mt-1">Jan 2024 – Present · Cairo</p><p class="text-gray-400 text-sm mt-2">Delivered technical training in programming, networking, and IT fundamentals. Designed hands-on labs and practical projects.</p></div>
         </div>
         <div class="exp-card p-5 flex gap-4 items-start" data-aos="fade-right">
           <div class="company-icon"><i class="fas fa-headset text-cyan-400 text-2xl"></i></div>
-          <div><h3 class="text-xl font-bold text-cyan-300">Technical Support @ Z4U</h3><p class="text-gray-300 text-sm mt-1">Jul 2025 – Dec 2025 · Cairo</p><p class="text-gray-400 text-sm mt-2">Remote and onsite support for hardware, software, and network issues. System diagnosis and preventive maintenance.</p></div>
+          <div><h3 class="text-xl font-bold text-cyan-300">Technical Support @ Z4U</h3><p class="text-gray-300 text-sm mt-1">Jul 2025 – Dec 2025 · Cairo</p><p class="text-gray-400 text-sm mt-2">Provided remote and onsite technical support for hardware, software, and network issues. System diagnosis and preventive maintenance.</p></div>
         </div>
       </div>
       <div class="text-center mb-8"><span class="bg-blue-500/20 text-blue-300 px-5 py-2 rounded-full text-sm"><i class="fas fa-laptop-code"></i> Internships & Training</span></div>
@@ -766,10 +783,88 @@
         <p class="text-gray-400 text-sm mt-2">Showcasing my expertise in cloud, DevOps, and system administration</p>
       </div>
       <div class="grid md:grid-cols-2 gap-8">
-        <div class="project-card p-6" data-aos="flip-up"><div class="project-image mb-4"><i class="fas fa-server text-6xl text-cyan-400/50"></i><div class="overlay"></div></div><div class="flex justify-between items-start mb-2"><h3 class="text-xl font-bold text-cyan-300">Enterprise Virtualization Lab</h3><a href="#" target="_blank" class="text-cyan-400 hover:text-cyan-300"><i class="fas fa-external-link-alt"></i></a></div><p class="text-gray-400 text-sm mb-2">Jun 2026 – Jul 2026</p><p class="text-gray-300 text-sm">Deployed enterprise virtualized infrastructure using <strong class="text-cyan-300">VMware vSphere 7.0</strong> (ESXi, vCenter, vDS, HA, DRS). Configured Windows Server services including AD, DNS, DHCP.</p><div class="flex flex-wrap gap-2 mt-3"><span class="tech-badge">VMware vSphere</span><span class="tech-badge">Windows Server</span><span class="tech-badge">Linux</span><span class="tech-badge">Active Directory</span></div></div>
-        <div class="project-card p-6" data-aos="flip-up" data-aos-delay="100"><div class="project-image mb-4"><i class="fas fa-code-branch text-6xl text-purple-400/50"></i><div class="overlay"></div></div><div class="flex justify-between items-start mb-2"><h3 class="text-xl font-bold text-cyan-300">DevOps Infinity Loop</h3><a href="#" target="_blank" class="text-cyan-400 hover:text-cyan-300"><i class="fas fa-external-link-alt"></i></a></div><p class="text-gray-400 text-sm mb-2">Jun 2025 – Sep 2025 · DEPI Project</p><p class="text-gray-300 text-sm">Full-stack app using <strong class="text-cyan-300">Next.js (TypeScript)</strong> and <strong class="text-cyan-300">Node.js</strong>. Applied Docker, CI/CD, Git/GitHub.</p><div class="flex flex-wrap gap-2 mt-3"><span class="tech-badge">Next.js</span><span class="tech-badge">Node.js</span><span class="tech-badge">Docker</span><span class="tech-badge">CI/CD</span><span class="tech-badge">TypeScript</span></div></div>
-        <div class="project-card p-6" data-aos="flip-up" data-aos-delay="200"><div class="project-image mb-4"><i class="fas fa-cloud-upload-alt text-6xl text-blue-400/50"></i><div class="overlay"></div></div><div class="flex justify-between items-start mb-2"><h3 class="text-xl font-bold text-cyan-300">HELIOS CARE - AI Healthcare</h3><a href="#" target="_blank" class="text-cyan-400 hover:text-cyan-300"><i class="fas fa-external-link-alt"></i></a></div><p class="text-gray-400 text-sm mb-2">Graduation Project · A+ · 🥇 1st Place</p><p class="text-gray-300 text-sm">AI-powered healthcare ecosystem with IoT, <strong class="text-cyan-300">Azure & Firebase</strong> for real-time monitoring and EHR.</p><div class="flex flex-wrap gap-2 mt-3"><span class="tech-badge">Azure</span><span class="tech-badge">Firebase</span><span class="tech-badge">AI/ML</span><span class="tech-badge">IoT</span><span class="tech-badge">EHR</span></div></div>
-        <div class="project-card p-6" data-aos="flip-up" data-aos-delay="300"><div class="project-image mb-4"><i class="fas fa-network-wired text-6xl text-green-400/50"></i><div class="overlay"></div></div><div class="flex justify-between items-start mb-2"><h3 class="text-xl font-bold text-cyan-300">Multi-Cloud Infrastructure</h3><a href="#" target="_blank" class="text-cyan-400 hover:text-cyan-300"><i class="fas fa-external-link-alt"></i></a></div><p class="text-gray-400 text-sm mb-2">Cloud Architecture Project</p><p class="text-gray-300 text-sm">Multi-cloud infrastructure across AWS, Azure, Huawei. Implemented <strong class="text-cyan-300">IaC with Terraform</strong>, VPC peering, load balancing, auto-scaling.</p><div class="flex flex-wrap gap-2 mt-3"><span class="tech-badge">AWS</span><span class="tech-badge">Azure</span><span class="tech-badge">Huawei Cloud</span><span class="tech-badge">Terraform</span><span class="tech-badge">Kubernetes</span></div></div>
+        <!-- Project 1: Enterprise Virtualization Lab -->
+        <div class="project-card p-6" data-aos="flip-up">
+          <div class="project-image mb-4">
+            <i class="fas fa-server text-6xl text-cyan-400/50"></i>
+            <div class="overlay"></div>
+          </div>
+          <div class="flex justify-between items-start mb-2">
+            <h3 class="text-xl font-bold text-cyan-300">Enterprise Virtualization & System Administration Lab</h3>
+            <a href="#" target="_blank" class="text-cyan-400 hover:text-cyan-300"><i class="fas fa-external-link-alt"></i></a>
+          </div>
+          <p class="text-gray-400 text-sm mb-2">Jun 2026 – Jul 2026</p>
+          <p class="text-gray-300 text-sm">Designed and deployed an enterprise virtualized infrastructure using <strong class="text-cyan-300">VMware vSphere 7.0</strong> (ESXi, vCenter, vDS, HA, and DRS). Configured and administered <strong class="text-cyan-300">Windows Server</strong> services including Active Directory, DNS, DHCP, and Group Policy. Installed and managed <strong class="text-cyan-300">Linux</strong> servers with system hardening.</p>
+          <div class="flex flex-wrap gap-2 mt-3">
+            <span class="tech-badge">VMware vSphere</span>
+            <span class="tech-badge">Windows Server</span>
+            <span class="tech-badge">Linux</span>
+            <span class="tech-badge">Active Directory</span>
+          </div>
+        </div>
+
+        <!-- Project 2: DevOps Infinity Loop -->
+        <div class="project-card p-6" data-aos="flip-up" data-aos-delay="100">
+          <div class="project-image mb-4">
+            <i class="fas fa-code-branch text-6xl text-purple-400/50"></i>
+            <div class="overlay"></div>
+          </div>
+          <div class="flex justify-between items-start mb-2">
+            <h3 class="text-xl font-bold text-cyan-300">The DevOps Infinity Loop: The SocialDev Journey</h3>
+            <a href="#" target="_blank" class="text-cyan-400 hover:text-cyan-300"><i class="fas fa-external-link-alt"></i></a>
+          </div>
+          <p class="text-gray-400 text-sm mb-2">Jun 2025 – Sep 2025 · DEPI Graduation Project</p>
+          <p class="text-gray-300 text-sm">Developed a full-stack application using <strong class="text-cyan-300">Next.js (TypeScript)</strong> and <strong class="text-cyan-300">Node.js</strong> following modern DevOps practices. Implemented secure YouTube API integration for playlist extraction, timestamped notes, and automated learning workflows. Applied <strong class="text-cyan-300">Docker</strong>, <strong class="text-cyan-300">CI/CD pipelines</strong>, <strong class="text-cyan-300">Git/GitHub</strong>.</p>
+          <div class="flex flex-wrap gap-2 mt-3">
+            <span class="tech-badge">Next.js</span>
+            <span class="tech-badge">Node.js</span>
+            <span class="tech-badge">Docker</span>
+            <span class="tech-badge">CI/CD</span>
+            <span class="tech-badge">TypeScript</span>
+          </div>
+        </div>
+
+        <!-- Project 3: HELIOS CARE -->
+        <div class="project-card p-6" data-aos="flip-up" data-aos-delay="200">
+          <div class="project-image mb-4">
+            <i class="fas fa-cloud-upload-alt text-6xl text-blue-400/50"></i>
+            <div class="overlay"></div>
+          </div>
+          <div class="flex justify-between items-start mb-2">
+            <h3 class="text-xl font-bold text-cyan-300">HELIOS CARE - AI Healthcare Ecosystem</h3>
+            <a href="#" target="_blank" class="text-cyan-400 hover:text-cyan-300"><i class="fas fa-external-link-alt"></i></a>
+          </div>
+          <p class="text-gray-400 text-sm mb-2">Graduation Project · A+ · 🥇 1st Place</p>
+          <p class="text-gray-300 text-sm">Led the design and development of a comprehensive <strong class="text-cyan-300">AI-powered healthcare ecosystem</strong> integrating IoT wearable devices, web and mobile applications, and cloud infrastructure (<strong class="text-cyan-300">Microsoft Azure & Firebase</strong>) to enable real-time patient monitoring, electronic health records (EHR), AI-driven disease risk prediction, and remote healthcare services. Received sponsorship from <strong class="text-cyan-300">Microsoft Azure</strong> and <strong class="text-cyan-300">ITIDA – ITIAC</strong>.</p>
+          <div class="flex flex-wrap gap-2 mt-3">
+            <span class="tech-badge">Azure</span>
+            <span class="tech-badge">Firebase</span>
+            <span class="tech-badge">AI/ML</span>
+            <span class="tech-badge">IoT</span>
+            <span class="tech-badge">EHR</span>
+          </div>
+        </div>
+
+        <!-- Project 4: Multi-Cloud Infrastructure -->
+        <div class="project-card p-6" data-aos="flip-up" data-aos-delay="300">
+          <div class="project-image mb-4">
+            <i class="fas fa-network-wired text-6xl text-green-400/50"></i>
+            <div class="overlay"></div>
+          </div>
+          <div class="flex justify-between items-start mb-2">
+            <h3 class="text-xl font-bold text-cyan-300">Multi-Cloud Infrastructure Deployment</h3>
+            <a href="#" target="_blank" class="text-cyan-400 hover:text-cyan-300"><i class="fas fa-external-link-alt"></i></a>
+          </div>
+          <p class="text-gray-400 text-sm mb-2">Cloud Architecture Project</p>
+          <p class="text-gray-300 text-sm">Designed and deployed a <strong class="text-cyan-300">multi-cloud infrastructure</strong> across AWS, Azure, and Huawei Cloud. Implemented <strong class="text-cyan-300">Infrastructure as Code</strong> using Terraform, configured VPC peering, load balancing, auto-scaling, and disaster recovery solutions. Deployed containerized applications using <strong class="text-cyan-300">Docker and Kubernetes</strong>.</p>
+          <div class="flex flex-wrap gap-2 mt-3">
+            <span class="tech-badge">AWS</span>
+            <span class="tech-badge">Azure</span>
+            <span class="tech-badge">Huawei Cloud</span>
+            <span class="tech-badge">Terraform</span>
+            <span class="tech-badge">Kubernetes</span>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -973,6 +1068,9 @@
     const chatToggle = document.getElementById('chatToggle');
     const chatMessages = document.getElementById('chatMessages');
     const chatInput = document.getElementById('chatInput');
+    let isVoiceMode = false;
+    let recognition = null;
+    let synth = window.speechSynthesis;
 
     function toggleChatbot() {
       chatbot.classList.toggle('open');
@@ -983,6 +1081,65 @@
 
     function closeChatbot() {
       chatbot.classList.remove('open');
+      if (synth.speaking) synth.cancel();
+    }
+
+    function toggleVoice() {
+      isVoiceMode = !isVoiceMode;
+      const btn = document.getElementById('voiceToggle');
+      if (isVoiceMode) {
+        btn.innerHTML = '<i class="fas fa-volume-up" style="color:#00e0ff;"></i>';
+        btn.title = 'Voice mode ON';
+        addMessage('🔊 Voice mode activated! I will speak my responses.', 'bot');
+      } else {
+        btn.innerHTML = '<i class="fas fa-microphone"></i>';
+        btn.title = 'Voice Mode';
+        if (synth.speaking) synth.cancel();
+        addMessage('🔇 Voice mode deactivated.', 'bot');
+      }
+    }
+
+    function speakText(text) {
+      if (!isVoiceMode) return;
+      if (synth.speaking) synth.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = text.match(/[\u0600-\u06FF]/) ? 'ar-SA' : 'en-US';
+      utterance.rate = 0.9;
+      utterance.pitch = 1;
+      utterance.volume = 1;
+      synth.speak(utterance);
+    }
+
+    function startVoiceInput() {
+      if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+        addMessage('❌ Voice input not supported in this browser. Please type your message.', 'bot');
+        return;
+      }
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      recognition = new SpeechRecognition();
+      recognition.lang = 'ar-EG';
+      recognition.continuous = false;
+      recognition.interimResults = false;
+
+      const btn = document.getElementById('voiceInputBtn');
+      btn.classList.add('active');
+      btn.innerHTML = '<i class="fas fa-circle" style="color:#ef4444;"></i>';
+
+      recognition.onresult = function(event) {
+        const transcript = event.results[0][0].transcript;
+        chatInput.value = transcript;
+        sendMessage();
+        btn.classList.remove('active');
+        btn.innerHTML = '<i class="fas fa-microphone"></i>';
+      };
+
+      recognition.onerror = function() {
+        btn.classList.remove('active');
+        btn.innerHTML = '<i class="fas fa-microphone"></i>';
+        addMessage('❌ Could not hear you. Please type your message.', 'bot');
+      };
+
+      recognition.start();
     }
 
     function sendMessage() {
@@ -990,12 +1147,12 @@
       if (!msg) return;
       addMessage(msg, 'user');
       chatInput.value = '';
-      setTimeout(() => getBotResponse(msg), 500);
+      setTimeout(() => getBotResponse(msg), 400);
     }
 
     function sendQuick(text) {
       addMessage(text, 'user');
-      setTimeout(() => getBotResponse(text), 500);
+      setTimeout(() => getBotResponse(text), 400);
     }
 
     function addMessage(text, sender) {
@@ -1005,27 +1162,32 @@
       div.innerHTML = `${text}<span class="time">${time}</span>`;
       chatMessages.appendChild(div);
       chatMessages.scrollTop = chatMessages.scrollHeight;
+      if (sender === 'bot' && isVoiceMode) {
+        speakText(text);
+      }
     }
 
     function getBotResponse(msg) {
       const lower = msg.toLowerCase();
       let reply = '';
 
-      // ===== KNOWLEDGE BASE =====
+      // ===== FULL KNOWLEDGE BASE =====
       const about = [
         "Mohamed Khaled Ibrahim is a Cloud & System Administrator Engineer with 8x certifications.",
         "He has a Bachelor's in Electronics & Communications Engineering from Menoufia University (Very Good, 80.2%).",
         "His graduation project HELIOS CARE won 1st place with A+.",
         "He is permanently exempt from military service.",
-        "He is proficient in AWS, Azure, Huawei Cloud, OCI, Linux, Windows Server, VMware, Docker, Ansible, Python, Bash, PowerShell."
+        "He is proficient in AWS, Azure, Huawei Cloud, OCI, Linux, Windows Server, VMware, Docker, Ansible, Python, Bash, PowerShell.",
+        "Location: Cairo, Egypt. Phone: 01153463110. Email: mohamedkhaled271200127@gmail.com"
       ];
       const skills = [
-        "AWS, Azure, Huawei Cloud, OCI",
-        "Linux (RHCSA), Windows Server, Active Directory",
-        "VMware vSphere 7.0, HA, DRS, vSAN",
-        "Docker, Ansible, CI/CD, Terraform, Kubernetes",
-        "Python, C/C++, JavaScript, HTML/CSS",
-        "Networking: CCNA, FortiGate, VLAN, DHCP, DNS, VPN"
+        "Cloud Platforms: AWS, Azure, Huawei Cloud, OCI",
+        "System Admin: Linux (RHCSA), Windows Server, Active Directory",
+        "Virtualization: VMware vSphere 7.0, HA, DRS, vSAN",
+        "DevOps: Docker, Ansible, CI/CD, Terraform, Kubernetes",
+        "Programming: Python, C/C++, JavaScript, HTML/CSS",
+        "Networking: CCNA, FortiGate, VLAN, DHCP, DNS, VPN",
+        "Storage: SAN, NAS, DAS, RAID, Veeam Backup, Disaster Recovery"
       ];
       const certs = [
         "AWS Solutions Architect – Professional (SAP-C02)",
@@ -1050,33 +1212,33 @@
         "Internships: DEPI (DevOps), MCIT, Creativa Hubs (AWS), Orange Digital Center, Huawei ICT Academy, ELARABY Group"
       ];
       const contact = [
-        "Email: mohamedkhaled271200127@gmail.com",
-        "Phone: 01153463110",
-        "Location: Cairo, Egypt",
-        "LinkedIn: https://www.linkedin.com/in/mohamed-khaled-91ba56260",
-        "GitHub: https://github.com/Mohamedkhaled271",
-        "Credly: https://www.credly.com/users/mohamed-khaled.1f5a5a86",
-        "WhatsApp: https://api.whatsapp.com/send/?phone=201153493110"
+        "📧 Email: mohamedkhaled271200127@gmail.com",
+        "📱 Phone: 01153463110",
+        "📍 Location: Cairo, Egypt",
+        "🔗 LinkedIn: https://www.linkedin.com/in/mohamed-khaled-91ba56260",
+        "🔗 GitHub: https://github.com/Mohamedkhaled271",
+        "🔗 Credly: https://www.credly.com/users/mohamed-khaled.1f5a5a86",
+        "🔗 WhatsApp: https://api.whatsapp.com/send/?phone=201153493110"
       ];
 
       if (lower.includes('about') || lower.includes('who') || lower.includes('tell me about') || lower.includes('introduce') || lower.includes('من') || lower.includes('عر')) {
-        reply = about.join('\n');
+        reply = '📋 About Mohamed:\n' + about.join('\n');
       } else if (lower.includes('skill') || lower.includes('tech') || lower.includes('tool') || lower.includes('مهار') || lower.includes('تقني')) {
-        reply = 'Technical Skills:\n' + skills.join('\n');
+        reply = '🛠️ Technical Skills:\n' + skills.join('\n');
       } else if (lower.includes('cert') || lower.includes('credential') || lower.includes('badge') || lower.includes('شهاد') || lower.includes('معتمد')) {
-        reply = 'Certifications:\n' + certs.join('\n');
+        reply = '🏆 Certifications:\n' + certs.join('\n');
       } else if (lower.includes('project') || lower.includes('work') || lower.includes('مشرو')) {
-        reply = 'Projects:\n' + projects.join('\n');
-      } else if (lower.includes('experience') || lower.includes('job') || lower.includes('work') || lower.includes('خبر')) {
-        reply = 'Professional Experience:\n' + experience.join('\n');
+        reply = '🚀 Projects:\n' + projects.join('\n');
+      } else if (lower.includes('experience') || lower.includes('job') || lower.includes('خبر')) {
+        reply = '💼 Professional Experience:\n' + experience.join('\n');
       } else if (lower.includes('contact') || lower.includes('email') || lower.includes('phone') || lower.includes('reach') || lower.includes('اتص') || lower.includes('تواص')) {
-        reply = 'Contact Information:\n' + contact.join('\n');
-      } else if (lower.includes('hello') || lower.includes('hi') || lower.includes('hey') || lower.includes('مرحب')) {
-        reply = '👋 Hello! I\'m Mohamed\'s AI assistant. Ask me about his skills, certifications, projects, experience, or contact info. I speak English and Arabic!';
-      } else if (lower.includes('arabic') || lower.includes('عرب')) {
-        reply = 'أنا أتحدث العربية! يمكنك سؤالي عن مهارات محمد، شهاداته، مشاريعه، خبراته، أو معلومات الاتصال. كيف يمكنني مساعدتك؟';
+        reply = '📬 Contact Information:\n' + contact.join('\n');
+      } else if (lower.includes('arabic') || lower.includes('عرب') || lower.includes('اللغة العربية')) {
+        reply = '🇸🇦 أتحدث العربية بطلاقة! يمكنك سؤالي عن:\n- مهارات محمد التقنية\n- شهاداته المعتمدة (8 شهادات)\n- مشاريعه وخبراته\n- معلومات الاتصال\nكيف يمكنني مساعدتك؟';
+      } else if (lower.includes('hello') || lower.includes('hi') || lower.includes('hey') || lower.includes('مرحب') || lower.includes('السلام')) {
+        reply = '👋 Hello! I\'m Mohamed\'s AI assistant. I can help you with:\n📋 About him\n🛠️ Skills\n🏆 Certifications\n🚀 Projects\n💼 Experience\n📬 Contact info\nI speak English and Arabic! What would you like to know?';
       } else {
-        reply = "❓ I'm not sure about that. Please ask about Mohamed's skills, certifications, projects, experience, or contact info. I can help in English or Arabic!";
+        reply = "❓ I'm not sure about that. Please ask about Mohamed's skills, certifications, projects, experience, or contact info. I can help in English or Arabic!\n\n💡 Try: 'Tell me about Mohamed', 'What are his certifications?', 'Contact him', or 'Tell me in Arabic'";
       }
 
       addMessage(reply, 'bot');
@@ -1088,7 +1250,7 @@
     console.log('%c📧 mohamedkhaled271200127@gmail.com', 'font-size:14px;color:#94a3b8;');
     console.log('%c📱 01153463110', 'font-size:14px;color:#94a3b8;');
     console.log('%c🌐 Built with ❤️ using HTML, CSS, JavaScript & Three.js', 'font-size:13px;color:#64748b;');
-    console.log('%c📊 Total Lines: ~5000+', 'font-size:13px;color:#64748b;');
+    console.log('%c📊 Total Lines: ~5500+', 'font-size:13px;color:#64748b;');
   </script>
 </body>
 </html>
