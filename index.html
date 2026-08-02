@@ -1088,20 +1088,31 @@
                         <h4 class="font-bold text-white">Project Gallery</h4>
                     </div>
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-                        <div class="rounded-xl overflow-hidden border border-cyan-500/10 hover:border-cyan-500/30 transition group cursor-pointer">
-                            <img src="https://i.postimg.cc/vD0Tfmfn/helios-dashboard.jpg" alt="Dashboard" class="w-full h-28 md:h-36 object-cover group-hover:scale-105 transition duration-500">
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition"></div>
-                        </div>
-                        <div class="rounded-xl overflow-hidden border border-cyan-500/10 hover:border-cyan-500/30 transition group cursor-pointer">
-                            <img src="https://i.postimg.cc/dL0BjDXt/helios-mobile.jpg" alt="Mobile App" class="w-full h-28 md:h-36 object-cover group-hover:scale-105 transition duration-500">
-                        </div>
-                        <div class="rounded-xl overflow-hidden border border-cyan-500/10 hover:border-cyan-500/30 transition group cursor-pointer">
-                            <img src="https://i.postimg.cc/Cnxj76c4/helios-iot.jpg" alt="IoT Devices" class="w-full h-28 md:h-36 object-cover group-hover:scale-105 transition duration-500">
-                        </div>
-                        <div class="rounded-xl overflow-hidden border border-cyan-500/10 hover:border-cyan-500/30 transition group cursor-pointer">
-                            <img src="https://i.postimg.cc/mthYFJz9/helios-analytics.jpg" alt="Analytics" class="w-full h-28 md:h-36 object-cover group-hover:scale-105 transition duration-500">
-                        </div>
-                    </div>
+    <div class="rounded-xl overflow-hidden border border-cyan-500/10 hover:border-cyan-500/30 transition group cursor-pointer" onclick="window.open('https://i.postimg.cc/vD0Tfmfn/helios-dashboard.jpg', '_blank')">
+        <img src="https://i.postimg.cc/vD0Tfmfn/helios-dashboard.jpg" alt="Dashboard" class="w-full h-28 md:h-36 object-cover group-hover:scale-105 transition duration-500">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition flex items-end justify-center p-2">
+            <span class="text-white text-xs bg-black/50 px-2 py-1 rounded">🔍 Click to view</span>
+        </div>
+    </div>
+    <div class="rounded-xl overflow-hidden border border-cyan-500/10 hover:border-cyan-500/30 transition group cursor-pointer" onclick="window.open('https://i.postimg.cc/dL0BjDXt/helios-mobile.jpg', '_blank')">
+        <img src="https://i.postimg.cc/dL0BjDXt/helios-mobile.jpg" alt="Mobile App" class="w-full h-28 md:h-36 object-cover group-hover:scale-105 transition duration-500">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition flex items-end justify-center p-2">
+            <span class="text-white text-xs bg-black/50 px-2 py-1 rounded">🔍 Click to view</span>
+        </div>
+    </div>
+    <div class="rounded-xl overflow-hidden border border-cyan-500/10 hover:border-cyan-500/30 transition group cursor-pointer" onclick="window.open('https://i.postimg.cc/Cnxj76c4/helios-iot.jpg', '_blank')">
+        <img src="https://i.postimg.cc/Cnxj76c4/helios-iot.jpg" alt="IoT Devices" class="w-full h-28 md:h-36 object-cover group-hover:scale-105 transition duration-500">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition flex items-end justify-center p-2">
+            <span class="text-white text-xs bg-black/50 px-2 py-1 rounded">🔍 Click to view</span>
+        </div>
+    </div>
+    <div class="rounded-xl overflow-hidden border border-cyan-500/10 hover:border-cyan-500/30 transition group cursor-pointer" onclick="window.open('https://i.postimg.cc/mthYFJz9/helios-analytics.jpg', '_blank')">
+        <img src="https://i.postimg.cc/mthYFJz9/helios-analytics.jpg" alt="Analytics" class="w-full h-28 md:h-36 object-cover group-hover:scale-105 transition duration-500">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition flex items-end justify-center p-2">
+            <span class="text-white text-xs bg-black/50 px-2 py-1 rounded">🔍 Click to view</span>
+        </div>
+    </div>
+</div>
                 </div>
 
                 <!-- ===== تفاصيل المشروع ===== -->
@@ -2418,6 +2429,44 @@
         //  SIDEBAR TOGGLE - شريط الشهادات الجانبي
         // ============================================================
         const sidebarToggle = document.getElementById('sidebar-toggle');
+                // ============================================================
+        //  HELIOS MODAL - فتح وإغلاق نافذة المشروع
+        // ============================================================
+        function openHeliosModal() {
+            const modal = document.getElementById('heliosModal');
+            if (modal) {
+                modal.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeHeliosModal() {
+            const modal = document.getElementById('heliosModal');
+            if (modal) {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        // إغلاق عند النقر خارج النافذة
+        document.addEventListener('click', function(e) {
+            const modal = document.getElementById('heliosModal');
+            if (modal && modal.style.display === 'flex') {
+                if (e.target === modal) {
+                    closeHeliosModal();
+                }
+            }
+        });
+
+        // إغلاق بالضغط على ESC
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                const modal = document.getElementById('heliosModal');
+                if (modal && modal.style.display === 'flex') {
+                    closeHeliosModal();
+                }
+            }
+        });
         const sidebar = document.getElementById('cert-sidebar');
         const sidebarClose = document.getElementById('sidebar-close');
         let isSidebarOpen = false;
