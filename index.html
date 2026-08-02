@@ -14,7 +14,53 @@
             "imports": {
                 "three": "https://unpkg.com/three@0.128.0/build/three.module.js"
             }
+        
         }
+            // ============================================================
+    //  SIDEBAR TOGGLE - شريط الشهادات الجانبي
+    // ============================================================
+    const sidebarToggle = document.getElementById('sidebar-toggle');
+    const sidebar = document.getElementById('cert-sidebar');
+    const sidebarClose = document.getElementById('sidebar-close');
+    let isSidebarOpen = false;
+
+    // فتح الشريط الجانبي
+    if (sidebarToggle) {
+        sidebarToggle.addEventListener('click', () => {
+            sidebar.style.right = '0';
+            isSidebarOpen = true;
+            document.body.style.overflow = 'hidden';
+        });
+    }
+
+    // إغلاق الشريط الجانبي
+    function closeSidebar() {
+        if (sidebar) {
+            sidebar.style.right = '-480px';
+            isSidebarOpen = false;
+            document.body.style.overflow = 'auto';
+        }
+    }
+
+    if (sidebarClose) {
+        sidebarClose.addEventListener('click', closeSidebar);
+    }
+
+    // إغلاق عند النقر خارج الشريط
+    document.addEventListener('click', (e) => {
+        if (isSidebarOpen) {
+            if (sidebar && !sidebar.contains(e.target) && !sidebarToggle.contains(e.target)) {
+                closeSidebar();
+            }
+        }
+    });
+
+    // إغلاق بالضغط على ESC
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && isSidebarOpen) {
+            closeSidebar();
+        }
+    });
     </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
@@ -850,6 +896,47 @@
         .chat-msg.user .fa-user {
             margin-right: 8px;
         }
+                /* ===== SIDEBAR STYLES ===== */
+        .cert-item:hover {
+            border-color: rgba(0, 224, 255, 0.25) !important;
+            background: rgba(0, 224, 255, 0.04) !important;
+            transform: translateX(-4px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+        .cert-item:hover .fa-chevron-right {
+            color: #00e0ff !important;
+            transform: translateX(4px);
+        }
+        .cert-item:hover > div:last-child {
+            opacity: 1 !important;
+        }
+
+        /* ===== SIDEBAR TOGGLE PULSE ===== */
+        @keyframes pulseBtn {
+            0%, 100% {
+                transform: translateY(-50%) scale(1);
+                box-shadow: 0 0 40px rgba(0, 198, 255, 0.3), 0 0 80px rgba(168, 85, 247, 0.1);
+            }
+            50% {
+                transform: translateY(-50%) scale(1.05);
+                box-shadow: 0 0 60px rgba(0, 198, 255, 0.5), 0 0 120px rgba(168, 85, 247, 0.2);
+            }
+        }
+
+        /* ===== SCROLLBAR STYLING ===== */
+        #cert-sidebar::-webkit-scrollbar {
+            width: 4px;
+        }
+        #cert-sidebar::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.02);
+        }
+        #cert-sidebar::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #00e0ff, #a855f7);
+            border-radius: 10px;
+        }
+        #cert-sidebar::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, #00f2fe, #7c3aed);
+        }
     </style>
 </head>
 <body>
@@ -1195,6 +1282,468 @@
             <span class="suggestion-chip" data-question="What is your education?">🎓 Education</span>
             <span class="suggestion-chip" data-question="How can I contact you?">📞 Contact</span>
         </div>
+    </div>
+        <!-- ============================================================ -->
+    <!-- ===== SIDEBAR TOGGLE BUTTON ===== -->
+    <!-- ============================================================ -->
+    <button id="sidebar-toggle" aria-label="Toggle Certifications Sidebar" style="
+        position: fixed;
+        top: 50%;
+        right: 0;
+        transform: translateY(-50%);
+        z-index: 999;
+        background: linear-gradient(135deg, #00c6ff, #0072ff, #a855f7);
+        background-size: 200% 200%;
+        border: none;
+        color: white;
+        padding: 18px 12px;
+        border-radius: 16px 0 0 16px;
+        cursor: pointer;
+        font-size: 1.2rem;
+        box-shadow: 0 0 40px rgba(0, 198, 255, 0.3), 0 0 80px rgba(168, 85, 247, 0.1);
+        transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.2);
+        animation: pulseBtn 2.5s ease-in-out infinite;
+        writing-mode: vertical-rl;
+        letter-spacing: 4px;
+        font-weight: 700;
+    ">
+        <i class="fas fa-certificate" style="font-size: 1.5rem; writing-mode: horizontal-tb;"></i>
+        <span style="font-size: 0.75rem; margin-top: 8px;">Certs</span>
+    </button>
+
+    <!-- ============================================================ -->
+    <!-- ===== SIDEBAR - PROFESSIONAL CERTIFICATIONS ===== -->
+    <!-- ============================================================ -->
+    <div id="cert-sidebar" style="
+        position: fixed;
+        top: 0;
+        right: -480px;
+        width: 460px;
+        max-width: 92vw;
+        height: 100vh;
+        background: rgba(8, 15, 30, 0.97);
+        backdrop-filter: blur(30px);
+        border-left: 1px solid rgba(0, 224, 255, 0.15);
+        z-index: 9999;
+        transition: right 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        overflow-y: auto;
+        padding: 0;
+        box-shadow: -30px 0 80px rgba(0, 0, 0, 0.6);
+        scroll-behavior: smooth;
+    ">
+        <!-- Header -->
+        <div style="
+            padding: 24px 22px 18px;
+            background: linear-gradient(135deg, rgba(0, 224, 255, 0.08), rgba(168, 85, 247, 0.08));
+            border-bottom: 1px solid rgba(0, 224, 255, 0.08);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            backdrop-filter: blur(20px);
+        ">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div style="display: flex; align-items: center; gap: 14px;">
+                    <div style="
+                        width: 48px;
+                        height: 48px;
+                        border-radius: 14px;
+                        background: linear-gradient(135deg, rgba(0, 224, 255, 0.2), rgba(168, 85, 247, 0.2));
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        border: 1px solid rgba(0, 224, 255, 0.2);
+                    ">
+                        <i class="fas fa-certificate text-2xl text-purple-400"></i>
+                    </div>
+                    <div>
+                        <h3 style="font-size: 1.2rem; font-weight: 800; color: #00e0ff; margin: 0; letter-spacing: -0.5px;">Certifications</h3>
+                        <span style="font-size: 0.7rem; color: #94a3b8; display: flex; align-items: center; gap: 6px;">
+                            <span style="display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #22c55e;"></span>
+                            8 Credentials · 5 Platforms
+                        </span>
+                    </div>
+                </div>
+                <button id="sidebar-close" style="
+                    background: rgba(255,255,255,0.05);
+                    border: 1px solid rgba(255,255,255,0.08);
+                    color: #94a3b8;
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 50%;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                    font-size: 1.2rem;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                ">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Stats Row -->
+        <div style="
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 8px;
+            padding: 16px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+        ">
+            <div style="text-align: center; padding: 10px 6px; background: rgba(0,224,255,0.03); border-radius: 10px;">
+                <div style="font-size: 1.5rem; font-weight: 900; background: linear-gradient(135deg, #00e0ff, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">8</div>
+                <div style="font-size: 0.55rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px;">Total</div>
+            </div>
+            <div style="text-align: center; padding: 10px 6px; background: rgba(0,224,255,0.03); border-radius: 10px;">
+                <div style="font-size: 1.5rem; font-weight: 900; color: #f59e0b;">5</div>
+                <div style="font-size: 0.55rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px;">Cloud</div>
+            </div>
+            <div style="text-align: center; padding: 10px 6px; background: rgba(0,224,255,0.03); border-radius: 10px;">
+                <div style="font-size: 1.5rem; font-weight: 900; color: #3b82f6;">3</div>
+                <div style="font-size: 0.55rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px;">AWS</div>
+            </div>
+            <div style="text-align: center; padding: 10px 6px; background: rgba(0,224,255,0.03); border-radius: 10px;">
+                <div style="font-size: 1.5rem; font-weight: 900; color: #ef4444;">2</div>
+                <div style="font-size: 0.55rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px;">Huawei</div>
+            </div>
+        </div>
+
+        <!-- Certifications List -->
+        <div style="padding: 16px 18px 30px; display: flex; flex-direction: column; gap: 12px;">
+
+            <!-- 1. AWS SAP-C02 -->
+            <div class="cert-item" style="
+                background: rgba(255,255,255,0.02);
+                border-radius: 16px;
+                padding: 14px;
+                border: 1px solid rgba(255,255,255,0.04);
+                transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.2);
+                cursor: pointer;
+                position: relative;
+                overflow: hidden;
+            " onclick='showCert("AWS Solutions Architect - Professional", "Amazon Web Services", "SAP-C02 · Validation: 3bed74c9", "fab fa-aws", "https://i.postimg.cc/jwdDS9bF/cert1.jpg")'>
+                <div style="display: flex; gap: 14px; align-items: center; position: relative; z-index: 1;">
+                    <div style="
+                        width: 72px;
+                        height: 72px;
+                        border-radius: 12px;
+                        overflow: hidden;
+                        flex-shrink: 0;
+                        border: 1px solid rgba(0,224,255,0.08);
+                        background: rgba(0,0,0,0.2);
+                    ">
+                        <img src="https://i.postimg.cc/jwdDS9bF/cert1.jpg" alt="AWS SAP-C02" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <div style="flex: 1; min-width: 0;">
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <i class="fab fa-aws text-orange-400" style="font-size: 1rem;"></i>
+                            <h4 style="font-size: 0.85rem; font-weight: 700; color: #E2E8F0; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">AWS SAP-C02</h4>
+                        </div>
+                        <span style="font-size: 0.6rem; color: #94a3b8;">Solutions Architect · Professional</span>
+                        <div style="display: flex; gap: 6px; margin-top: 4px;">
+                            <span style="font-size: 0.5rem; background: rgba(245, 158, 11, 0.2); color: #f59e0b; padding: 2px 10px; border-radius: 12px; font-weight: 600;">PRO</span>
+                            <span style="font-size: 0.5rem; background: rgba(0, 224, 255, 0.1); color: #00e0ff; padding: 2px 10px; border-radius: 12px;">AWS</span>
+                        </div>
+                    </div>
+                    <i class="fas fa-chevron-right" style="color: rgba(255,255,255,0.15); font-size: 0.8rem; transition: 0.3s;"></i>
+                </div>
+                <div style="
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: linear-gradient(135deg, rgba(0, 224, 255, 0.03), transparent);
+                    opacity: 0;
+                    transition: 0.4s;
+                    pointer-events: none;
+                "></div>
+            </div>
+
+            <!-- 2. KCNA -->
+            <div class="cert-item" style="
+                background: rgba(255,255,255,0.02);
+                border-radius: 16px;
+                padding: 14px;
+                border: 1px solid rgba(255,255,255,0.04);
+                transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.2);
+                cursor: pointer;
+                position: relative;
+                overflow: hidden;
+            " onclick='showCert("Kubernetes & Cloud Native Associate", "Linux Foundation", "KCNA · LF-y3wkhwxcmr", "fas fa-cubes", "https://i.postimg.cc/8fRmg9Bn/cert2.jpg")'>
+                <div style="display: flex; gap: 14px; align-items: center; position: relative; z-index: 1;">
+                    <div style="
+                        width: 72px;
+                        height: 72px;
+                        border-radius: 12px;
+                        overflow: hidden;
+                        flex-shrink: 0;
+                        border: 1px solid rgba(0,224,255,0.08);
+                        background: rgba(0,0,0,0.2);
+                    ">
+                        <img src="https://i.postimg.cc/8fRmg9Bn/cert2.jpg" alt="KCNA" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <div style="flex: 1; min-width: 0;">
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <i class="fas fa-cubes text-cyan-400" style="font-size: 1rem;"></i>
+                            <h4 style="font-size: 0.85rem; font-weight: 700; color: #E2E8F0; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">KCNA</h4>
+                        </div>
+                        <span style="font-size: 0.6rem; color: #94a3b8;">Kubernetes · Cloud Native</span>
+                        <div style="display: flex; gap: 6px; margin-top: 4px;">
+                            <span style="font-size: 0.5rem; background: rgba(0, 224, 255, 0.2); color: #00e0ff; padding: 2px 10px; border-radius: 12px; font-weight: 600;">CNCF</span>
+                            <span style="font-size: 0.5rem; background: rgba(168, 85, 247, 0.15); color: #a855f7; padding: 2px 10px; border-radius: 12px;">K8s</span>
+                        </div>
+                    </div>
+                    <i class="fas fa-chevron-right" style="color: rgba(255,255,255,0.15); font-size: 0.8rem; transition: 0.3s;"></i>
+                </div>
+            </div>
+
+            <!-- 3. AWS SAA-C03 -->
+            <div class="cert-item" style="
+                background: rgba(255,255,255,0.02);
+                border-radius: 16px;
+                padding: 14px;
+                border: 1px solid rgba(255,255,255,0.04);
+                transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.2);
+                cursor: pointer;
+                position: relative;
+                overflow: hidden;
+            " onclick='showCert("AWS Solutions Architect - Associate", "Amazon Web Services", "SAA-C03 · 762ecdaf", "fab fa-aws", "https://i.postimg.cc/G4ddRDdn/cert3.jpg")'>
+                <div style="display: flex; gap: 14px; align-items: center; position: relative; z-index: 1;">
+                    <div style="
+                        width: 72px;
+                        height: 72px;
+                        border-radius: 12px;
+                        overflow: hidden;
+                        flex-shrink: 0;
+                        border: 1px solid rgba(0,224,255,0.08);
+                        background: rgba(0,0,0,0.2);
+                    ">
+                        <img src="https://i.postimg.cc/G4ddRDdn/cert3.jpg" alt="AWS SAA-C03" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <div style="flex: 1; min-width: 0;">
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <i class="fab fa-aws text-yellow-400" style="font-size: 1rem;"></i>
+                            <h4 style="font-size: 0.85rem; font-weight: 700; color: #E2E8F0; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">AWS SAA-C03</h4>
+                        </div>
+                        <span style="font-size: 0.6rem; color: #94a3b8;">Solutions Architect · Associate</span>
+                        <div style="display: flex; gap: 6px; margin-top: 4px;">
+                            <span style="font-size: 0.5rem; background: rgba(245, 158, 11, 0.2); color: #f59e0b; padding: 2px 10px; border-radius: 12px; font-weight: 600;">ASSOC</span>
+                            <span style="font-size: 0.5rem; background: rgba(0, 224, 255, 0.1); color: #00e0ff; padding: 2px 10px; border-radius: 12px;">AWS</span>
+                        </div>
+                    </div>
+                    <i class="fas fa-chevron-right" style="color: rgba(255,255,255,0.15); font-size: 0.8rem; transition: 0.3s;"></i>
+                </div>
+            </div>
+
+            <!-- 4. Huawei HCCDP -->
+            <div class="cert-item" style="
+                background: rgba(255,255,255,0.02);
+                border-radius: 16px;
+                padding: 14px;
+                border: 1px solid rgba(255,255,255,0.04);
+                transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.2);
+                cursor: pointer;
+                position: relative;
+                overflow: hidden;
+            " onclick='showCert("Huawei HCCDP - Solution Architect", "Huawei", "HWENDCCCDP926043", "fab fa-huawei", "https://i.postimg.cc/sGWQkWyS/cert4.jpg")'>
+                <div style="display: flex; gap: 14px; align-items: center; position: relative; z-index: 1;">
+                    <div style="
+                        width: 72px;
+                        height: 72px;
+                        border-radius: 12px;
+                        overflow: hidden;
+                        flex-shrink: 0;
+                        border: 1px solid rgba(0,224,255,0.08);
+                        background: rgba(0,0,0,0.2);
+                    ">
+                        <img src="https://i.postimg.cc/sGWQkWyS/cert4.jpg" alt="Huawei HCCDP" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <div style="flex: 1; min-width: 0;">
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <i class="fab fa-huawei text-red-400" style="font-size: 1rem;"></i>
+                            <h4 style="font-size: 0.85rem; font-weight: 700; color: #E2E8F0; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">HCCDP</h4>
+                        </div>
+                        <span style="font-size: 0.6rem; color: #94a3b8;">Solution Architect · Huawei</span>
+                        <div style="display: flex; gap: 6px; margin-top: 4px;">
+                            <span style="font-size: 0.5rem; background: rgba(239, 68, 68, 0.2); color: #ef4444; padding: 2px 10px; border-radius: 12px; font-weight: 600;">PRO</span>
+                            <span style="font-size: 0.5rem; background: rgba(0, 224, 255, 0.1); color: #00e0ff; padding: 2px 10px; border-radius: 12px;">Huawei</span>
+                        </div>
+                    </div>
+                    <i class="fas fa-chevron-right" style="color: rgba(255,255,255,0.15); font-size: 0.8rem; transition: 0.3s;"></i>
+                </div>
+            </div>
+
+            <!-- 5. Azure AZ-900 -->
+            <div class="cert-item" style="
+                background: rgba(255,255,255,0.02);
+                border-radius: 16px;
+                padding: 14px;
+                border: 1px solid rgba(255,255,255,0.04);
+                transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.2);
+                cursor: pointer;
+                position: relative;
+                overflow: hidden;
+            " onclick='showCert("Microsoft Certified: Azure Fundamentals", "Microsoft", "AZ-900", "fab fa-microsoft", "https://i.postimg.cc/7bwFfkjS/cert5.jpg")'>
+                <div style="display: flex; gap: 14px; align-items: center; position: relative; z-index: 1;">
+                    <div style="
+                        width: 72px;
+                        height: 72px;
+                        border-radius: 12px;
+                        overflow: hidden;
+                        flex-shrink: 0;
+                        border: 1px solid rgba(0,224,255,0.08);
+                        background: rgba(0,0,0,0.2);
+                    ">
+                        <img src="https://i.postimg.cc/7bwFfkjS/cert5.jpg" alt="Azure AZ-900" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <div style="flex: 1; min-width: 0;">
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <i class="fab fa-microsoft text-blue-400" style="font-size: 1rem;"></i>
+                            <h4 style="font-size: 0.85rem; font-weight: 700; color: #E2E8F0; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Azure AZ-900</h4>
+                        </div>
+                        <span style="font-size: 0.6rem; color: #94a3b8;">Azure Fundamentals · Microsoft</span>
+                        <div style="display: flex; gap: 6px; margin-top: 4px;">
+                            <span style="font-size: 0.5rem; background: rgba(59, 130, 246, 0.2); color: #3b82f6; padding: 2px 10px; border-radius: 12px; font-weight: 600;">FUND</span>
+                            <span style="font-size: 0.5rem; background: rgba(0, 224, 255, 0.1); color: #00e0ff; padding: 2px 10px; border-radius: 12px;">Azure</span>
+                        </div>
+                    </div>
+                    <i class="fas fa-chevron-right" style="color: rgba(255,255,255,0.15); font-size: 0.8rem; transition: 0.3s;"></i>
+                </div>
+            </div>
+
+            <!-- 6. Oracle OCI -->
+            <div class="cert-item" style="
+                background: rgba(255,255,255,0.02);
+                border-radius: 16px;
+                padding: 14px;
+                border: 1px solid rgba(255,255,255,0.04);
+                transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.2);
+                cursor: pointer;
+                position: relative;
+                overflow: hidden;
+            " onclick='showCert("Oracle Cloud Infrastructure Foundations", "Oracle", "101253199002024FNDCFA", "fas fa-database", "https://i.postimg.cc/JGQSb2Vp/cert6.jpg")'>
+                <div style="display: flex; gap: 14px; align-items: center; position: relative; z-index: 1;">
+                    <div style="
+                        width: 72px;
+                        height: 72px;
+                        border-radius: 12px;
+                        overflow: hidden;
+                        flex-shrink: 0;
+                        border: 1px solid rgba(0,224,255,0.08);
+                        background: rgba(0,0,0,0.2);
+                    ">
+                        <img src="https://i.postimg.cc/JGQSb2Vp/cert6.jpg" alt="Oracle OCI" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <div style="flex: 1; min-width: 0;">
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <i class="fas fa-database text-green-400" style="font-size: 1rem;"></i>
+                            <h4 style="font-size: 0.85rem; font-weight: 700; color: #E2E8F0; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Oracle OCI</h4>
+                        </div>
+                        <span style="font-size: 0.6rem; color: #94a3b8;">Cloud Infrastructure · Oracle</span>
+                        <div style="display: flex; gap: 6px; margin-top: 4px;">
+                            <span style="font-size: 0.5rem; background: rgba(34, 197, 94, 0.2); color: #22c55e; padding: 2px 10px; border-radius: 12px; font-weight: 600;">FUND</span>
+                            <span style="font-size: 0.5rem; background: rgba(0, 224, 255, 0.1); color: #00e0ff; padding: 2px 10px; border-radius: 12px;">Oracle</span>
+                        </div>
+                    </div>
+                    <i class="fas fa-chevron-right" style="color: rgba(255,255,255,0.15); font-size: 0.8rem; transition: 0.3s;"></i>
+                </div>
+            </div>
+
+            <!-- 7. AWS CCP -->
+            <div class="cert-item" style="
+                background: rgba(255,255,255,0.02);
+                border-radius: 16px;
+                padding: 14px;
+                border: 1px solid rgba(255,255,255,0.04);
+                transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.2);
+                cursor: pointer;
+                position: relative;
+                overflow: hidden;
+            " onclick='showCert("AWS Certified Cloud Practitioner", "Amazon Web Services", "CLF-C02 · 14681ee0", "fab fa-aws", "https://i.postimg.cc/gLKdLcHH/cert7.jpg")'>
+                <div style="display: flex; gap: 14px; align-items: center; position: relative; z-index: 1;">
+                    <div style="
+                        width: 72px;
+                        height: 72px;
+                        border-radius: 12px;
+                        overflow: hidden;
+                        flex-shrink: 0;
+                        border: 1px solid rgba(0,224,255,0.08);
+                        background: rgba(0,0,0,0.2);
+                    ">
+                        <img src="https://i.postimg.cc/gLKdLcHH/cert7.jpg" alt="AWS CCP" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <div style="flex: 1; min-width: 0;">
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <i class="fab fa-aws text-yellow-400" style="font-size: 1rem;"></i>
+                            <h4 style="font-size: 0.85rem; font-weight: 700; color: #E2E8F0; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">AWS CCP</h4>
+                        </div>
+                        <span style="font-size: 0.6rem; color: #94a3b8;">Cloud Practitioner · AWS</span>
+                        <div style="display: flex; gap: 6px; margin-top: 4px;">
+                            <span style="font-size: 0.5rem; background: rgba(245, 158, 11, 0.2); color: #f59e0b; padding: 2px 10px; border-radius: 12px; font-weight: 600;">FUND</span>
+                            <span style="font-size: 0.5rem; background: rgba(0, 224, 255, 0.1); color: #00e0ff; padding: 2px 10px; border-radius: 12px;">AWS</span>
+                        </div>
+                    </div>
+                    <i class="fas fa-chevron-right" style="color: rgba(255,255,255,0.15); font-size: 0.8rem; transition: 0.3s;"></i>
+                </div>
+            </div>
+
+            <!-- 8. Huawei HCCDA -->
+            <div class="cert-item" style="
+                background: rgba(255,255,255,0.02);
+                border-radius: 16px;
+                padding: 14px;
+                border: 1px solid rgba(255,255,255,0.04);
+                transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.2);
+                cursor: pointer;
+                position: relative;
+                overflow: hidden;
+            " onclick='showCert("Huawei HCCDA - Tech Essentials", "Huawei", "HWENDCTEDA522270", "fab fa-huawei", "https://i.postimg.cc/XXqg21Ck/cert8.jpg")'>
+                <div style="display: flex; gap: 14px; align-items: center; position: relative; z-index: 1;">
+                    <div style="
+                        width: 72px;
+                        height: 72px;
+                        border-radius: 12px;
+                        overflow: hidden;
+                        flex-shrink: 0;
+                        border: 1px solid rgba(0,224,255,0.08);
+                        background: rgba(0,0,0,0.2);
+                    ">
+                        <img src="https://i.postimg.cc/XXqg21Ck/cert8.jpg" alt="Huawei HCCDA" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <div style="flex: 1; min-width: 0;">
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <i class="fab fa-huawei text-red-400" style="font-size: 1rem;"></i>
+                            <h4 style="font-size: 0.85rem; font-weight: 700; color: #E2E8F0; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">HCCDA</h4>
+                        </div>
+                        <span style="font-size: 0.6rem; color: #94a3b8;">Tech Essentials · Huawei</span>
+                        <div style="display: flex; gap: 6px; margin-top: 4px;">
+                            <span style="font-size: 0.5rem; background: rgba(239, 68, 68, 0.2); color: #ef4444; padding: 2px 10px; border-radius: 12px; font-weight: 600;">ASSOC</span>
+                            <span style="font-size: 0.5rem; background: rgba(0, 224, 255, 0.1); color: #00e0ff; padding: 2px 10px; border-radius: 12px;">Huawei</span>
+                        </div>
+                    </div>
+                    <i class="fas fa-chevron-right" style="color: rgba(255,255,255,0.15); font-size: 0.8rem; transition: 0.3s;"></i>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Footer -->
+        <div style="
+            padding: 16px 20px 22px;
+            border-top: 1px solid rgba(255,255,255,0.04);
+            text-align: center;
+            position: sticky;
+            bottom: 0;
+            background: rgba(8, 15, 30, 0.95);
+            backdrop-filter: blur(20px);
+        ">
+            <p style="font-size: 0.6rem; color: #64748b; margin: 0;">
+                <i class="fas fa-info-circle" style="margin-right: 4px;"></i>
+                Click any certificate to view full details
+            </p>
+        </div>
+
     </div>
 
     <!-- ===== THREE.JS BACKGROUND ===== -->
@@ -1595,6 +2144,49 @@
         console.log('%c👋 8x Certified Cloud & DevOps Engineer', 'font-size:14px;color:#a855f7;');
         console.log('%c📧 mohamedkhaled271200127@gmail.com', 'font-size:12px;color:#94a3b8;');
         console.log('%c📱 01153463110', 'font-size:12px;color:#94a3b8;');
+                
+
+        // ============================================================
+        //  SIDEBAR TOGGLE - شريط الشهادات الجانبي
+        // ============================================================
+        const sidebarToggle = document.getElementById('sidebar-toggle');
+        const sidebar = document.getElementById('cert-sidebar');
+        const sidebarClose = document.getElementById('sidebar-close');
+        let isSidebarOpen = false;
+
+        if (sidebarToggle) {
+            sidebarToggle.addEventListener('click', () => {
+                sidebar.style.right = '0';
+                isSidebarOpen = true;
+                document.body.style.overflow = 'hidden';
+            });
+        }
+
+        function closeSidebar() {
+            if (sidebar) {
+                sidebar.style.right = '-480px';
+                isSidebarOpen = false;
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        if (sidebarClose) {
+            sidebarClose.addEventListener('click', closeSidebar);
+        }
+
+        document.addEventListener('click', (e) => {
+            if (isSidebarOpen) {
+                if (sidebar && !sidebar.contains(e.target) && !sidebarToggle.contains(e.target)) {
+                    closeSidebar();
+                }
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && isSidebarOpen) {
+                closeSidebar();
+            }
+        });
     </script>
 
 </body>
