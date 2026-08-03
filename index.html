@@ -10,13 +10,16 @@
     <!-- Tailwind + Three.js + Font Awesome + Google Fonts -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script type="importmap">
-        {
-            "imports": {
-                "three": "https://unpkg.com/three@0.128.0/build/three.module.js"
-            }
-        
+    {
+        "imports": {
+            "three": "https://unpkg.com/three@0.128.0/build/three.module.js"
         }
-            // ============================================================
+    }
+</script>
+
+<!-- ===== MAIN JS - تم نقل الكود هنا ===== -->
+<script>
+    // ============================================================
     //  SIDEBAR TOGGLE - شريط الشهادات الجانبي
     // ============================================================
     const sidebarToggle = document.getElementById('sidebar-toggle');
@@ -61,7 +64,7 @@
             closeSidebar();
         }
     });
-    </script>
+</script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -982,6 +985,89 @@
             background: linear-gradient(180deg, #00e0ff, #a855f7);
             border-radius: 10px;
         }
+                /* ===== MCIT Modal Styles ===== */
+        #mcitModal .modal-content {
+            background: rgba(8, 15, 30, 0.98) !important;
+            backdrop-filter: blur(30px) !important;
+            border: 1px solid rgba(0, 224, 255, 0.15);
+        }
+
+        #mcitModal .grid .rounded-xl {
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.2);
+        }
+
+        #mcitModal .grid .rounded-xl:hover {
+            transform: scale(1.02);
+            border-color: rgba(0, 224, 255, 0.4) !important;
+            box-shadow: 0 0 40px rgba(0, 224, 255, 0.15);
+        }
+
+        #mcitModal .grid .rounded-xl img {
+            transition: transform 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.2);
+        }
+
+        #mcitModal .grid .rounded-xl:hover img {
+            transform: scale(1.08);
+        }
+
+        #mcitModal .grid .rounded-xl .absolute {
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        #mcitModal .grid .rounded-xl:hover .absolute {
+            opacity: 1;
+        }
+
+        /* ===== Image Gallery Grid ===== */
+        #mcitModal .image-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        @media (max-width: 640px) {
+            #mcitModal .image-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ===== Company Icon Hover ===== */
+        .company-icon {
+            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.2) !important;
+        }
+
+        .company-icon:hover {
+            transform: translateY(-3px) scale(1.02);
+            border-color: #00e0ff !important;
+            box-shadow: 0 10px 40px rgba(0, 224, 255, 0.25) !important;
+        }
+
+        /* ===== Modal Close Button ===== */
+        #mcitModal .close-btn {
+            transition: all 0.3s ease;
+        }
+
+        #mcitModal .close-btn:hover {
+            transform: rotate(90deg);
+            background: rgba(239, 68, 68, 0.2) !important;
+            border-color: #ef4444 !important;
+        }
+
+        /* ===== Loading Animation ===== */
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        .shimmer-loading {
+            background: linear-gradient(90deg, rgba(255,255,255,0.03) 25%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.03) 75%);
+            background-size: 200% 100%;
+            animation: shimmer 2s infinite;
+        }
     </style>
 </head>
 <body>
@@ -1031,6 +1117,93 @@
         <!-- ============================================================ -->
     <!-- ===== HELIOS MODAL - نافذة عرض المشروع الاحترافية ===== -->
     <!-- ============================================================ -->
+        <!-- ============================================================ -->
+    <!-- ===== MCIT MODAL - Professional Gallery ===== -->
+    <!-- ============================================================ -->
+    <div id="mcitModal" class="modal fixed inset-0 hidden justify-center items-center z-[2000]">
+        <div class="modal-content relative max-w-4xl w-[95%] max-h-[92vh] p-0 overflow-hidden">
+            <!-- ===== Header with Gradient ===== -->
+            <div class="relative h-32 md:h-40 overflow-hidden">
+                <div class="absolute inset-0 bg-gradient-to-r from-cyan-500/20 via-purple-500/20 to-blue-500/20"></div>
+                <div class="absolute inset-0 bg-gradient-to-t from-[#050510] to-transparent"></div>
+                <div class="absolute bottom-0 left-0 right-0 p-6 md:p-8 flex justify-between items-end">
+                    <div>
+                        <div class="flex items-center gap-3 mb-1">
+                            <span class="bg-cyan-500/20 text-cyan-300 px-3 py-1 rounded-full text-xs border border-cyan-500/30 backdrop-blur-sm">
+                                <i class="fas fa-certificate mr-1"></i> Internship
+                            </span>
+                            <span class="bg-purple-500/20 text-purple-300 px-3 py-1 rounded-full text-xs border border-purple-500/30 backdrop-blur-sm">
+                                <i class="fas fa-building mr-1"></i> MCIT
+                            </span>
+                        </div>
+                        <h2 class="text-2xl md:text-3xl font-extrabold gradient-text">MCIT Internship</h2>
+                        <p class="text-gray-400 text-sm">Ministry of Communications and Information Technology</p>
+                    </div>
+                    <button onclick="closeMCITModal()" class="close-btn w-10 h-10 rounded-full bg-black/50 backdrop-blur-sm text-white hover:bg-white/20 transition-all duration-300 z-20 flex items-center justify-center border border-white/10 hover:border-white/30 flex-shrink-0">
+                        <i class="fas fa-times text-lg"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- ===== Gallery Content ===== -->
+            <div class="p-6 md:p-8 overflow-y-auto max-h-[calc(92vh-10rem)]">
+                <!-- Stats -->
+                <div class="grid grid-cols-3 gap-3 mb-6">
+                    <div class="text-center p-3 rounded-xl bg-cyan-500/5 border border-cyan-500/10">
+                        <div class="text-lg font-bold text-cyan-300">2</div>
+                        <div class="text-[10px] text-gray-400 uppercase tracking-wider">Photos</div>
+                    </div>
+                    <div class="text-center p-3 rounded-xl bg-purple-500/5 border border-purple-500/10">
+                        <div class="text-lg font-bold text-purple-300">2025</div>
+                        <div class="text-[10px] text-gray-400 uppercase tracking-wider">Year</div>
+                    </div>
+                    <div class="text-center p-3 rounded-xl bg-blue-500/5 border border-blue-500/10">
+                        <div class="text-lg font-bold text-blue-300">MCIT</div>
+                        <div class="text-[10px] text-gray-400 uppercase tracking-wider">Ministry</div>
+                    </div>
+                </div>
+
+                <!-- ===== Image Gallery ===== -->
+                <div class="image-grid">
+                    <!-- Image 1 -->
+                    <div class="rounded-xl overflow-hidden border border-cyan-500/10 hover:border-cyan-500/30 transition-all duration-400 group cursor-pointer relative" onclick="window.open('https://i.postimg.cc/GBvFMRzr/mcit-logo.jpg', '_blank')">
+                        <img src="https://i.postimg.cc/GBvFMRzr/mcit-logo.jpg" alt="MCIT Certificate" class="w-full h-64 md:h-80 object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col items-center justify-end p-4">
+                            <span class="text-white text-sm font-medium bg-black/40 backdrop-blur-sm px-4 py-2 rounded-full border border-white/20 flex items-center gap-2">
+                                <i class="fas fa-expand text-cyan-400"></i> View Full Size
+                            </span>
+                        </div>
+                        <div class="absolute top-3 left-3 bg-black/50 backdrop-blur-sm text-white text-[10px] px-2 py-1 rounded-full flex items-center gap-1 border border-white/10">
+                            <i class="fas fa-certificate text-cyan-400"></i> Certificate
+                        </div>
+                    </div>
+                    
+                    <!-- Image 2 -->
+                    <div class="rounded-xl overflow-hidden border border-cyan-500/10 hover:border-cyan-500/30 transition-all duration-400 group cursor-pointer relative" onclick="window.open('https://i.postimg.cc/bDCsgFXw/mcit-photo.jpg', '_blank')">
+                        <img src="https://i.postimg.cc/bDCsgFXw/mcit-photo.jpg" alt="MCIT Photo" class="w-full h-64 md:h-80 object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col items-center justify-end p-4">
+                            <span class="text-white text-sm font-medium bg-black/40 backdrop-blur-sm px-4 py-2 rounded-full border border-white/20 flex items-center gap-2">
+                                <i class="fas fa-expand text-cyan-400"></i> View Full Size
+                            </span>
+                        </div>
+                        <div class="absolute top-3 left-3 bg-black/50 backdrop-blur-sm text-white text-[10px] px-2 py-1 rounded-full flex items-center gap-1 border border-white/10">
+                            <i class="fas fa-image text-purple-400"></i> Photo
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ===== Footer Actions ===== -->
+                <div class="mt-6 pt-4 border-t border-cyan-800/30 flex flex-wrap gap-3 justify-center">
+                    <button onclick="closeMCITModal()" class="btn-outline text-sm px-6 py-2.5 flex items-center gap-2">
+                        <i class="fas fa-times"></i> Close Gallery
+                    </button>
+                    <a href="https://i.postimg.cc/GBvFMRzr/mcit-logo.jpg" target="_blank" class="btn-primary text-sm px-6 py-2.5 flex items-center gap-2">
+                        <i class="fas fa-download"></i> Download All
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
     <div id="heliosModal" class="modal fixed inset-0 hidden justify-center items-center z-[2000]">
         <div class="modal-content relative max-w-5xl w-[95%] max-h-[92vh] p-0 overflow-hidden">
             <!-- زر الإغلاق -->
@@ -1390,7 +1563,59 @@
             <div class="text-center mb-8"><span class="bg-blue-500/20 text-blue-300 px-5 py-2 rounded-full text-sm"><i class="fas fa-laptop-code"></i> Internships & Training</span></div>
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
                 <div class="exp-card p-4 flex gap-3 items-start" data-aos="zoom-in"><div class="company-icon w-10 h-10 text-lg"><i class="fas fa-cloud-upload-alt text-cyan-400"></i></div><div><h4 class="font-bold text-cyan-300">DEPI - DevOps Intern</h4><p class="text-gray-400 text-xs">Jun 2025 – Dec 2025</p><p class="text-gray-400 text-xs">CI/CD pipelines, Docker, cloud automation</p></div></div>
-                <div class="exp-card p-4 flex gap-3 items-start" data-aos="zoom-in"><div class="company-icon w-10 h-10 text-lg"><i class="fas fa-building text-cyan-400"></i></div><div><h4 class="font-bold text-cyan-300">MCIT, Egypt - Intern</h4><p class="text-gray-400 text-xs">Jul 2025 – Sep 2025</p><p class="text-gray-400 text-xs">Ministry of Communications training</p></div></div>
+                <!-- ===== MCIT Internship - Professional Card ===== -->
+<div class="exp-card p-4 flex gap-4 items-start group relative overflow-hidden" data-aos="zoom-in" data-aos-delay="100">
+    <!-- ===== Glow Effect ===== -->
+    <div class="absolute inset-0 bg-gradient-to-r from-cyan-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+    
+    <!-- ===== Company Icon with Image ===== -->
+    <div class="relative flex-shrink-0 cursor-pointer" onclick="openMCITModal()">
+        <div class="company-icon w-16 h-16 text-lg relative overflow-hidden rounded-2xl border-2 border-cyan-500/20 group-hover:border-cyan-400 transition-all duration-500 shadow-lg shadow-cyan-500/10 group-hover:shadow-cyan-500/30" style="width:64px; height:64px; min-width:64px; background:rgba(0,200,255,0.05);">
+            <img src="https://i.postimg.cc/GBvFMRzr/mcit-logo.jpg" alt="MCIT" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+            <!-- Overlay -->
+            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-400 flex items-center justify-center">
+                <div class="bg-white/10 backdrop-blur-sm rounded-full p-2 border border-white/20 transform scale-75 group-hover:scale-100 transition-transform duration-300">
+                    <i class="fas fa-expand text-white text-xs"></i>
+                </div>
+            </div>
+            <!-- Pulse Ring -->
+            <div class="absolute inset-0 rounded-2xl border-2 border-cyan-400/0 group-hover:border-cyan-400/50 transition-all duration-500 group-hover:animate-pulse"></div>
+        </div>
+        <!-- Small badge -->
+        <div class="absolute -top-1 -right-1 bg-gradient-to-r from-cyan-500 to-blue-500 text-white text-[8px] font-bold px-1.5 py-0.5 rounded-full shadow-lg shadow-cyan-500/30">
+            <i class="fas fa-image"></i>
+        </div>
+    </div>
+    
+    <!-- ===== Content ===== -->
+    <div class="flex-1 min-w-0">
+        <div class="flex items-start justify-between">
+            <div>
+                <h4 class="font-bold text-cyan-300 group-hover:text-cyan-200 transition-colors duration-300 text-sm md:text-base">
+                    MCIT, Egypt - Intern
+                    <span class="inline-block ml-2 text-[8px] bg-cyan-500/20 text-cyan-300 px-2 py-0.5 rounded-full border border-cyan-500/20">Certificate</span>
+                </h4>
+                <p class="text-gray-400 text-xs mt-0.5 flex items-center gap-2">
+                    <i class="fas fa-calendar-alt text-cyan-400/60"></i>
+                    Jul 2025 – Sep 2025
+                </p>
+                <p class="text-gray-400 text-xs flex items-center gap-2 mt-0.5">
+                    <i class="fas fa-map-marker-alt text-cyan-400/60"></i>
+                    Ministry of Communications
+                </p>
+            </div>
+        </div>
+        
+        <!-- ===== Action Buttons ===== -->
+        <div class="flex flex-wrap gap-2 mt-2.5">
+            <button onclick="openMCITModal()" class="text-[10px] font-medium text-cyan-400 hover:text-white px-3 py-1 rounded-full border border-cyan-500/30 hover:bg-cyan-500/20 transition-all duration-300 flex items-center gap-1.5 group/btn">
+                <i class="fas fa-images text-cyan-400 group-hover/btn:scale-110 transition-transform"></i>
+                View Gallery
+                <i class="fas fa-arrow-right text-[8px] group-hover/btn:translate-x-1 transition-transform"></i>
+            </button>
+        </div>
+    </div>
+</div>
                 <div class="exp-card p-4 flex gap-3 items-start" data-aos="zoom-in"><div class="company-icon w-10 h-10 text-lg"><i class="fab fa-aws text-cyan-400"></i></div><div><h4 class="font-bold text-cyan-300">Creativa Hubs - AWS Solutions Architect</h4><p class="text-gray-400 text-xs">Jan 2025 – May 2025</p><p class="text-gray-400 text-xs">Serverless, cost optimization, Well-Architected</p></div></div>
                 <div class="exp-card p-4 flex gap-3 items-start" data-aos="zoom-in"><div class="company-icon w-10 h-10 text-lg"><i class="fas fa-shield-alt text-cyan-400"></i></div><div><h4 class="font-bold text-cyan-300">DEPI - Infrastructure & Security Intern</h4><p class="text-gray-400 text-xs">May 2024 – Dec 2024</p><p class="text-gray-400 text-xs">Security best practices, infrastructure hardening</p></div></div>
                 <div class="exp-card p-4 flex gap-3 items-start" data-aos="zoom-in"><div class="company-icon w-10 h-10 text-lg"><i class="fas fa-charging-station text-cyan-400"></i></div><div><h4 class="font-bold text-cyan-300">Orange Digital Center - DevOps Intern</h4><p class="text-gray-400 text-xs">Oct 2024 – Nov 2024</p><p class="text-gray-400 text-xs">Multi-cloud fundamentals, cloud networking</p></div></div>
@@ -2086,6 +2311,57 @@
             particles.rotation.x += 0.0002;
             render2.render(scene2, cam2); }
         animParticles();
+                // ============================================================
+        //  MCIT MODAL - Professional Gallery
+        // ============================================================
+        function openMCITModal() {
+            const modal = document.getElementById('mcitModal');
+            if (modal) {
+                modal.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+                // Add entrance animation
+                modal.querySelector('.modal-content').style.animation = 'none';
+                setTimeout(() => {
+                    modal.querySelector('.modal-content').style.animation = 'popIn 0.5s cubic-bezier(0.2, 0.9, 0.4, 1.2)';
+                }, 10);
+            }
+        }
+
+        function closeMCITModal() {
+            const modal = document.getElementById('mcitModal');
+            if (modal) {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        // Close on outside click
+        document.addEventListener('click', function(e) {
+            const modal = document.getElementById('mcitModal');
+            if (modal && modal.style.display === 'flex') {
+                if (e.target === modal) {
+                    closeMCITModal();
+                }
+            }
+        });
+
+        // Close on ESC key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                const modal = document.getElementById('mcitModal');
+                if (modal && modal.style.display === 'flex') {
+                    closeMCITModal();
+                }
+            }
+        });
+
+        // Keyboard navigation for gallery
+        document.addEventListener('keydown', function(e) {
+            const modal = document.getElementById('mcitModal');
+            if (modal && modal.style.display === 'flex') {
+                // Add keyboard shortcuts if needed
+            }
+        });
     </script>
 
     <!-- ===== MAIN JS ===== -->
