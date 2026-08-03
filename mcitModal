@@ -1124,7 +1124,7 @@
                 </button>
             </div>
         </div>
-
+      </div>
         <!-- ===== Gallery Content ===== -->
         <div class="p-6 md:p-8 overflow-y-auto max-h-[calc(92vh-10rem)]">
             <!-- Stats -->
