@@ -1098,6 +1098,7 @@
                     </button>
                 </div>
             </div>
+        </div>
             <!-- ===== CREATIVA HUBS MODAL - Professional Gallery ===== -->
 <div id="creativaModal" class="modal fixed inset-0 hidden justify-center items-center z-[2000]">
     <div class="modal-content relative max-w-4xl w-[95%] max-h-[92vh] p-0 overflow-hidden">
@@ -1141,6 +1142,7 @@
                     <div class="text-[10px] text-gray-400 uppercase tracking-wider">Solutions</div>
                 </div>
             </div>
+         </div>
 
             <!-- ===== Image Gallery ===== -->
             <div class="image-grid">
