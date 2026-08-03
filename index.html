@@ -18,7 +18,53 @@
 </script>
 
 <!-- ===== MAIN JS - تم نقل الكود هنا ===== -->
+<script>
+    // ============================================================
+    //  SIDEBAR TOGGLE - شريط الشهادات الجانبي
+    // ============================================================
+    const sidebarToggle = document.getElementById('sidebar-toggle');
+    const sidebar = document.getElementById('cert-sidebar');
+    const sidebarClose = document.getElementById('sidebar-close');
+    let isSidebarOpen = false;
 
+    // فتح الشريط الجانبي
+    if (sidebarToggle) {
+        sidebarToggle.addEventListener('click', () => {
+            sidebar.style.right = '0';
+            isSidebarOpen = true;
+            document.body.style.overflow = 'hidden';
+        });
+    }
+
+    // إغلاق الشريط الجانبي
+    function closeSidebar() {
+        if (sidebar) {
+            sidebar.style.right = '-480px';
+            isSidebarOpen = false;
+            document.body.style.overflow = 'auto';
+        }
+    }
+
+    if (sidebarClose) {
+        sidebarClose.addEventListener('click', closeSidebar);
+    }
+
+    // إغلاق عند النقر خارج الشريط
+    document.addEventListener('click', (e) => {
+        if (isSidebarOpen) {
+            if (sidebar && !sidebar.contains(e.target) && !sidebarToggle.contains(e.target)) {
+                closeSidebar();
+            }
+        }
+    });
+
+    // إغلاق بالضغط على ESC
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && isSidebarOpen) {
+            closeSidebar();
+        }
+    });
+</script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -2265,7 +2311,39 @@
             particles.rotation.x += 0.0002;
             render2.render(scene2, cam2); }
         animParticles();
-               
+                // ============================================================
+        //  MCIT MODAL - Professional Gallery
+        // ============================================================
+        function openMCITModal() {
+            const modal = document.getElementById('mcitModal');
+            if (modal) {
+                modal.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+                // Add entrance animation
+                modal.querySelector('.modal-content').style.animation = 'none';
+                setTimeout(() => {
+                    modal.querySelector('.modal-content').style.animation = 'popIn 0.5s cubic-bezier(0.2, 0.9, 0.4, 1.2)';
+                }, 10);
+            }
+        }
+
+        function closeMCITModal() {
+            const modal = document.getElementById('mcitModal');
+            if (modal) {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        // Close on outside click
+        document.addEventListener('click', function(e) {
+            const modal = document.getElementById('mcitModal');
+            if (modal && modal.style.display === 'flex') {
+                if (e.target === modal) {
+                    closeMCITModal();
+                }
+            }
+        });
 
         // Close on ESC key
         document.addEventListener('keydown', function(e) {
@@ -2621,120 +2699,87 @@
         console.log('%c👋 8x Certified Cloud & DevOps Engineer', 'font-size:14px;color:#a855f7;');
         console.log('%c📧 mohamedkhaled271200127@gmail.com', 'font-size:12px;color:#94a3b8;');
         console.log('%c📱 01153463110', 'font-size:12px;color:#94a3b8;');
+                
 
         // ============================================================
-//  HELIOS MODAL - فتح وإغلاق نافذة المشروع
-// ============================================================
-function openHeliosModal() {
-    const modal = document.getElementById('heliosModal');
-    if (modal) {
-        modal.style.display = 'flex';
-        document.body.style.overflow = 'hidden';
-    }
-}
-
-function closeHeliosModal() {
-    const modal = document.getElementById('heliosModal');
-    if (modal) {
-        modal.style.display = 'none';
-        document.body.style.overflow = 'auto';
-    }
-}
-
-// ============================================================
-//  MCIT MODAL - Professional Gallery
-// ============================================================
-function openMCITModal() {
-    const modal = document.getElementById('mcitModal');
-    if (modal) {
-        modal.style.display = 'flex';
-        document.body.style.overflow = 'hidden';
-        modal.querySelector('.modal-content').style.animation = 'none';
-        setTimeout(() => {
-            modal.querySelector('.modal-content').style.animation = 'popIn 0.5s cubic-bezier(0.2, 0.9, 0.4, 1.2)';
-        }, 10);
-    }
-}
-
-function closeMCITModal() {
-    const modal = document.getElementById('mcitModal');
-    if (modal) {
-        modal.style.display = 'none';
-        document.body.style.overflow = 'auto';
-    }
-}
-
-// ============================================================
-//  SIDEBAR TOGGLE - شريط الشهادات الجانبي
-// ============================================================
-const sidebarToggle = document.getElementById('sidebar-toggle');
-const sidebar = document.getElementById('cert-sidebar');
-const sidebarClose = document.getElementById('sidebar-close');
-let isSidebarOpen = false;
-
-if (sidebarToggle) {
-    sidebarToggle.addEventListener('click', () => {
-        sidebar.style.right = '0';
-        isSidebarOpen = true;
-        document.body.style.overflow = 'hidden';
-    });
-}
-
-function closeSidebar() {
-    if (sidebar) {
-        sidebar.style.right = '-480px';
-        isSidebarOpen = false;
-        document.body.style.overflow = 'auto';
-    }
-}
-
-if (sidebarClose) {
-    sidebarClose.addEventListener('click', closeSidebar);
-}
-
-// ============================================================
-//  CLOSE MODALS ON OUTSIDE CLICK & ESC
-// ============================================================
-document.addEventListener('click', function(e) {
-    // Helios Modal
-    const heliosModal = document.getElementById('heliosModal');
-    if (heliosModal && heliosModal.style.display === 'flex') {
-        if (e.target === heliosModal) {
-            closeHeliosModal();
+        //  SIDEBAR TOGGLE - شريط الشهادات الجانبي
+        // ============================================================
+        const sidebarToggle = document.getElementById('sidebar-toggle');
+                // ============================================================
+        //  HELIOS MODAL - فتح وإغلاق نافذة المشروع
+        // ============================================================
+        function openHeliosModal() {
+            const modal = document.getElementById('heliosModal');
+            if (modal) {
+                modal.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            }
         }
-    }
-    // MCIT Modal
-    const mcitModal = document.getElementById('mcitModal');
-    if (mcitModal && mcitModal.style.display === 'flex') {
-        if (e.target === mcitModal) {
-            closeMCITModal();
-        }
-    }
-    // Sidebar
-    if (isSidebarOpen) {
-        if (sidebar && !sidebar.contains(e.target) && !sidebarToggle.contains(e.target)) {
-            closeSidebar();
-        }
-    }
-});
 
-document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') {
-        const heliosModal = document.getElementById('heliosModal');
-        if (heliosModal && heliosModal.style.display === 'flex') {
-            closeHeliosModal();
+        function closeHeliosModal() {
+            const modal = document.getElementById('heliosModal');
+            if (modal) {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
         }
-        const mcitModal = document.getElementById('mcitModal');
-        if (mcitModal && mcitModal.style.display === 'flex') {
-            closeMCITModal();
-        }
-        if (isSidebarOpen) {
-            closeSidebar();
-        }
-    }
-});
 
-        
+        // إغلاق عند النقر خارج النافذة
+        document.addEventListener('click', function(e) {
+            const modal = document.getElementById('heliosModal');
+            if (modal && modal.style.display === 'flex') {
+                if (e.target === modal) {
+                    closeHeliosModal();
+                }
+            }
+        });
+
+        // إغلاق بالضغط على ESC
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                const modal = document.getElementById('heliosModal');
+                if (modal && modal.style.display === 'flex') {
+                    closeHeliosModal();
+                }
+            }
+        });
+        const sidebar = document.getElementById('cert-sidebar');
+        const sidebarClose = document.getElementById('sidebar-close');
+        let isSidebarOpen = false;
+
+        if (sidebarToggle) {
+            sidebarToggle.addEventListener('click', () => {
+                sidebar.style.right = '0';
+                isSidebarOpen = true;
+                document.body.style.overflow = 'hidden';
+            });
+        }
+
+        function closeSidebar() {
+            if (sidebar) {
+                sidebar.style.right = '-480px';
+                isSidebarOpen = false;
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        if (sidebarClose) {
+            sidebarClose.addEventListener('click', closeSidebar);
+        }
+
+        document.addEventListener('click', (e) => {
+            if (isSidebarOpen) {
+                if (sidebar && !sidebar.contains(e.target) && !sidebarToggle.contains(e.target)) {
+                    closeSidebar();
+                }
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && isSidebarOpen) {
+                closeSidebar();
+            }
+        });
     </script>
 
 </body>
