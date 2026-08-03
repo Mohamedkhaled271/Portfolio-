@@ -1144,84 +1144,70 @@
 
             <!-- ===== Image Gallery ===== -->
             <div class="image-grid">
-                <!-- Image 1 -->
-                <div class="rounded-xl overflow-hidden border border-cyan-500/10 hover:border-cyan-500/30 transition-all duration-400 group cursor-pointer relative" onclick="window.open('https://i.postimg.cc/9wMKdtKt/creativa1.jpg', '_blank')">
-                    <img src="https://i.postimg.cc/9wMKdtKt/creativa1.jpg" alt="Creativa Hubs 1" class="w-full h-64 md:h-80 object-cover transition-transform duration-700 group-hover:scale-110">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col items-center justify-end p-4">
-                        <span class="text-white text-sm font-medium bg-black/40 backdrop-blur-sm px-4 py-2 rounded-full border border-white/20 flex items-center gap-2">
-                            <i class="fas fa-expand text-cyan-400"></i> View Full Size
-                        </span>
-                    </div>
-                    <div class="absolute top-3 left-3 bg-black/50 backdrop-blur-sm text-white text-[10px] px-2 py-1 rounded-full flex items-center gap-1 border border-white/10">
-                        <i class="fas fa-image text-cyan-400"></i> Photo 1
-                    </div>
-                </div>
-                
-                <!-- Image 2 -->
-                <div class="rounded-xl overflow-hidden border border-cyan-500/10 hover:border-cyan-500/30 transition-all duration-400 group cursor-pointer relative" onclick="window.open('https://i.postimg.cc/HVt8c0Ht/creativa2.jpg', '_blank')">
-                    <img src="https://i.postimg.cc/HVt8c0Ht/creativa2.jpg" alt="Creativa Hubs 2" class="w-full h-64 md:h-80 object-cover transition-transform duration-700 group-hover:scale-110">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col items-center justify-end p-4">
-                        <span class="text-white text-sm font-medium bg-black/40 backdrop-blur-sm px-4 py-2 rounded-full border border-white/20 flex items-center gap-2">
-                            <i class="fas fa-expand text-cyan-400"></i> View Full Size
-                        </span>
-                    </div>
-                    <div class="absolute top-3 left-3 bg-black/50 backdrop-blur-sm text-white text-[10px] px-2 py-1 rounded-full flex items-center gap-1 border border-white/10">
-                        <i class="fas fa-image text-purple-400"></i> Photo 2
-                    </div>
-                </div>
-
-                <!-- Image 3 -->
-                <div class="rounded-xl overflow-hidden border border-cyan-500/10 hover:border-cyan-500/30 transition-all duration-400 group cursor-pointer relative" onclick="window.open('https://i.postimg.cc/ct040jvz/creativa3.jpg', '_blank')">
-                    <img src="https://i.postimg.cc/ct040jvz/creativa3.jpg" alt="Creativa Hubs 3" class="w-full h-64 md:h-80 object-cover transition-transform duration-700 group-hover:scale-110">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col items-center justify-end p-4">
-                        <span class="text-white text-sm font-medium bg-black/40 backdrop-blur-sm px-4 py-2 rounded-full border border-white/20 flex items-center gap-2">
-                            <i class="fas fa-expand text-cyan-400"></i> View Full Size
-                        </span>
-                    </div>
-                    <div class="absolute top-3 left-3 bg-black/50 backdrop-blur-sm text-white text-[10px] px-2 py-1 rounded-full flex items-center gap-1 border border-white/10">
-                        <i class="fas fa-image text-cyan-400"></i> Photo 3
-                    </div>
-                </div>
-
-                <!-- Image 4 -->
-                <div class="rounded-xl overflow-hidden border border-cyan-500/10 hover:border-cyan-500/30 transition-all duration-400 group cursor-pointer relative" onclick="window.open('https://i.postimg.cc/HVS5v0KW/creativa4.jpg', '_blank')">
-                    <img src="https://i.postimg.cc/HVS5v0KW/creativa4.jpg" alt="Creativa Hubs 4" class="w-full h-64 md:h-80 object-cover transition-transform duration-700 group-hover:scale-110">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col items-center justify-end p-4">
-                        <span class="text-white text-sm font-medium bg-black/40 backdrop-blur-sm px-4 py-2 rounded-full border border-white/20 flex items-center gap-2">
-                            <i class="fas fa-expand text-cyan-400"></i> View Full Size
-                        </span>
-                    </div>
-                    <div class="absolute top-3 left-3 bg-black/50 backdrop-blur-sm text-white text-[10px] px-2 py-1 rounded-full flex items-center gap-1 border border-white/10">
-                        <i class="fas fa-image text-purple-400"></i> Photo 4
-                    </div>
-                </div>
-
-                <!-- Image 5 -->
-                <div class="rounded-xl overflow-hidden border border-cyan-500/10 hover:border-cyan-500/30 transition-all duration-400 group cursor-pointer relative" onclick="window.open('https://i.postimg.cc/bGntv7vw/creativa5.jpg', '_blank')">
-                    <img src="https://i.postimg.cc/bGntv7vw/creativa5.jpg" alt="Creativa Hubs 5" class="w-full h-64 md:h-80 object-cover transition-transform duration-700 group-hover:scale-110">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col items-center justify-end p-4">
-                        <span class="text-white text-sm font-medium bg-black/40 backdrop-blur-sm px-4 py-2 rounded-full border border-white/20 flex items-center gap-2">
-                            <i class="fas fa-expand text-cyan-400"></i> View Full Size
-                        </span>
-                    </div>
-                    <div class="absolute top-3 left-3 bg-black/50 backdrop-blur-sm text-white text-[10px] px-2 py-1 rounded-full flex items-center gap-1 border border-white/10">
-                        <i class="fas fa-image text-cyan-400"></i> Photo 5
-                    </div>
-                </div>
-            </div>
-
-            <!-- ===== Footer Actions ===== -->
-            <div class="mt-6 pt-4 border-t border-cyan-800/30 flex flex-wrap gap-3 justify-center">
-                <button onclick="closeCreativaModal()" class="btn-outline text-sm px-6 py-2.5 flex items-center gap-2">
-                    <i class="fas fa-times"></i> Close Gallery
-                </button>
-                <a href="https://i.postimg.cc/9wMKdtKt/creativa1.jpg" target="_blank" class="btn-primary text-sm px-6 py-2.5 flex items-center gap-2">
-                    <i class="fas fa-download"></i> Download All
-                </a>
-            </div>
-        </div>
+               <!-- Image 1 -->
+<div class="rounded-xl overflow-hidden border border-cyan-500/10 hover:border-cyan-500/30 transition-all duration-400 group cursor-pointer relative" onclick="window.open('https://i.ibb.co/9wMKdtKt/creativa1.jpg', '_blank')">
+    <img src="https://i.ibb.co/9wMKdtKt/creativa1.jpg" alt="Creativa Hubs 1" class="w-full h-64 md:h-80 object-cover transition-transform duration-700 group-hover:scale-110">
+    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col items-center justify-end p-4">
+        <span class="text-white text-sm font-medium bg-black/40 backdrop-blur-sm px-4 py-2 rounded-full border border-white/20 flex items-center gap-2">
+            <i class="fas fa-expand text-cyan-400"></i> View Full Size
+        </span>
+    </div>
+    <div class="absolute top-3 left-3 bg-black/50 backdrop-blur-sm text-white text-[10px] px-2 py-1 rounded-full flex items-center gap-1 border border-white/10">
+        <i class="fas fa-image text-cyan-400"></i> Photo 1
     </div>
 </div>
+
+<!-- Image 2 -->
+<div class="rounded-xl overflow-hidden border border-cyan-500/10 hover:border-cyan-500/30 transition-all duration-400 group cursor-pointer relative" onclick="window.open('https://i.ibb.co/HVt8c0Ht/creativa2.jpg', '_blank')">
+    <img src="https://i.ibb.co/HVt8c0Ht/creativa2.jpg" alt="Creativa Hubs 2" class="w-full h-64 md:h-80 object-cover transition-transform duration-700 group-hover:scale-110">
+    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col items-center justify-end p-4">
+        <span class="text-white text-sm font-medium bg-black/40 backdrop-blur-sm px-4 py-2 rounded-full border border-white/20 flex items-center gap-2">
+            <i class="fas fa-expand text-cyan-400"></i> View Full Size
+        </span>
+    </div>
+    <div class="absolute top-3 left-3 bg-black/50 backdrop-blur-sm text-white text-[10px] px-2 py-1 rounded-full flex items-center gap-1 border border-white/10">
+        <i class="fas fa-image text-purple-400"></i> Photo 2
+    </div>
+</div>
+
+<!-- Image 3 -->
+<div class="rounded-xl overflow-hidden border border-cyan-500/10 hover:border-cyan-500/30 transition-all duration-400 group cursor-pointer relative" onclick="window.open('https://i.ibb.co/ct040jvz/creativa3.jpg', '_blank')">
+    <img src="https://i.ibb.co/ct040jvz/creativa3.jpg" alt="Creativa Hubs 3" class="w-full h-64 md:h-80 object-cover transition-transform duration-700 group-hover:scale-110">
+    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col items-center justify-end p-4">
+        <span class="text-white text-sm font-medium bg-black/40 backdrop-blur-sm px-4 py-2 rounded-full border border-white/20 flex items-center gap-2">
+            <i class="fas fa-expand text-cyan-400"></i> View Full Size
+        </span>
+    </div>
+    <div class="absolute top-3 left-3 bg-black/50 backdrop-blur-sm text-white text-[10px] px-2 py-1 rounded-full flex items-center gap-1 border border-white/10">
+        <i class="fas fa-image text-cyan-400"></i> Photo 3
+    </div>
+</div>
+
+<!-- Image 4 -->
+<div class="rounded-xl overflow-hidden border border-cyan-500/10 hover:border-cyan-500/30 transition-all duration-400 group cursor-pointer relative" onclick="window.open('https://i.ibb.co/HVS5v0KW/creativa4.jpg', '_blank')">
+    <img src="https://i.ibb.co/HVS5v0KW/creativa4.jpg" alt="Creativa Hubs 4" class="w-full h-64 md:h-80 object-cover transition-transform duration-700 group-hover:scale-110">
+    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col items-center justify-end p-4">
+        <span class="text-white text-sm font-medium bg-black/40 backdrop-blur-sm px-4 py-2 rounded-full border border-white/20 flex items-center gap-2">
+            <i class="fas fa-expand text-cyan-400"></i> View Full Size
+        </span>
+    </div>
+    <div class="absolute top-3 left-3 bg-black/50 backdrop-blur-sm text-white text-[10px] px-2 py-1 rounded-full flex items-center gap-1 border border-white/10">
+        <i class="fas fa-image text-purple-400"></i> Photo 4
+    </div>
+</div>
+
+<!-- Image 5 -->
+<div class="rounded-xl overflow-hidden border border-cyan-500/10 hover:border-cyan-500/30 transition-all duration-400 group cursor-pointer relative" onclick="window.open('https://i.ibb.co/bGntv7vw/creativa5.jpg', '_blank')">
+    <img src="https://i.ibb.co/bGntv7vw/creativa5.jpg" alt="Creativa Hubs 5" class="w-full h-64 md:h-80 object-cover transition-transform duration-700 group-hover:scale-110">
+    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col items-center justify-end p-4">
+        <span class="text-white text-sm font-medium bg-black/40 backdrop-blur-sm px-4 py-2 rounded-full border border-white/20 flex items-center gap-2">
+            <i class="fas fa-expand text-cyan-400"></i> View Full Size
+        </span>
+    </div>
+    <div class="absolute top-3 left-3 bg-black/50 backdrop-blur-sm text-white text-[10px] px-2 py-1 rounded-full flex items-center gap-1 border border-white/10">
+        <i class="fas fa-image text-cyan-400"></i> Photo 5
+    </div>
+</div> 
 
             <!-- ===== Gallery Content ===== -->
             <div class="p-6 md:p-8 overflow-y-auto max-h-[calc(92vh-10rem)]">
